@@ -1,0 +1,7 @@
+package board.vo;
+
+import java.time.LocalDate;
+
+public class BoardVO {
+	//각각 테이블정의서에 맞게
+}

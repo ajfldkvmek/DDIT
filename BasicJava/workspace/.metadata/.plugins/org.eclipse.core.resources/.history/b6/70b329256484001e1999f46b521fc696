@@ -1,0 +1,74 @@
+package service;
+
+import java.util.List;
+
+import dao.AdminDAO;
+import vo.Admin;
+import vo.Book;
+import vo.BookRequest;
+import vo.Member;
+
+public class AdminService {
+	private static AdminService singleTon = null;
+
+	private AdminService() {
+	};
+
+	public static AdminService getInstance() {
+		if (singleTon == null) {
+			singleTon = new AdminService();
+		}
+		return singleTon;
+	}
+	
+	AdminDAO adDAO = AdminDAO.getInstance();
+
+	public Admin login(List<Object> param) {
+		if(adDAO.login(param) != null) {
+			return adDAO.login(param);
+		}
+		else return null;
+			
+//		Admin ad = adDAO.login(param);
+//		if (ad != null) {
+////			Controller.sessionStorage.put("admin", ad);
+//			return true;
+//		}
+//		return false;
+	}
+	
+	public List<Book> adBookList() {
+		return adDAO.adBookList();
+	}
+
+	public void bookUpdate(List<Object> newBook) {
+		 adDAO.bookUpdate(newBook);	
+	}
+
+	public void bookDelete(String select) {
+		adDAO.bookDelete(select);
+		
+	}
+
+	public void reBookUpdate(String select) {
+		adDAO.reBookUpdate(select);
+	}
+
+	public List<BookRequest> wishBookList() {
+		return adDAO.wishBookList();
+		
+	}
+
+	public List<Member> adMemberList() {
+		return adDAO.adMemberList();
+	}
+
+	public void memDel(String select) {
+		adDAO.memDel(select);	
+	}
+
+	public List<Member> memSelect(String select) {
+		return adDAO.memSelect(select);
+	}
+	
+}

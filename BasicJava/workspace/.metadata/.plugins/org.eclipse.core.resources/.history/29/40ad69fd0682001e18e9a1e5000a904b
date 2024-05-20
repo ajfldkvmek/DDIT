@@ -1,0 +1,22 @@
+package service;
+
+import java.util.List;
+
+import dao.BusDao;
+import vo.Bus;
+
+
+public class AdminService {
+	private static AdminService singleTon = null;
+
+	private AdminService() {
+	};
+
+	public static AdminService getInstance() {
+		if (singleTon == null) {
+			singleTon = new AdminService();
+		}
+		return singleTon;
+	}
+	
+}

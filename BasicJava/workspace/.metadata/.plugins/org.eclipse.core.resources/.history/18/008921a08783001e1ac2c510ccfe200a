@@ -1,0 +1,197 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import print.AdminPrint;
+import service.AdminService;
+import service.MemberService;
+import service.exceptChk;
+import util.ScanUtil;
+import util.View;
+import vo.Book;
+import vo.BookRequest;
+import vo.Member;
+
+public class AdminController extends AdminPrint {
+
+	static private Map<String, Object> sessionStorage = Controller.sessionStorage;
+	
+	exceptChk chk = exceptChk.getInstance();
+	
+	AdminService as = AdminService.getInstance();
+	MemberService ms = MemberService.getInstance();
+	
+	public View adminBook() {
+		printAdminBook();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMIN_BOOKLIST;
+		case 2:
+			return View.BOOK_UPDATE;
+		case 3:
+			return View.BOOK_DELETE;
+		case 4:
+			return View.RCBOOK_UPDATE;
+		case 5:
+			return View.WISHBOOK_LIST;
+		default:
+			System.out.println("잘못 입력하셨습니다.");
+			return View.ADMIN_BOOK;
+		}
+	}
+	
+	//전체 책 페이지 출력
+	public View adBookList() {
+		System.out.println("관리자전체도서조회");
+		// 페이징작업필요
+		List<Book> adBookList = as.adBookList();
+		printAdBookList(adBookList);
+		return View.ADMIN_MENU;
+	}
+	
+	
+	//관리자 로그인
+	public View adminLogin() {
+		
+		printAdminLogin();
+		List<Object> param = new ArrayList<Object>();
+		while(true) {
+			String id = ScanUtil.nextLine("ID>>");
+			if(chk.idChk(id)) {
+				param
+			}
+		}
+		
+		String id = ScanUtil.nextLine("ID>>");
+		String pass = ScanUtil.nextLine("PASS>>");
+		List<Object> param = new ArrayList<Object>();
+		param.add(id);
+		param.add(pass);
+		boolean chk = as.login(param);
+		if (chk) {
+			sessionStorage.put("id", id);
+			System.out.println(sessionStorage.get("id") + "님 어서오십시오.");
+			return View.ADMIN_MENU;
+		} else {
+			System.out.println("해당 아이디가 없습니다.");
+			return View.ADMIN_LOGIN;
+		}
+	}
+
+	
+	public View bookUpdate() {
+		System.out.println("새로운 도서 등록");
+
+		List<Object> newBook = new ArrayList<Object>();
+		newBook.add(ScanUtil.nextLine("청구기호 >>"));
+		newBook.add(ScanUtil.nextLine("책제목 >>"));
+		newBook.add(ScanUtil.nextLine("작가 >>"));
+		newBook.add(ScanUtil.nextLine("책소개>>"));
+		newBook.add(ScanUtil.nextLine("출판사 >>"));
+		newBook.add(ScanUtil.nextLine("출판일(YY/MM/DD)>>"));
+		newBook.add(ScanUtil.nextLine("추천도서 (Y/N)>>"));
+		newBook.add(ScanUtil.nextLine("책분류(100~900)>>"));
+
+		as.bookUpdate(newBook);
+		System.out.println("등록되었습니다");
+		adBookList();
+		return View.ADMIN_MENU;
+	}
+
+	
+	public View bookDelete() {
+		adBookList();
+		String select = ScanUtil.nextLine("삭제할 도서의 책 아이디를 입력하세요>> ");
+		as.bookDelete(select);
+		System.out.println("삭제되었습니다");
+
+//		int cont = ScanUtil.nextInt("계속 하시려면 1번, 종료하시려면 다른 버튼을 늘려주세요");
+		
+		
+		return View.ADMIN_MENU;
+	}
+
+	
+	public View rcBookUpdate() {
+		adBookList();
+		String select = ScanUtil.nextLine("추천할 도서의 책 아이디를 입력하세요>> ");
+		as.reBookUpdate(select);
+
+		System.out.println("등록되었습니다");
+		adBookList();
+
+		return View.ADMIN_MENU;
+	}
+
+	
+	public View wishBook() {
+		List<BookRequest> wishList = as.wishBookList();
+		printWishBookList(wishList);
+
+		return View.ADMIN_MENU;
+	}
+	
+	
+////////////////////// 책 관리 끝 ///////////////
+	
+	// 회원관리페이지 시작
+	public View adMember() {
+		
+		List<Member> MeberList = as.adMemberList();
+		printMemberAll(MeberList);
+		
+		printAdMember();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMEMBER_DEL;
+		case 2:
+			return View.ADMEMBER_UPDATE;
+		default:
+			System.out.println("잘못 입력 하였습니다. 처음으로 돌아갑니다");
+			return View.ADMIN_MEMBER;
+		}
+	}
+
+	
+	public View memDel() {
+		String select = ScanUtil.nextLine("삭제할 회원 아이디를 입력하세요>> ");
+		List<Member> Selmem = as.memSelect(select);
+		printSelMem(Selmem);
+
+		String del = ScanUtil.nextLine("정말 삭제하시겠습니까?(Y/N)");
+		if (del.equalsIgnoreCase("y")) {
+			as.memDel(select);
+			System.out.println("완료되었습니다");
+			return View.ADMIN_MEMBER;
+		}
+		System.out.println("취소되었습니다");
+		return View.ADMIN_MEMBER;
+	}
+
+	//멤버 비밀번호 수정
+	public View memUpdate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	public View adminMenu() {
+		printAdmin();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMIN_BOOK;
+		case 2:
+			return View.ADMIN_MEMBER;
+		default:
+			System.out.println("잘못입력하였습니다. 관리자 메뉴로 이동합니다");
+			printLn(10);
+			return View.ADMIN_MENU;
+		}
+	}
+
+}

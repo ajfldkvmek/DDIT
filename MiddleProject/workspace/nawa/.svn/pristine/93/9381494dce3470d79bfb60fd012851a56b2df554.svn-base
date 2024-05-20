@@ -1,0 +1,24 @@
+package meet.service;
+
+import meet.dao.IMeetDAO;
+
+public class MeetServiceImpl implements IMeetService{
+
+	private static IMeetService meetService;
+	
+	private IMeetDAO meetDAO;
+	
+	private MeetServiceImpl() {
+		
+	}
+	
+	public static IMeetService getInstance() {
+		
+		if(meetService == null) 
+			meetService = new MeetServiceImpl();
+		
+		return meetService;
+	}
+	
+	
+}

@@ -1,0 +1,40 @@
+package lecture.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lecture.service.ILecService;
+import lecture.service.LecServiceImpl;
+import lecture.vo.LectureVO;
+
+
+@WebServlet("/detail.do")
+public class detailController extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	String lecNo = req.getParameter("lecNo");
+	
+	ILecService lecService = LecServiceImpl.getInstance();
+	
+	LectureVO lv = lecService.getLecture(lecNo);
+	
+	req.setAttribute("lv", lv);
+	
+	
+	
+	req.getRequestDispatcher("/lecture/detail.jsp").forward(req, resp);
+	
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	}
+}

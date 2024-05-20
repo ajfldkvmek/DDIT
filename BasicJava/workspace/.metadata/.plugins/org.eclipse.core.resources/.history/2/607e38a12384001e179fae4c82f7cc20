@@ -1,0 +1,34 @@
+package controller;
+
+import print.MemberPrint;
+import util.ScanUtil;
+import util.View;
+
+public class MemberController extends MemberPrint {
+
+	//회원의 메뉴 선택 페이지
+	public View memberMenu() {
+		memberHome();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+		switch (select) {
+
+		case 1:
+			return View.BOOK_RENT;
+		case 2:
+			return View.MYBOOK_LIST;			
+		case 3:
+			return View.ROOM;
+		case 4:
+			return View.EVENT;
+		case 5:
+			return View.MYINFORM;
+		default:
+			return View.MEMBER_MENU;
+		}
+	}
+
+	public View memLogin() {
+		System.out.println("멤버 로그인페이지");
+		return View.MEMBER_MENU;
+	}
+}

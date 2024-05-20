@@ -1,0 +1,78 @@
+package lecture.service;
+
+import java.util.List;
+
+import lecture.dao.ILecDAO;
+import lecture.dao.LecDAOImpl;
+import lecture.vo.LectureVO;
+
+public class LecServiceImpl implements ILecService{
+
+	private static ILecService lecService;
+	
+	private ILecDAO lecDAO;
+	
+	private LecServiceImpl() {
+		lecDAO = LecDAOImpl.getInstance();
+	}
+	
+	public static ILecService getInstance() {
+		
+		if(lecService == null) 
+			lecService = new LecServiceImpl();
+		
+		return lecService;
+	}
+
+	@Override
+	public List<LectureVO> displayAllLec() {
+		
+		System.out.println("service ");
+		
+		List<LectureVO> lecList = lecDAO.selectAll();
+		
+		return lecList;
+	}
+
+	@Override
+	public LectureVO getLecture(String lecNo) {
+
+		LectureVO lv = lecDAO.getLecture(lecNo);
+		String memName = lecDAO.getTutorName(lv.getTutNo());
+		lv.setMemName(memName);
+		return lv;
+	}
+
+	@Override
+	public int registLecture(LectureVO lv) {
+
+		int cnt = lecDAO.insertLecture(lv);
+		
+		return 0;
+	}
+
+	@Override
+	public int modifyLec(LectureVO lv) {
+
+		int cnt = lecDAO.updateLecture(lv);
+		
+		return cnt;
+	}
+
+	@Override
+	public int removeLecture(String lecNo) {
+		
+		int cnt = lecDAO.deleteLecture(lecNo);
+		
+		return cnt;
+	}
+
+	@Override
+	public List<LectureVO> getLecList(String tutNo) {
+		
+		return lecDAO.getLecList(tutNo);
+		
+	}
+	
+	
+}

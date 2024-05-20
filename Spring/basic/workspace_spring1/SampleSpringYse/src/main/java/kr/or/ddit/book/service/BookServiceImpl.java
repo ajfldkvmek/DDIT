@@ -1,0 +1,97 @@
+package kr.or.ddit.book.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.book.dao.BookDAO;
+
+/*
+ 	일반적으로 서비스 레이어는 인터페이스와 클래스를 함꼐 사용한다
+ 	스프링은 직접 클래스를 생성하는 것을 지양하고 인터페이스를 통해 접근하는 것을 권장하는 프레임워크
+ */
+/**
+ * @author PC-06
+ *
+ */
+
+@Service
+public class BookServiceImpl implements BookService {
+
+	@Autowired
+	private BookDAO bookDAO;
+	
+	/**
+	 *  <p>책 등록</p>
+	 *  @since SampleSpringYse 1.0
+	 *  @author ddit
+	 *  @param map에 등록할 책 데이터
+	 *  @return 성공: ID / 실패: null
+	 */
+	@Override
+	public String insertBook(Map<String, Object> map) {
+		int status = bookDAO.insert(map);
+		if(status == 1) {
+			return map.get("book_id").toString();
+		}
+		return null;
+	}
+
+	
+	/**
+	 *  <p>책 상세보기</p>
+	 *  @since SampleSpringYse 1.0
+	 *  @author ddit
+	 *  @param map 책 id
+	 *  @return ID에 해당하는 책 정보
+	 */
+	@Override
+	public Map<String, Object> selectBook(Map<String, Object> map) {
+		// 서비스 내 select함수는 dao를 호출한 결과를 바로 리턴만함
+		return bookDAO.selectBook(map);
+	}
+
+	/**
+	 *  <p>책 정보 수정</p>
+	 *  @since SampleSpringYse 1.0
+	 *  @author ddit
+	 *  @param map
+	 *  @return 성공하면 true, 실패하면 false
+	 */
+	@Override
+	public boolean updateBook(Map<String, Object> map) {
+		// 수정의 경우 ㅇ비력과는 다르게 pk를 가져오거나 하는 절차가 필요 없으므로 행이 정상적으로 영향 받았는지만 검사하면된다.
+		int affectRowCount = bookDAO.update(map);
+		return affectRowCount == 1;
+	}
+
+	/**
+	 *  <p>책 정보 삭제</p>
+	 *  @since SampleSpringYse 1.0
+	 *  @author ddit
+	 *  @param map(bookId)
+	 *  @return 성공하면 1, 실패하면 0
+	 */
+	@Override
+	public boolean deleteBook(Map<String, Object> map) {
+		int count = bookDAO.delete(map);
+		return count == 1;
+	}
+
+	/**
+	 *  <p>책 목록 보기</p>
+	 *  @since SampleSpringYse 1.0
+	 *  @author ddit
+	 *  @param 
+	 *  @return 성공하면 리스트(책목록), 실패하면 null;
+	 */
+	@Override
+	public List<Map<String, Object>> selectBookList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return bookDAO.selectBookList(map);
+	}
+	
+	
+}

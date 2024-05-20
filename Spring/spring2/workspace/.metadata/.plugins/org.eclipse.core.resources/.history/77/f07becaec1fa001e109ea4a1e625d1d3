@@ -1,0 +1,7 @@
+package kr.or.ddit.codingtest.service.impl;
+
+import kr.or.ddit.codingtest.service.ICodingTestService;
+
+public class ICodingTestImpl implements ICodingTestService {
+
+}

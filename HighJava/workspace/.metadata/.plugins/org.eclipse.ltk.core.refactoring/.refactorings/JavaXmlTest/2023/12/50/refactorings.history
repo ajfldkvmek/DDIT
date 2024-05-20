@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;kr.or.ddis.basic&apos; to &apos;kr.or.ddit.basic&apos;&#x0D;&#x0A;- Original project: &apos;JavaXmlTest&apos;&#x0D;&#x0A;- Original element: &apos;JavaXmlTest/src/kr.or.ddis.basic&apos;&#x0D;&#x0A;- Renamed element: &apos;JavaXmlTest/src/kr.or.ddit.basic&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;kr.or.ddis.basic&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;kr.or.ddis.basic" name="kr.or.ddit.basic" qualified="false" references="true" stamp="1702536388035" textual="false" version="1.0"/>
+</session>

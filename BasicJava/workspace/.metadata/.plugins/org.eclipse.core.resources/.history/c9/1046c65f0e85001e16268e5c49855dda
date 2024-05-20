@@ -1,0 +1,199 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import print.BookPrint;
+import service.BookService;
+import service.NoCreate;
+import service.exceptChk;
+import util.ScanUtil;
+import util.View;
+import vo.Book;
+import vo.BookRent;
+
+public class BookController extends BookPrint {
+
+//	static private Map<String, Object> sessionStorage = Controller.sessionStorage;
+	BookService bks = BookService.getInstance();
+	exceptChk chk = exceptChk.getInstance();
+	NoCreate nc = NoCreate.getInstance();
+	
+	public void rent() {
+//		bks.rent();
+	}
+
+	// 회원의 도서대출 페이지
+	public View bookRent() {
+		printBookRent();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.REC_BOOK; // 추천도서
+		case 2:
+			return View.BEST_BOOK; // 인기도서
+		case 3:
+			return View.NEW_BOOK; // 신착도서
+		case 4:
+			return View.SEARCH_BOOK; // 도서검색 -
+		default:
+			System.out.println("잘못 입력 하였습니다. 처음으로 돌아갑니다");
+			return View.BOOK_RENT;
+		}
+	}
+
+	// 회원이 추천 도서 보기
+	public View recBook() {
+		List<Book> recBkList = bks.recBook();
+		printRecBook(recBkList);
+	}
+
+	// 회원이 인기 도서 보기
+	public View bestBook() {
+		List<Book> bestList = bks.bestBook();
+		printBestBook(bestList);
+		return View.BOOK_RENT;
+	}
+
+	// 회원이 신착 도서 보기
+	public View newBook() {
+		List<Book> newBookList = bks.newBook();
+		printNewBook(newBookList);
+		return View.BOOK_RENT;
+	}
+	
+	// 회원이 도서 검색하기
+	public View searchBook() {
+		String scKey = ScanUtil.nextLine("검색어를 입력하세요>>");
+		String bookNo, id;
+		
+		List<Book> ScBookList = bks.ScBook(scKey);
+		
+		if(bks.ScBook(scKey).isEmpty()) {
+			System.out.println("검색결과가 없습니다");
+			printReqMenu();
+			int select = ScanUtil.nextInt("메뉴를 선택하세요>>");
+
+			if(select==1) return View.REQ_BOOK;
+			else return View.SEARCH_BOOK;
+		}
+		
+		else {	
+			printScBook(ScBookList);
+		}
+		
+		while(true) {
+			int select = ScanUtil.nextInt("대출하고자 하는 도서 번호 선택 >> ");
+			select--;
+			if(select < 0 || select > ScBookList.size() - 1) {
+				System.out.println("잘못된 입력입니다 다시 확인해 주세요");
+				continue;
+			} else if(ScBookList.get(select).getBook_stat().equals("대출중")){
+				System.out.println("이미 대출중인 도서입니다");
+				continue;
+			} else if(ScBookList.get(select).getBook_stat().equals("예약중")){
+				System.out.println("예약도서입니다. 카운터에 문의해주세요");
+			} else {
+				bookNo = ScBookList.get(select).getBook_no();
+				id = (String) Controller.sessionStorage.get("id");
+				String rentNo = nc.genNo("rent");
+				bks.selBook(bookNo, id, rentNo);
+			}
+			
+			String con = ScanUtil.nextLine("계속 하시겠습니까? (y,n)");
+			if(chk.ynChk(con).equalsIgnoreCase("n")) break;
+		}
+
+		String select = ScanUtil.nextLine("더 빌릴?(y,n)>> ?");
+		if(chk.ynChk(select).equalsIgnoreCase("y")) return View.BOOK_SEARCH;
+		else return View.BOOK_RENT;
+	}
+
+	//내 대출 목록
+	public List<BookRent> myList(String id) {
+		List<BookRent> list = new ArrayList<BookRent>();
+		if(bks.myBookList(id) == null) {
+			return null;
+		} else {
+			list = bks.myBookList(id);
+			return list;
+		}
+	}
+	
+	public View myBookList() {
+		String id = (String) Controller.sessionStorage.get("id");
+		if(myList(id) == null) {
+			System.out.println("대출한 도서가 없습니다.");
+			return View.MEMBER_MENU;
+		} else {
+			List<BookRent> list = myList(id);
+			printMyBookList(list);
+		}
+		
+		System.out.println("1. 반납");
+		System.out.println("2. 연장");
+		int con = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+		if(con == 1) return View.BOOK_RETURN;
+		else return View.BOOK_EXTEND;
+	}
+	
+	//nc.genNo(str)
+//	[BookRent(book_no=915.바.890, mem_id=test1, rent_no=null, rent_date=2023.11.05, 
+//			ret_date=null, due_date=2023.11.12, exten_count=0, title=바보, no=1)
+	//1.예약인지 체크
+	//2.반납완료되면 return 테이블 입력, 멤버에 count--, 책테이블 수정
+	public View returnBook() {
+		String id = (String) Controller.sessionStorage.get("id");
+		//책이름, 책번호, 대여번호
+		while(true) {
+			List<BookRent> list = myList(id);
+			printMyBookList(list);
+			int select = ScanUtil.nextInt("반납하실 책을 선택해주세요>> ");
+			if((select - 1) < 0 || (select - 1) > list.size()) {
+				System.out.println("잘못된 입력입니다"); 
+				continue;
+			}
+			String retNo = nc.genNo("ret"); //return 수정용
+			String bookNo = list.get(select-1).getBook_no(); //책 상태 수정용, 예약도서인지 확인
+			System.out.println(bookNo);
+			if(bks.checkReserve(bookNo).equals("예약중")){
+				System.out.println("예약도서입니다. 카운터에 반납해주세요");
+				continue;
+			}
+			
+			String memID = list.get(select-1).getMem_id(); //멤버 수정용
+			String rentNo = list.get(select -1).getRent_no();
+			System.out.println(rentNo);
+			System.out.println(rentNo + " "+ retNo+ " "+ memID+ " "+ bookNo);
+
+			bks.returnBoook(retNo, rentNo, memID, bookNo);	
+			
+			String conn = ScanUtil.nextLine("계속 하시겠습니까?(y/n)>> ");
+			if(chk.ynChk(conn).equalsIgnoreCase("y")) continue;
+			else break;
+		}
+		return View.BOOK_RENT;
+	}
+
+	public View extendBook() {
+		System.out.println("연장기능");
+		return View.BOOK_RENT;
+	}
+
+	//책 요청
+	public View reqBook() {
+		List<Object> param = new ArrayList();
+		param.add(nc.genNo("REQB"));
+		
+		param.add(ScanUtil.nextLine("책제목>>"));
+		param.add( ScanUtil.nextLine("작가>>"));
+		param.add(ScanUtil.nextLine("출판사>>"));
+		param.add(Controller.sessionStorage.get("id"));
+
+		bks.reqBook(param);
+		System.out.println("등록되었습니다");
+		
+		return View.BOOK_RENT;
+	}
+}

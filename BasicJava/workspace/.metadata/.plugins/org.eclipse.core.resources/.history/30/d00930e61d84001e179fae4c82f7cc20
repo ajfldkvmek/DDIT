@@ -1,0 +1,14 @@
+package print;
+
+public class MemberPrint {
+	
+	public void memberHome() {
+		
+		System.out.println("1. 도서대출");
+		System.out.println("2. 반납");
+		System.out.println("3. 내 대출 목록");
+		System.out.println("4. 열람실 예약");
+		System.out.println("5. 문화행사프로그램 예약");
+		System.out.println("6. 정보수정");
+	}
+}

@@ -1,0 +1,29 @@
+<%@page import="member.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	MemberVO mv = (MemberVO) session.getAttribute("LOGIN_USER");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+	if(mv != null){
+%>
+	<p>반갑다. <%=mv.getName() %>아 &nbsp; <a href="./logout.do">로그아웃</a>
+	
+<%
+	} else {
+%>
+	<p>로그인 안했다 먼저 하고 와라 &nbsp; <a href="./login.do">로그인</a>
+<%
+	}
+
+%>
+</body>
+</html>

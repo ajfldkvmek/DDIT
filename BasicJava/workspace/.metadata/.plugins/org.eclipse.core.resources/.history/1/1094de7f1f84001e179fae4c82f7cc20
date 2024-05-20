@@ -1,0 +1,80 @@
+package service;
+
+import java.util.List;
+
+import dao.AdminDAO;
+import dao.BookDAO;
+import dao.MemberDAO;
+import vo.Admin;
+import vo.Book;
+import vo.BookRequest;
+import vo.Member;
+
+public class AdminService {
+	private static AdminService singleTon = null;
+
+	private AdminService() {
+	};
+
+	public static AdminService getInstance() {
+		if (singleTon == null) {
+			singleTon = new AdminService();
+		}
+		return singleTon;
+	}
+	
+	AdminDAO adDAO = AdminDAO.getInstance();
+	BookDAO bkDAO = BookDAO.getInstance();
+	MemberDAO memDAO = MemberDAO.getInstance();
+	
+	
+	public Admin login(List<Object> param) {
+		if(adDAO.login(param) != null) {
+			return adDAO.login(param);
+		}
+		else return null;
+	}
+	
+	public List<Book> adBookList() {
+		return adDAO.adBookList();
+	}
+
+	public void bookUpdate(List<Object> newBook) {
+		 adDAO.bookUpdate(newBook);	
+	}
+
+	public int bookDelete(String select) {
+//		if(adDAO.bookDelete(select) == 0) return true;
+		return adDAO.bookDelete(select);
+	}
+	
+	public int reBookUpdate(String select) {
+		return adDAO.reBookUpdate(select);
+	}
+
+	public List<BookRequest> wishBookList() {
+		return adDAO.wishBookList();
+	}
+
+	public List<Member> adMemberList() {
+		return adDAO.adMemberList();
+	}
+
+	public void memDel(String select) {
+		adDAO.memDel(select);	
+	}
+
+	//회원상세보기
+//	public List<Member> memSelect(String select) {
+	public void memSelect(String select) {
+		if(adDAO.memSelect(select) == null) return null;
+		return adDAO.memSelect(select);
+	}
+	
+	public void memReset(String select) {
+		memDAO.memReset(select);	
+		
+	}
+}
+
+//231116 0921

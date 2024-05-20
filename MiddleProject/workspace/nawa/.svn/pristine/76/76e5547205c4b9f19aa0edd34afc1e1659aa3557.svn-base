@@ -1,0 +1,16 @@
+package board.dao;
+
+public class BoardDAOImpl implements IBoardDAO {
+
+	private static IBoardDAO boardDAO;
+	
+	private BoardDAOImpl() {}
+	
+	public static IBoardDAO getInstance() {
+		if(boardDAO == null) boardDAO = new BoardDAOImpl();
+		
+		return boardDAO;
+	}
+	
+	
+}

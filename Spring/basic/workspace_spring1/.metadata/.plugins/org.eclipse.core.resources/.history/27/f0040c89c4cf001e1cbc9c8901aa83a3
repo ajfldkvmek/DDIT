@@ -1,0 +1,25 @@
+package kr.or.ddit.notice.service;
+
+import javax.inject.Inject;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.notice.dao.INoticeDAO;
+import kr.or.ddit.vo.NoticeVO;
+
+public class NoticeServiceImpl implements INoticeService{
+
+	@Inject
+	private INoticeDAO noticeDAO;
+
+	@Override
+	public ServiceResult insertBoard(NoticeVO noticeVO) {
+		ServiceResult result = null;
+		int status = noticeDAO.insertboard(noticeVO);
+		if(status > 0) {
+			result = ServiceResult.OK;
+		} else {
+			result = ServiceResult.FAILED;
+		}
+		return result;
+	}
+}

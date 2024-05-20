@@ -1,0 +1,21 @@
+<%@ page import="member.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	MemberVO mv = (MemberVO) session.getAttribute("LOGIN_USER");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<p></p>asdassasdaasdasdsd
+ 
+ <a href="test.do">리스트 보기</a>
+
+
+</body>
+</html>

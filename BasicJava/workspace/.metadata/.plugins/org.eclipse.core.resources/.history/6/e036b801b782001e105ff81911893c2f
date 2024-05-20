@@ -1,0 +1,19 @@
+package service;
+
+import java.util.List;
+
+
+public class EventService {
+	private static EventService singleTon = null;
+
+	private EventService() {
+	};
+
+	public static EventService getInstance() {
+		if (singleTon == null) {
+			singleTon = new EventService();
+		}
+		return singleTon;
+	}
+	
+}

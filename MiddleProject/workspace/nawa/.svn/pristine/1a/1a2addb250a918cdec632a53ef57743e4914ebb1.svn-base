@@ -1,0 +1,277 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.util.List"%>
+<%@page import="board.vo.PostVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%
+	List<PostVO> postList = (List<PostVO>)request.getAttribute("postList");
+	String msg = session.getAttribute("msg") == null ? "" 
+			: (String) session.getAttribute("msg");
+	session.removeAttribute("msg");
+
+	List<PostVO> searchList = (List<PostVO>)request.getAttribute("searchList");
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>게시물 목록</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Sans+Mono:wght@200&family=Roboto+Flex:opsz,wght@8..144,200&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<style>
+#listJsp {
+padding: 10px;
+}
+th {
+text-align: center;
+}
+#postNo, #postDate, #listViewCnt, #postAtch {
+  text-align: center;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+}
+
+#searchContainer {
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+}
+#searchOptions, #searchBox, #searchButton{
+padding: 4px;
+}
+</style>
+</head>
+
+<%@include file="/include/header.jsp"%>
+
+<body>
+
+
+
+<div id="listJsp" class="col-sm-8">
+
+<!-- 검색하기  -->
+	<div class="text-center" id="searchContainer">
+<!--  		<div class="col-md-6"> -->
+			<form method="get" name="search" action="./search.do">
+<!-- 				<div class="row"> -->
+					<div class="col-md-4" id="searchOptions">
+						<select class="form-control" name="searchField">
+<!-- 							<option value="0">선택</option> -->
+							<option value="postTitle">제목</option>
+							<option value="postContent">제목+내용</option>
+							<option value="postWriter">작성자</option>
+						</select>
+					</div>
+				<div class="col-md-6" id="searchBox">
+					<input type="text" class="form-control" placeholder="검색어 입력" 
+							name="searchText" maxlength="100">
+				</div>
+				<div class="col-md-2" id="searchButton">
+					<button type="submit" class="btn btn-success">검색</button>
+				</div>
+<!-- 			</div> -->
+			</form>
+<!-- 		</div> -->
+	</div>
+<!-- 검색하기 끝 -->
+
+
+
+
+<!-- <div id="listContainer" class="col-sm-8 text-left"> -->
+<div id="listContainer">
+
+		<table id="mainList" class="table table-hover">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th style="width: 40%">Title</th>
+					<th style="width: 15%">Name</th>
+					<th style="width: 20%">Date</th>
+					<th>View</th>
+					<th>Attach.</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					if(postList.size() == 0 ) {
+				%>
+				<tr>
+					<td colspan="6">게시물 정보가 존재하지 않습니다.</td>
+
+				</tr>
+				<%
+					}else{
+						for(PostVO pv : postList) {
+				%>
+				<tr>
+		 			<td id="postNo"><%=pv.getPostNo() %></td>
+		
+		 			<td id="postTitle">
+		 				<a class="listTitle" href="./detail.do?postNo=<%=pv.getPostNo() %>" title="<%=pv.getPostContent() %>"><%=pv.getPostTitle() %></a>
+		 			</td>
+					<td id="postWriter"><%=pv.getPostWriter() %></td>
+					<td id="postDate"><%=pv.getPostDate() %></td>
+					<td id="listViewCnt"><%=pv.getViewCnt() %></td>
+					<td id="postAtch"><%=pv.getAtchFileId() %></td>
+					<!-- 잘못한게 없는거같은데 에러가 난다면? -> 탭 껐다 켜기 -->
+					<!-- JSP 수정했을 땐 서버 껐다 켤 필요 X -->
+				</tr>
+		<%
+		}
+	}
+	%>
+		</tbody>
+	</table>
+</div>
+
+
+
+
+<!-- 페이징 처리된 페이지 목록 시작 -->
+<div id="pagination">
+    <%
+    Integer currentPageObj = (Integer) request.getAttribute("currentPage");
+    Integer totalPagesObj = (Integer) request.getAttribute("totalPages");
+
+    int currentPage = (currentPageObj != null) ? currentPageObj : 1;
+    int totalPages = (totalPagesObj != null) ? totalPagesObj : 1;
+
+    int maxPagesToShow = 5; // 보여줄 최대 페이지 수
+
+    int startPage = Math.max(1, currentPage - maxPagesToShow / 2);
+    int endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+    %>
+
+
+<!-- 목록 버튼	 -->
+<button type="button" class="btn btn-default" style="height:34px" onclick="location.href='./list.do'">list</button>
+    
+    
+    <!-- '이전' 버튼 -->
+    <div class="container text-center col-sm-8">
+    	<ul class="pagination">
+	<%
+		if(currentPage > 1) {
+	%>
+			<li>
+			<a href="./list.do?page=<%= currentPage - 1 %>" class="page-link">prev</a>
+			</li>
+	<%
+		}else{
+	%>
+			<a href="./list.do?page=<%= currentPage %>" class="page-link"></a>
+	<%
+		}
+	%> 
+	
+
+	<!-- 페이지 목록 -->
+	<%
+	if (startPage > 1) {
+	%>
+		<li>
+		<a href="./list.do?page=1" 
+			class="page-link">1</a>
+		</li>
+		<li>
+		<span class="ellipsis">...</span>
+		</li>
+	<%
+	}
+
+	for (int i = startPage; i <= endPage; i++) {
+		if (i == currentPage) {
+	%>
+			<li class="active">
+			<span class="current-page"><%= i %></span>
+			</li>
+	<%
+		} else {
+	%>
+			<li>
+			<a href="./list.do?page=<%= i %>" class="page-link"><%= i %></a>
+			</li>
+	<%
+		}
+	}
+
+	if (endPage < totalPages) {
+	%>
+		<li>
+		<span class="ellipsis">...</span>
+		</li>
+		<li>
+		<a href="./list.do?page=<%= totalPages %>" class="page-link"> <%= totalPages %></a>
+		</li>
+	<%
+	}
+	%>
+	<!-- 페이지 목록 끝 -->
+	
+	
+    <!-- '다음' 버튼 -->
+		<%
+		if(currentPage < totalPages) {
+		%>
+			<li>
+			<a href="./list.do?page=<%= currentPage + 1 %>" class="page-link">next</a>
+			</li>
+		<%
+		}else{
+		%>
+			<a href="./list.do?page=<%= currentPage %>" class="page-link"></a>
+				
+		<%
+		}
+		%>    	 
+	</ul>
+	<!-- '다음' 버튼 끝 -->
+</div>
+
+<!-- 글쓰기 버튼	 -->
+<button type="submit" class="btn btn-default" id="writeButton" style="height:34px" onclick="location.href='./insert.do'">write</button>
+    
+
+</div>
+<!-- 페이징 처리된 페이지 목록 끝 -->
+
+
+
+<%
+	if(msg.equals("성공")) {
+%>	
+<script>
+	alert('정상적으로 처리되었습니다.');
+</script>
+<%
+	}
+%>
+
+
+</div>
+
+<script>
+  console.log("Current Page:", <%= currentPage %>);
+</script>
+</body>
+
+<%@include file="/include/footer.jsp"%>
+
+</html>

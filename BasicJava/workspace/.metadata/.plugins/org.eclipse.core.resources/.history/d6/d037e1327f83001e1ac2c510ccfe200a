@@ -1,0 +1,16 @@
+package test;
+
+public class tt {
+
+	public static void main(String[] args) {
+		String s = "abc";
+		String a = "A1";
+		String num = "01033334444";
+		int tel = Integer.parseInt(num);
+		System.out.println(tel);
+		
+		a.equalsIgnoreCase("a1")
+		
+//		System.out.println(s.getBytes().length);
+	}
+}

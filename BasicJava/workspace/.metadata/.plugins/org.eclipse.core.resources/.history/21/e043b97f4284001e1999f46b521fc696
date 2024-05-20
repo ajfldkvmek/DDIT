@@ -1,0 +1,18 @@
+package service;
+
+
+
+public class NoCreate {
+
+	private static NoCreate instance = null;
+
+	private NoCreate() {
+	}
+
+	public static NoCreate getInstance() {
+		if (instance == null)
+			instance = new NoCreate();
+		return instance;
+	}
+
+}

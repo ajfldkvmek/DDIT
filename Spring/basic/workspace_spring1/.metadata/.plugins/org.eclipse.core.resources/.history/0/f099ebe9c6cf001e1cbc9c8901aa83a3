@@ -1,0 +1,14 @@
+package kr.or.ddit.notice.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.notice.service.INoticeService;
+
+@Controller
+@RequestMapping("/notice")
+public class NoticeRetriveController {
+	
+	private INoticeService noticeService;
+
+}

@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+D:\D_setting\A_TeachingMaterial\01_BasicJava\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1899906957.index
+\Crawling\src

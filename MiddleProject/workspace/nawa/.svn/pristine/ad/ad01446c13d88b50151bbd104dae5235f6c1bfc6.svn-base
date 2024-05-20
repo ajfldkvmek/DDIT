@@ -1,0 +1,45 @@
+package member.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import member.vo.MemberVO;
+
+@WebServlet("/signUp.do")
+public class SignUpController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doGet(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		System.out.println("post왔어양!!!!!!");
+		
+		String mem_id = req.getParameter("mem_id");
+		String mem_pass = req.getParameter("mem_pass");
+		String mem_bir = req.getParameter("mem_bir");
+		mem_bir = mem_bir.substring(2, mem_bir.length());
+		String nickName = req.getParameter("nickName");
+		String phone = req.getParameter("phone");
+		String mail = req.getParameter("mem_mail");
+		String add1 = req.getParameter("mem_add1");
+		String add2 = req.getParameter("mem_add2");
+		
+		MemberVO mv = new MemberVO();	
+		
+		mv.setMem_id(mem_id);
+		mv.setMem_pw(mem_pass);
+		mv.setMem_birth(mem_bir);
+		
+		
+	}
+
+}

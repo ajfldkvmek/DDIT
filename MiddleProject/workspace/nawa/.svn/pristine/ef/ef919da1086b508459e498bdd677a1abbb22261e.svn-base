@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="../include/header.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>모임삭제</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2>글 입력</h2>
+  <p>만들 모임 정보를 입력하세요</p>
+  <form action="./meetInsert" method="post">
+  
+  	<div class="form-group">
+      <label for="user">글작성아이디:</label>
+      <input type="text" class="form-control" id="meetId" name="meetId">
+    </div>
+    <div class="form-group">
+      <label for="meetno">모임번호:</label>
+      <input type="number" class="form-control" id="meetNo" name="meetNo">
+    </div>
+    <div class="form-group">
+      <label for="meetName">모임명:</label>
+      <input type="text" class="form-control" id="meetName" name="meetName">
+    </div>
+    <div class="form-group">
+      <label for="meetInfo">모임정보:</label>
+      <input type="text" class="form-control" id="meetInfo" name="meetInfo">
+    </div>
+    <div class="form-group">
+      <label for="meetLevel">모임난이도:</label>
+      <input type="text" class="form-control" id="meetLevel" name="meetLevel">
+    </div>
+    <div class="form-group">
+      <label for="meetCapacity">모임정원:</label>
+      <input type="text" class="form-control" id="meetCapacity" name="meetLimit">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+   
+  </form>
+</div>
+<%@include file="../include/footer.jsp" %>
+</body>   
+</html>

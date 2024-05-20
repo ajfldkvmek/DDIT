@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	
+	<!-- 
+	  이 영역에 SQL문에 맞는 태그를 사용하여 SQL문을 기술한다.
+	  
+	  사용할 수 있는 기본적인 태그들
+	  <select> ~~~ </select>
+	  <insert> ~~~ </insert>
+	  <update> ~~~ </update>
+	  <delete> ~~~ </delete>
+	
+	위 태그에서 사용되는 속성들
+	
+	1) id : 해당 태그(SQL)를 호출할 때 namespace값과 연결하여 사용하는 고유 ID값
+	
+	2) parameterType : SQL문에 사용될 데이터가 들어있는 객체타입을 지정한다.
+	                     (보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+	
+    3) resultType : select문을 실행한 결과를 담을 객체타입을 지정한다.
+    				(보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+    				
+    4) resultMap : 결과레코드 컬럼명과 VO객체의 속성명이 다를 경우에 적절한 매핑을 위해 사용한다.
+	
+	 -->
+
+
+<!-- 	<insert id="insertMember" parameterType="kr.or.ddit.member.vo.MemberVO">
+	
+	insert into mymember
+	( mem_id, mem_name, mem_tel, mem_addr, atch_file_id)
+	values (#{memId}, #{memName}, #{memTel}, #{memAddr}, #{atchFileId}) 
+	
+	</insert>
+	
+	
+	<update id="updateMember" parameterType="kr.or.ddit.member.vo.MemberVO">
+	
+		update mymember 
+		set mem_name = #{memName} 
+			, mem_tel = #{memTel}
+			, mem_addr = #{memAddr}
+			, atch_file_id = #{atchFileId}
+		where mem_id = #{memId} 
+		
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+	
+		delete from mymember where mem_id = #{송현지}
+	
+	</delete> -->
+	
+	<select id="selectAll" resultType="member.vo.MemberVO">
+	
+		select no, name
+		from test
+	
+	</select>
+	
+	
+	<select id="searachMember" parameterType="String" resultType="member.vo.MemberVO" >
+	
+		select no, name
+		from test
+		where name like '%' || #{String} || '%'
+	
+	</select>
+	
+	<select id="loginCheck" parameterType="member.vo.MemberVO" resultType="member.vo.MemberVO" >
+	
+		select mem_id, grade_no
+		from member
+		where mem_id = #{mem_id} and mem_pw = #{mem_pw}
+	
+	</select>
+	
+	
+	<insert id="insertMember" parameterType="member.vo.MemberVO">
+	
+		insert into member(
+		    mem_id,
+		    mem_pw,
+		    mem_name,
+		    mem_nick,
+		    mem_birth,
+		    mem_telno,
+		    mem_email,
+		    mem_add1,
+		    mem_add2)
+		    
+		    values(
+		       #{mem_id},
+		       #{mem_pw},
+		       #{mem_name},
+		       #{mem_nick},
+		       #{mem_birth},
+		       #{mem_telno},
+		       #{mem_email},
+		       #{mem_add1},
+		       #{mem_add2}
+		    )
+		    
+	</insert>
+	
+	<select id="getTutorInfo" parameterType="String" resultType="member.vo.MemberVO">
+		
+			select mem_name,
+			 mem_id,
+			  mem_add1,
+			   mem_add2,
+			    mem_email,
+			     mem_telno
+				from member
+				where mem_id = (select mem_id 
+                				from tutor
+                				where tutor_no = #{tutNo})
+	
+	</select>
+
+	<!-- <select id="getMember" parameterType="String" resultType="kr.or.ddit.member.vo.MemberVO">
+		
+		select mem_id as memId,
+		       mem_name as memName,
+		       mem_tel as memTel,
+		       mem_addr as memAddr,
+		       reg_dt as regDt,
+		       atch_file_id as atchFileId
+		from mymember
+		where mem_id = #{memId}
+	</select>
+	
+	<select id="getLoginInfo" parameterType="String" resultType="kr.or.ddit.member.vo.MemberVO">
+		
+		select mem_id as memId,
+		       mem_name as memName,
+		       mem_tel as memTel,
+		       mem_addr as memAddr,
+		       reg_dt as regDt,
+		       atch_file_id as atchFileId
+		from mymember
+		where mem_id = #{memId}
+			and mem_pass=#{memPass}
+	</select>
+
+
+
+	<select id="checkMember" parameterType="String" resultType="int">
+		
+		select count(*) as cnt
+		from mymember
+		where mem_id = #{memId}
+	
+	</select> -->
+	
+	<!-- <resultMap type="member.vo.MemberVO" id="memMap">
+		<result column="mem_id"  property="memId" />
+		<result column="mem_name"  property="memName" />
+		<result column="mem_tel"  property="memTel" />
+		<result column="mem_addr"  property="memAddr" />
+		<result column="reg_dt"  property="regDt" />
+		<result column="atch_file_id"  property="atchFileId" />
+	</resultMap> -->
+	
+	
+	<!-- <select id="searchMember" parameterType="kr.or.ddit.member.vo.MemberVO"
+								resultMap="memMap">
+	
+		select *
+		 from mymember where 1=1 
+		
+		<if test='memId != null and memId != ""'>
+			and mem_id = #{memId}
+		</if>
+		<if test='memName != null and memName != ""'>
+			and mem_name = #{memName}
+		</if>
+		<if test='memTel != null and memTel != ""'>
+			and mem_tel = #{memTel}
+		</if>
+		<if test='memAddr != null and !memAddr.equals("")'>
+			and mem_addr like '%' || #{memAddr} || '%'
+		</if>
+			
+	
+	</select>
+	
+	
+	 -->
+	
+
+
+</mapper>

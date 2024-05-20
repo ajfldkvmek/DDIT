@@ -1,0 +1,44 @@
+package print;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import util.ScanUtil;
+import vo.Room;
+import vo.RoomReserve;
+
+public class RoomPrint {
+
+	
+	
+
+	public void printSeat(List<Room> list) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		for (Room room : list) {
+			if(room.getSeat_stat().equalsIgnoreCase("n"))
+				System.out.println(room.getSeat_no()+"x");
+			else
+				System.out.println(room.getSeat_no()+"o");
+			map.put(room.getSeat_no(), room.getSeat_stat());
+		}
+	}
+//	String select = ScanUtil.nextLine("이미 사용중인 좌석입니다. 좌석을 선택하세요>> ");
+//	
+//	if(map.get(select).equalsIgnoreCase("y"))
+//		printSeat(list);
+//	
+//	return select;
+	
+
+	private void printMySeat(RoomReserve rr) {
+		System.out.println(rr.getResv_no()+"\t"+rr.getMem_id()+"\t"+rr.getSeat_no()+"\t"+rr.getResv_time()+rr.getOut_time());
+	}
+	
+	public void roomPrint() {
+		System.out.println("1.열람실 예약");
+		System.out.println("2.내 예약 확인");
+	}
+}

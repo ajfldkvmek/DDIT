@@ -1,0 +1,75 @@
+package service;
+
+public class exceptChk {
+
+	private static exceptChk instance = null;
+
+	private exceptChk() {
+	}
+
+	public static exceptChk getInstance() {
+		if (instance == null)
+			instance = new exceptChk();
+		return instance;
+	}
+
+	public static int loginCount = 0;
+
+	public boolean idChk(String id) {
+		if (id.getBytes().length > 20)
+			return false;
+		for (char ch : id.toCharArray()) {
+
+			if ('0' <= ch && ch <= '9') {
+
+			} else if ('a' <= ch && ch <= 'z') {
+
+			} else if ('A' <= ch && ch <= 'Z') {
+
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//비번체크
+	public boolean passChk(String pw) {
+		if (pw.getBytes().length > 30)
+			return false;
+		for (char ch : pw.toCharArray()) {
+
+			if ('0' <= ch && ch <= '9') {
+
+			} else if ('a' <= ch && ch <= 'z') {
+
+			} else if ('A' <= ch && ch <= 'Z') {
+
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	//이름길이 체크
+	public boolean nameChk(String name) {
+		if (6 <= name.getBytes().length && name.getBytes().length <= 30)
+			return true;
+		return false;
+	}
+	
+	//번호체크
+	public boolean phoneChk(String telno) {
+
+		telno = telno.replaceAll("-", "");
+		if (telno.length() != 11) 
+			return false;
+		try {
+			Integer.parseInt(telno);
+			return true;
+		} catch (NumberFormatException ex) {
+			return false;
+		}
+	}
+}

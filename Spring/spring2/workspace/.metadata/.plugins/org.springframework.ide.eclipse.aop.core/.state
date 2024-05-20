@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="Spring2Project"/>
+<aop-project name="ModuleTest"/>
+<aop-project name="TestProject"/>
+<aop-project name="Spring2Project2_Logging_AOP"/>
+<aop-project name="Spring2Project_"/>
+<aop-project name="ModuleTestAOP"/>
+<aop-project name="SecurityTest"/>
+</aop-reference-model>

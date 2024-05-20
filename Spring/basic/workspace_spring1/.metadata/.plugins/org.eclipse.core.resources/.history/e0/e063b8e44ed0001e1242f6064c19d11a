@@ -1,0 +1,10 @@
+package kr.or.ddit.free.service;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.vo.FreeVO;
+
+public interface IFreeService {
+
+	ServiceResult insertFree(FreeVO freeVO);
+
+}

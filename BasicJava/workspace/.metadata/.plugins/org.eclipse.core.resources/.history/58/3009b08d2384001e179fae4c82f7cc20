@@ -1,0 +1,40 @@
+package controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import print.RoomPrint;
+import service.RoomService;
+import util.ScanUtil;
+import util.View;
+import vo.Room;
+
+
+public class RoomController extends RoomPrint {
+
+	RoomService rs = new RoomService();
+	
+	public View room() {
+		roomPrint();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+		
+		switch(select) {
+		case 1:
+			return View.SHOW_ROOM;
+		case 2:
+			return View.RESERVE_ROOM;
+		default:
+			return View.ROOM;
+		}
+	}
+
+	public View showRoom() {
+				
+		List<Room> list = rs.showRoom();
+		List<Object> param = new ArrayList<Object>();
+		int select = printSeat(list);
+		System.out.println("좌석 선택 완료");
+		
+		return View.HOME;		
+	}
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+  <booklist>
+    <book isbn="b001" kind="java">
+      <title>JAVA초급</title>
+      <author>이순신</author>
+      <price>25000</price>
+    </book>
+    <book isbn="b002" kind="java">
+      <title>JAVA고급</title>
+      <author>홍길동</author>
+      <price>35000</price>
+    </book>
+    <book isbn="b003" kind="db">
+      <title>DB설계</title>
+      <author>일지매</author>
+      <price>38000</price>
+    </book>
+    <book isbn="b004" kind="db">
+      <title>DB구현</title>
+      <author>강감찬</author>
+      <price>42000</price>
+    </book>
+  </booklist>
+</root>

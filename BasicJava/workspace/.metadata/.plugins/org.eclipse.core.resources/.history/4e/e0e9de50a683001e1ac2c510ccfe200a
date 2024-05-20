@@ -1,0 +1,76 @@
+package dao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import util.ConvertUtils;
+import util.JDBCUtil;
+import vo.Member;
+import vo.Room;
+import vo.RoomReserve;
+
+public class RoomDAO {
+	private static RoomDAO singleTon = null;
+
+	public RoomDAO() {
+	};
+
+	public static RoomDAO getInstance() {
+		if (singleTon == null) {
+			singleTon = new RoomDAO();
+		}
+		return singleTon;
+	}
+
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+
+	public List<Room> showRoom() {
+
+		String sql = "select * from room";
+		List<Map<String, Object>> list = jdbc.selectList(sql);
+
+		return ConvertUtils.convertToList(list, Room.class); 
+	}
+
+	public void outSeat(String seat) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(seat);
+		String sql = "Update room\r\n" + 
+					"set seat_stat = 'y'\r\n" + 
+					"where seat_no = ?";
+	}
+	
+	public void inSeat(String seat) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(seat);
+		String sql = "Update room\r\n" + 
+					"set seat_stat = 'n'\r\n" + 
+					"where seat_no = ?";
+	}
+
+	public int reserveRoom(List<Object> param) {
+		String sql = "insert into Room_Resv(resv_no, mem_id, seat_no)" + "valeus(?, ?, ?)";
+		inSeat((String) param.get(2));
+		int result = jdbc.update(sql, param);
+
+		return result;
+	}
+
+	public RoomReserve mySeat(String id) {
+		String sql = "select * from room_resv";
+		List<Object> param = new ArrayList<Object>();
+		param.add(id);
+
+		Map<String, Object> map = jdbc.selectOne(sql, param);
+
+		return ConvertUtils.convertToVo(map, RoomReserve.class);
+	}
+
+	public void outRoom(List<Object> param) {
+		String sql = "Update room_resv set out_time = sysdate where resv_no = ?";
+		jdbc.update(sql, param);
+		
+	}
+
+}

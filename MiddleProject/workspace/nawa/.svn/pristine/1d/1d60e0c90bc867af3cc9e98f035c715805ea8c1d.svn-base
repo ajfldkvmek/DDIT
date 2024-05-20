@@ -1,0 +1,27 @@
+package meet.service;
+
+import java.util.List;
+
+import meet.dao.MeetDAOImpl;
+import meet.vo.MeetVO;
+
+public interface IMeetService {
+
+	public List<MeetVO> displayAllMeet();
+
+	public MeetVO getDetail(String meetNo);
+
+	public int deleteMeet(String meetNo);
+
+	public int insertMeet(MeetVO mv);
+
+	public int modifyMeet(MeetVO mv);
+
+	public int meetJoin(MeetVO mv);
+
+	public List<MeetVO> meetSearch(MeetVO mv);
+
+
+
+	
+}

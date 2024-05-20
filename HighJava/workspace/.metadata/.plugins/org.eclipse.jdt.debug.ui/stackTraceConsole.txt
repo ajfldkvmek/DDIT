@@ -1,0 +1,4 @@
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = dbf.newDocumentBuilder();
+
+		Document document = builder.parse(new File("./src/new_book.xml"));

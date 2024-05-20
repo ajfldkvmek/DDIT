@@ -1,0 +1,49 @@
+package kr.or.ddit;
+
+import java.util.Arrays;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		/*
+		 * String[] str = new String[5];
+		 * 
+		 * str[0] = "a"; str[1] = "b"; str[2] = "c"; str[3] = "d"; str[4] = "e";
+		 * 
+		 * for(int i = 0; i < 3; i++) { str[i] = str[i+1]; }
+		 * 
+		 * for(int i = 0; i < 3; i++) { System.out.println(str[i]); } }
+		 * 
+		 */
+		Solution s = new Solution();
+
+		System.out.print(Arrays.toString(s.solution(1233219)));
+
+	}
+
+	// 자연수 n을 뒤집어 각 자리 숫자를 원소로 가지는 배열 형태로 리턴해주세요. 예를들어 n이 12345이면 [5,4,3,2,1]을
+	// 리턴합니다.
+	public int[] solution(long n) {
+
+		
+		/*
+		 * int[] answer = {};
+		 * 
+		 * int num = 0; long ten = 10; long remain = num%ten;
+		 * 
+		 * for(int i = 0; i < 10; i++) { num++; if(n < ten) break; ten *= 10; }
+		 * 
+		 * 
+		 * answer = new int[num]; ten = 10;
+		 * 
+		 * for(int i = 0; i < answer.length; i++) { answer[i] = (int) (n%ten); n = n/10;
+		 * }
+		 * 
+		 * return answer;
+		 */
+		
+		
+		return 0;
+	}
+
+}

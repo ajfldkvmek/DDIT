@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value="sendGuit"/>
+		<list key="findhistory">
+			<item value="sendGuit"/>
+			<item value="dis"/>
+			<item value="`"/>
+			<item value="sendMessage"/>
+			<item value="handler"/>
+			<item value=" "/>
+			<item value="downDir"/>
+			<item value="package kr.or.ddit.tcp;"/>
+			<item value="&lt;/bod"/>
+			<item value="&lt;/ht"/>
+			<item value="rowNum"/>
+			<item value="chkNo"/>
+			<item value="sys"/>
+			<item value="MemberVO"/>
+			<item value="주소"/>
+		</list>
+		<list key="replacehistory">
+			<item value="JDBCUtil3"/>
+			<item value="JDBCUtil2"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="719"/>
+		<item key="DIALOG_Y_ORIGIN" value="99"/>
+		<item key="DIALOG_WIDTH" value="288"/>
+		<item key="DIALOG_HEIGHT" value="398"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="188"/>
+		<item key="DIALOG_Y_ORIGIN" value="383"/>
+	</section>
+</section>

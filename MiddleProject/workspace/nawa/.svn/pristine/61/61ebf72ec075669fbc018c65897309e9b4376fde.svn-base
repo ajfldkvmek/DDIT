@@ -1,0 +1,17 @@
+package meet.dao;
+
+public class MeetDAOImpl implements IMeetDAO {
+
+	private static IMeetDAO meetDAO;
+	
+	private MeetDAOImpl() {}
+	
+	public static IMeetDAO getInstance() {
+		if(meetDAO == null) meetDAO = new MeetDAOImpl();
+		
+		return meetDAO;
+		
+		
+	}
+	
+}

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<!--
+	이 영역에 SQL문에 맞는 태그를 사용하여 SQL문을 기술한다.
+	
+	사용할 수 있는 기본적인 태그들:
+	 <select> ~~~ </select>
+	 <insert> ~~~ </insert>
+	 <update> ~~~ </update>
+	 <delete> ~~~ </delete>
+	 
+	 위 태그에서 사용되는 속성들
+	 
+	 1) id: 해당 태그(SQL)를 호출할 때 namespace값과 연결하여 사용하는 고유 ID값
+	 
+	 2) parameterType: SQL문에 사용될 데이터가 들어있는 객체타입을 지정한다.
+	 					(보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+	 
+	 3) resultType: select문을 실행한 결과를 담을 객체타입을 지정한다.
+ 					(보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+	 
+	 4) resultMap: 결과레코드 컬럼명과 VO객체의 속성명이 다를 경우에 적절한 매핑을 위해 사용한다.
+	 
+	 -->
+	 
+	<resultMap type="board.vo.PostVO" id="postMap">
+		<result column="BOARD_NO" property="postNo" />
+		<result column="BOARD_TITLE" property="postTitle" />
+		<result column="BOARD_DATE" property="postDate" />
+		<result column="BOARD_WRITER" property="postWriter" />
+		<result column="BOARD_CONT" property="postContent" />
+		<result column="BOARD_CNT" property="viewCnt" />
+		<result column="BCATE_NO" property="postCate" />
+		
+		<result column="ROWNUM" property="rowNum" />
+		<result column="comment_count" property="commCnt" />
+		
+		<result column="COMM_NO" property="commNo" />
+		<result column="COMM_CONTENT" property="commContent" />
+		<result column="COMM_DATE" property="commDate" />
+		<result column="COMM_WRITER" property="commWriter" />
+		<result column="COMM_DEL" property="commDel" />
+	</resultMap>
+	 
+	<insert id="insertPost" parameterType="board.vo.PostVO" >
+		INSERT INTO BOARD (BOARD_NO, BCATE_NO, BOARD_TITLE, 
+							BOARD_WRITER, BOARD_CONT, atch_file_id) 
+				VALUES ( (BOARD_SEQ.nextVal), #{postCate}, #{postTitle}, 
+						#{postWriter}, #{postContent}, #{atchFileId})
+	</insert>
+	
+	
+	<update id="updatePost" parameterType="board.vo.PostVO">
+		update BOARD
+			set 
+				board_title = #{postTitle}
+<!-- 				, board_writer = #{postWriter} -->
+<!--			, board_date = #{postDate} -->
+				, BCATE_NO = #{postCate}
+				, BOARD_CONT = #{postContent}
+			where board_no = #{postNo}
+			<!-- cf. #{postTitle, jdbcType=VARCHAR2} 
+				원래는 속성 지정하며 타입 쓰는게 정석 -->
+	</update>
+	
+	<delete id="deletePost" parameterType="int">
+		<!-- delete from BOARD where board_no = #{postNo} -->
+		update BOARD set BOARD_DEL = 'y' where board_no = #{postNo}
+	</delete>
+	
+	<select id="checkPost" parameterType="int" resultType="int">
+		select count(*) as cnt from BOARD where board_No = #{postNo}
+	</select>
+	
+	<select id="getPost" parameterType="int" resultType="board.vo.PostVO" 
+			resultMap="postMap">
+		select board_no, BCATE_NO, board_title, board_date, board_writer, BOARD_CONT, BOARD_CNT, ATCH_FILE_ID as atchFileId
+			from BOARD
+			where 
+				(BOARD_DEL is null or BOARD_DEL = 'n')
+				and 
+				board_no = #{postNo} 
+			order by board_no desc
+	</select>
+	
+	<update id="updateViewCnt" parameterType="int">
+	    update BOARD
+	    set BOARD_CNT = BOARD_CNT + 1
+	    where BOARD_NO = #{postNo}
+	</update>
+
+<!-- 총 게시물 수 구하기 -->
+	<select id="getTotalPostCount" parameterType="int" resultType="int">
+<!-- 		select count(*) from BOARD -->
+		select count(BOARD_NO) from BOARD
+		where BOARD_DEL is null or BOARD_DEL = 'n'
+	</select>
+
+
+<!-- 페이징 리스트 -->
+	<select id="getPostListWithPaging" parameterType="board.vo.PostVO" resultType="board.vo.PostVO" resultMap="postMap">
+
+    SELECT * FROM (
+        SELECT ROWNUM rnum, b.*, COALESCE(c.cnt, 0) AS comment_count
+        FROM (
+            SELECT board_no, BCATE_NO, BOARD_TITLE, BOARD_CONT, BOARD_DATE, BOARD_WRITER, BOARD_CNT
+            FROM board
+            WHERE (BOARD_DEL IS NULL OR BOARD_DEL = 'n')
+            ORDER BY board_no DESC
+        ) b
+        LEFT OUTER JOIN (
+            SELECT board_no, COUNT(*) AS cnt
+            FROM board_comm
+            WHERE comm_del IS NULL OR comm_del = 'n'
+            GROUP BY board_no
+        ) c ON b.board_no = c.board_no
+    )
+    WHERE rnum BETWEEN #{startIdx} AND #{countPerPage}
+    ORDER BY rnum
+
+	</select>
+	
+	
+<!-- 검색결과 페이징 -->
+<!-- parameterType="java.util.Map" -->
+<!-- resultMap="postMap" -->
+<select id="searchPostWithPaging" parameterType="board.vo.PostVO" resultType="board.vo.PostVO" resultMap="postMap">
+	SELECT * FROM (
+		SELECT ROWNUM rnum, b.*, COALESCE(c.cnt, 0) AS comment_count
+		FROM (
+			SELECT board_no, BCATE_NO, BOARD_TITLE, BOARD_CONT, BOARD_DATE, BOARD_WRITER, BOARD_CNT
+			FROM board
+			WHERE (BOARD_DEL IS NULL OR BOARD_DEL = 'n')
+				and
+					<if test="searchField == 'postTitle'">
+						BOARD_TITLE LIKE '%' || #{searchText} || '%'
+					</if>
+					<if test="searchField == 'postContent'">
+						(board_title like '%' || #{searchText} || '%'  
+						or BOARD_CONT like '%' || #{searchText} || '%')
+					</if>
+					<if test="searchField == 'postWriter'">
+						board_writer LIKE '%' || #{searchText} || '%'
+					</if>
+			ORDER BY board_no DESC
+		) b
+		LEFT OUTER JOIN (
+			SELECT board_no, COUNT(*) AS cnt
+			FROM board_comm
+			WHERE comm_del IS NULL OR comm_del = 'n'
+			GROUP BY board_no
+			) c ON b.board_no = c.board_no
+		)
+	WHERE (rnum BETWEEN #{searchStartIdx} AND #{searchCountPerPage})
+   	ORDER BY rnum
+</select>
+
+<!-- 검색결과 총 개수 -->
+<!-- <select id="getTotalSearchCount" parameterType="java.util.Map" resultType="int  resultMap="postMap""> -->
+<select id="getTotalSearchCount" resultType="board.vo.PostVO"  resultMap="postMap">
+    SELECT count(BOARD_NO) as searchCount FROM BOARD 
+    WHERE (BOARD_DEL IS NULL or BOARD_DEL = 'n') 
+    <if test="searchField != null and searchText != null">
+        AND 
+        <choose>
+            <when test="searchField == 'postTitle'">
+				( board_title LIKE '%' || #{searchText} || '%' )
+            </when>
+            <when test="searchField == 'postContent'">
+				( board_title LIKE ('%' || #{searchText} || '%')  
+                OR BOARD_CONT LIKE ('%' || #{searchText} || '%') )
+            </when>
+            <when test="searchField == 'postWriter'">
+				( board_writer LIKE '%' || #{searchText} || '%' )
+            </when>
+        </choose>
+    </if>
+</select>
+
+<!-- 카테고리별 조회 -->
+<select id="getPostsByCategory" resultType="board.vo.PostVO"  resultMap="postMap">
+	SELECT * FROM (
+		SELECT ROWNUM rnum, b.*, COALESCE(c.cnt, 0) AS comment_count
+		FROM (
+			SELECT board_no, BCATE_NO, BOARD_TITLE, BOARD_CONT, BOARD_DATE, BOARD_WRITER, BOARD_CNT
+			FROM board
+			WHERE (BOARD_DEL IS NULL OR BOARD_DEL = 'n')
+                and BCATE_NO = #{cateValue}
+			ORDER BY board_no DESC
+		) b
+		LEFT OUTER JOIN (
+			SELECT board_no, COUNT(*) AS cnt
+			FROM board_comm
+			WHERE comm_del IS NULL OR comm_del = 'n'
+			GROUP BY board_no
+			) c ON b.board_no = c.board_no
+		)
+	WHERE rnum BETWEEN #{cateStartIdx} AND #{cateCountPerPage}
+   	ORDER BY rnum
+</select>
+
+<!-- 카테고리별 총 개수 -->
+<select id="getPostsByCategoryCount" resultType="board.vo.PostVO"  resultMap="postMap">
+    SELECT count(BOARD_NO) as catePostsCount FROM BOARD 
+    WHERE (BOARD_DEL IS NULL or BOARD_DEL = 'n')
+        AND BCATE_NO = #{cateValue}
+</select>
+
+
+
+<!-- 댓글 구역 시작 -->
+<!-- 댓글 구역 시작 -->
+<!-- 댓글 구역 시작 -->
+
+
+
+	<insert id="insertComment" parameterType="board.vo.PostVO" >
+		INSERT INTO BOARD_COMM
+			(COMM_NO, COMM_DATE, COMM_CONTENT, BOARD_NO, COMM_WRITER) 
+			VALUES ( (BOARD_COMM_SEQ.nextVal), SYSDATE, #{commContent},
+			#{postNo}, #{commWriter})
+	</insert>
+	
+	<update id="updateComment" parameterType="board.vo.PostVO">
+		update BOARD_COMM
+			set 
+				COMM_CONTENT = #{commContent}
+			where COMM_NO = #{commNo}
+			<!-- cf. #{postTitle, jdbcType=VARCHAR2} 
+				원래는 속성 지정하며 타입 쓰는게 정석 -->
+	</update>
+	
+	<delete id="deleteComment" parameterType="int">
+		<!-- delete from BOARD where board_no = #{postNo} -->
+		update BOARD_COMM set comm_del = 'y' where COMM_NO = #{commNo}
+	</delete>
+	
+	<select id="checkComment" parameterType="int" resultType="int">
+		select count(*) as cnt from BOARD_COMM where COMM_NO = #{commNo}
+<!-- 		del 조건 넣어야 하는지? 나중에 확인 -->
+	</select>
+	
+	<select id="getComment" parameterType="int" resultType="board.vo.PostVO" 
+			resultMap="postMap">
+		select comm_no, comm_date, comm_writer, comm_content, BOARD_NO
+			from BOARD_COMM
+			where 
+				(comm_del IS NULL or comm_del = 'n')
+				and 
+				comm_no = #{commNo}
+	</select>
+
+<!-- 댓글 불러오기-->
+
+	<select id="getCommentListWithPaging" resultType="board.vo.PostVO" resultMap="postMap">
+		SELECT * 
+		FROM
+	        (SELECT ROWNUM rnum,A.*
+	        	FROM (SELECT COMM_WRITER, COMM_CONTENT, COMM_DATE, COMM_NO
+	        				, BOARD_NO
+	        			FROM BOARD_COMM
+	        where (comm_del IS NULL or comm_del = 'n')
+	        	and BOARD_NO = #{postNo}
+        	ORDER BY comm_no DESC) A)
+        	WHERE rnum BETWEEN #{commStart} AND #{commEnd}
+<!-- 	    WHERE rnum&gt;=#{commStartIdx} and rnum&lt;=#{countCommPerPage} -->
+	</select>
+
+<!-- 게시물 당 총 댓글 수 구하기(페이징)   -->
+<select id="getTotalCommentCount" parameterType="java.util.Map" resultType="int">
+<!--   resultMap="postMap"> -->
+    SELECT count(COMM_NO) FROM BOARD_COMM 
+    	WHERE (comm_del IS NULL or comm_del = 'n') and
+    		board_no = #{postNo}
+</select>
+
+
+
+
+<!-- 공지사항 뷰 -->
+<select id="getViewBNotice" resultType="board.vo.PostVO"  resultMap="postMap">
+	SELECT * FROM V_BNOTICE
+</select>
+
+</mapper>

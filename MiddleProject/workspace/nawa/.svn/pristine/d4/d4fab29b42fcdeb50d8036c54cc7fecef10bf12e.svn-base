@@ -1,0 +1,13 @@
+
+public class MyTest {
+
+	public static void main(String[] args) {
+		System.out.println("ㅌㅌㅌㅌㅌㅌㅌㅌㅌㅌㅌㅌㅌ");
+		System.out.println("Adasdasdas");
+		System.out.println("하이루~~");
+		System.out.println("다애체크");
+		System.out.println("췤~집중집중");
+		System.out.println("췤췤2ㅁㄴㅇ~~");
+		System.out.println("adasdas");
+	}
+}

@@ -1,0 +1,59 @@
+package board.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import atch.vo.BoardAtchFileVO;
+import board.service.CommentServiceImpl;
+import board.service.ICommentService;
+import board.service.IPostService;
+import board.service.PostServiceImpl;
+import board.vo.PostVO;
+import member.vo.MemberVO;
+
+@WebServlet("/board/list.do")
+public class ListController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		PostVO pv = new PostVO();
+//		BoardAtchFileVO bv = new BoardAtchFileVO();
+		IPostService postService = PostServiceImpl.getInstance();
+		
+		String pageStr = req.getParameter("page");
+        int page = (pageStr != null && !pageStr.isEmpty()) ? Integer.parseInt(pageStr) : 1;
+        int countPerPage = 10; // 페이지당 포스트 수 조절
+        
+        int start = (page - 1) * countPerPage + 1;
+        int end = page*countPerPage;
+        
+        pv.setStartIdx(start);
+        pv.setCountPerPage(end);
+        
+        List<PostVO> postList = postService.getPostListWithPaging(pv);
+
+        int totalPostCount = postService.getTotalPostCount();
+        int totalPages = (int) Math.ceil((double) totalPostCount / countPerPage);
+
+        // 현재 페이지와 전체 페이지 수 전달
+        req.setAttribute("totalPages", totalPages);
+        req.setAttribute("currentPage", page);
+        
+        req.setAttribute("postList", postList);
+        req.getRequestDispatcher("/board/board/list.jsp").forward(req, resp);
+        
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+	
+}

@@ -1,0 +1,40 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import print.EventPrint;
+import service.EventService;
+
+import util.ScanUtil;
+import util.View;
+import vo.Event;
+
+
+public class EventController extends EventPrint {
+
+	EventService es = new EventService();
+	
+	public View event() {
+		printEvent();
+		
+		int select = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+		
+		switch(select) {
+		case 1:
+			return View.RESERVE_EVENT;
+		case 2:
+		default:
+			return View.EVENT;
+		}		
+	}
+
+	public View reserceEvent() {
+		
+		List<Event> list = es.reserveEvent();
+		printEventList(list);
+		
+		return View.EVENT;
+	}
+
+}

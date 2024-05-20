@@ -1,0 +1,19 @@
+package service;
+
+import java.util.List;
+
+
+public class EventService {
+	private static AdminService singleTon = null;
+
+	private EventService() {
+	};
+
+	public static AdminService getInstance() {
+		if (singleTon == null) {
+			singleTon = new AdminService();
+		}
+		return singleTon;
+	}
+	
+}

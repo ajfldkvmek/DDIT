@@ -1,0 +1,293 @@
+package board.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.exceptions.PersistenceException;
+import org.apache.ibatis.session.SqlSession;
+
+import board.vo.PostVO;
+import util.MyBatisUtil;
+
+public class PostDaoImpl implements IPostDao {
+	
+	private static IPostDao postDao;
+	
+	private PostDaoImpl() {
+		
+	}
+	
+	public static IPostDao getInstance() {
+		if(postDao == null) {
+			postDao = new PostDaoImpl();
+		}
+		return postDao;
+	}
+	
+	
+	
+
+	public int insertPost(PostVO pv) {
+
+		SqlSession sqlSession = MyBatisUtil.getInstance();
+		
+		int cnt = 0;
+		
+		try {
+
+			cnt = sqlSession.insert("board.insertPost", pv);
+
+			if( cnt > 0 ) {
+				sqlSession.commit();
+			}
+		} catch (PersistenceException ex) {
+//			sqlSession.rollback();
+			ex.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return cnt;
+	}
+
+	
+	
+	public int updatePost(PostVO pv) {
+
+		SqlSession sqlSession = MyBatisUtil.getInstance();
+		
+		int cnt = 0;
+		
+		try {
+			cnt = sqlSession.update("board.updatePost", pv);
+			
+			if( cnt > 0 ) {
+				sqlSession.commit();
+			}
+			
+		}catch(PersistenceException ex) {
+			sqlSession.rollback();
+			ex.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return cnt;
+	}
+	
+	
+	
+	
+	public int deletePost(int postNo) {
+
+		SqlSession sqlSession = MyBatisUtil.getInstance();
+
+		int cnt = 0;
+		
+		try {
+
+//			cnt = sqlSession.delete("post.deletePost", postNo);
+			cnt = sqlSession.update("board.deletePost", postNo);
+			 
+		 	if( cnt > 0 ) {
+				sqlSession.commit();
+			}
+
+		} catch (PersistenceException ex) {
+			sqlSession.rollback();
+			ex.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return cnt;
+	}
+	
+	
+	
+//	private void selectAll() {
+	public List<PostVO> selectAll() {
+		
+		List<PostVO> postList = new ArrayList<PostVO>();
+		
+		SqlSession sqlSession = MyBatisUtil.getInstance();
+
+		try {
+
+			postList = sqlSession.selectList("board.selectAll");
+
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			sqlSession.close(); 
+		}
+		return postList;
+	}
+	
+
+//	public List<PostVO> searchPost(List<PostVO> searchList) {
+	public List<PostVO> searchPost(String searchField, String searchText) {
+//		public List<PostVO> searchPost(PostVO pv) {
+			
+		List<PostVO> searchList = new ArrayList<PostVO>();
+		
+		SqlSession sqlSession = MyBatisUtil.getInstance(true);
+		
+//		System.out.println("다오에서 확인하는 searchField: " + searchField + " | " + "searchText: " + searchText);
+
+		try {
+			
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("searchField", searchField);
+			paramMap.put("searchText", searchText);
+			
+			searchList = sqlSession.selectList("board.searchPost", paramMap);
+//			System.out.println("Dao까지 무사히 왔나요?" + searchList);
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			sqlSession.close(); 
+		}
+		return searchList;
+	}
+	
+	
+	public boolean checkPostNo(int postNo) {
+
+		boolean Exists = false;
+		int cnt = 0;
+		SqlSession sqlSession = MyBatisUtil.getInstance(true);
+
+		try {
+
+			cnt = sqlSession.selectOne("board.checkPost", postNo);
+		 	
+			if(cnt > 0) {
+				Exists = true;
+			}
+		} catch (PersistenceException ex) {
+			ex.printStackTrace();
+		} finally {
+			sqlSession.close(); 
+		}
+
+		return Exists;
+	}
+
+	@Override
+	public PostVO getPost(int postNo) {
+		SqlSession sqlSession = MyBatisUtil.getInstance(true);
+		PostVO pv = null;
+	try {
+		
+		pv = sqlSession.selectOne("board.getPost", postNo);
+		System.out.println("commDao getPost의 postNo: " + postNo);
+	}catch(PersistenceException ex) {
+		ex.printStackTrace();
+	}finally {
+		sqlSession.close();
+	}
+	
+	return pv;
+	}
+
+	@Override
+	public void updateViewCnt(int postNo) {
+	    SqlSession sqlSession = MyBatisUtil.getInstance();
+	    try {
+	        sqlSession.update("board.updateViewCnt", postNo);
+	        sqlSession.commit();
+	    } catch (PersistenceException ex) {
+	        ex.printStackTrace();
+	        sqlSession.rollback();
+	    } finally {
+	        sqlSession.close();
+	    }
+	}
+	
+	//게시물 목록 가져오기 ############################################################
+//	public List<PostVO> getPostListWithPaging(int startIdx, int countPerPage) {
+	public List<PostVO> getPostListWithPaging(PostVO pv) {
+	    SqlSession sqlSession = MyBatisUtil.getInstance();
+	    List<PostVO> postList = null;
+
+	    try {
+	        sqlSession = MyBatisUtil.getInstance();
+	        postList = sqlSession.selectList("board.getPostListWithPaging", pv);
+	    } finally {
+	        if (sqlSession != null) {
+	            sqlSession.close();
+	        }
+	    }
+	    
+	    return postList;
+	}
+
+	//총 게시물 수
+	@Override
+	public int getTotalPostCount() {
+		SqlSession sqlSession = MyBatisUtil.getInstance();
+        int totalCount = 0;
+
+        try {
+            totalCount = sqlSession.selectOne("board.getTotalPostCount");
+        } catch (PersistenceException ex) {
+            ex.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+        return totalCount;
+	}
+	
+	//검색결과 목록 가져오기
+	@Override
+    public List<PostVO> searchPostWithPaging(PostVO pv) {
+		SqlSession sqlSession = MyBatisUtil.getInstance();
+
+		List <PostVO> pagingSearchList = new ArrayList();
+
+		pagingSearchList = sqlSession.selectList("board.searchPostWithPaging", pv);
+		System.out.println("[PostDaoImpl] searchPostWithPaging searchList: " + pagingSearchList);
+		return pagingSearchList;
+
+    }
+
+	//검색결과 총 게시물 수
+    @Override
+    public int getTotalSearchCount(PostVO pv) {
+		SqlSession sqlSession = MyBatisUtil.getInstance();
+		PostVO ppv = null;
+		int cnt = 0;
+		
+		try {
+//			cnt = sqlSession.selectOne("board.getTotalSearchCount", pv);
+			 ppv = sqlSession.selectOne("board.getTotalSearchCount", pv);
+	        if (ppv != null) {
+	            cnt = ppv.getSearchCount();
+	            System.out.println("[PostDaoImpl] getTotalSearchCount: cnt 받기 성공" + cnt);
+	        	}
+			} catch (PersistenceException ex) {
+	            ex.printStackTrace();
+	            System.out.println("[PostDaoImpl] getTotalSearchCount: cnt 받기 실패!");
+	        } finally {
+	        	sqlSession.close();
+	        }
+        return cnt;
+    }
+    
+    // 제목 옆에 댓글수 표시
+    public int updateCommentCount(int postNo) {
+    	SqlSession sqlSession = MyBatisUtil.getInstance();
+    	int commCnt = 0;
+    	
+    	try {
+    		commCnt = sqlSession.selectOne("board.updateCommentCount", postNo);
+            System.out.println("[PostDaoImpl] updateCommentCount: commCnt 받기 성공" + commCnt);
+
+    	}catch (PersistenceException ex) {
+    		ex.printStackTrace();
+    		System.out.println("[PostDaoImpl] updateCommentCount: cnt 받기 실패!" );
+    	}
+    	
+    	return commCnt;
+    }
+}

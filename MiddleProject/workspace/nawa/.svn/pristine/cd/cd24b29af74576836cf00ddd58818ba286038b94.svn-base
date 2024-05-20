@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<!--
+	이 영역에 SQL문에 맞는 태그를 사용하여 SQL문을 기술한다.
+	
+	사용할 수 있는 기본적인 태그들:
+	 <select> ~~~ </select>
+	 <insert> ~~~ </insert>
+	 <update> ~~~ </update>
+	 <delete> ~~~ </delete>
+	 
+	 위 태그에서 사용되는 속성들
+	 
+	 1) id: 해당 태그(SQL)를 호출할 때 namespace값과 연결하여 사용하는 고유 ID값
+	 
+	 2) parameterType: SQL문에 사용될 데이터가 들어있는 객체타입을 지정한다.
+	 					(보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+	 
+	 3) resultType: select문을 실행한 결과를 담을 객체타입을 지정한다.
+ 					(보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+	 
+	 4) resultMap: 결과레코드 컬럼명과 VO객체의 속성명이 다를 경우에 적절한 매핑을 위해 사용한다.
+	 
+	 -->
+	 
+	<resultMap type="board.vo.PostVO" id="postMap">
+		<result column="BOARD_NO" property="postNo" />
+		<result column="BOARD_TITLE" property="postTitle" />
+		<result column="BOARD_WRITER" property="postWriter" />
+		<result column="BOARD_DATE" property="postDate" />
+		<result column="BOARD_CONTENT" property="postContent" />
+		<result column="VIEW_CNT" property="viewCnt" />
+		<result column="ROWNUM" property="rowNum" />
+		<result column="atch_file_id" property="atchFileId" />
+		<result column="COMM_NO" property="commNo" />
+		<result column="COMM_CONTENT" property="commContent" />
+		<result column="COMM_DATE" property="commDate" />
+		<result column="MEM_ID" property="commWriter" />
+	</resultMap>
+	 
+	<insert id="insertPost" parameterType="board.vo.PostVO" >
+
+		INSERT INTO JDBC_BOARD
+			(BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CONTENT, VIEW_CNT, atch_file_id) 
+			VALUES ( (BOARD_SEQ.nextVal), #{postTitle}, #{postWriter}, 
+			sysdate, #{postContent}, 0, #{atchFileId})
+	
+	</insert>
+	
+	
+	<update id="updatePost" parameterType="board.vo.PostVO">
+	
+		update jdbc_board
+			set 
+				board_title = #{postTitle}
+<!-- 				, board_writer = #{postWriter} -->
+<!--			, board_date = #{postDate} -->
+				, board_content = #{postContent}
+				, atch_file_id = #{atchFileId}
+			where board_no = #{postNo}
+			<!-- cf. #{postTitle, jdbcType=VARCHAR2} 
+				원래는 속성 지정하며 타입 쓰는게 정석 -->
+	</update>
+	
+	<delete id="deletePost" parameterType="int">
+		
+		<!-- delete from jdbc_board where board_no = #{postNo} -->
+		update jdbc_board set BOARD_DELYN = 'y' where board_no = #{postNo}
+	
+	</delete>
+	
+	<select id="selectAll" resultType="board.vo.PostVO" resultMap="postMap">
+	
+		SELECT board_no, board_title, board_date, 
+				board_writer, board_content, VIEW_CNT, atch_file_id
+				FROM ( SELECT board_no, 
+<!-- 				(SUBSTR(board_title,1,7)||'...') board_title,  -->
+				board_title, 
+				board_date, 
+<!-- 				(SUBSTR(board_writer,1,5)||'...') board_writer,  -->
+				board_writer, 
+				board_content, VIEW_CNT, atch_file_id 
+				FROM jdbc_board where board_delyn is null
+				ORDER BY board_no desc )
+	
+	</select>
+	
+<!-- 	<select id="searchPost" parameterType="String" resultType="board.vo.PostVO"  -->
+<!-- 	<select id="searchPost" parameterType="java.util.Map" resultType="board.vo.PostVO"  -->
+	<select id="searchPost" resultType="board.vo.PostVO" resultMap="postMap">
+
+	SELECT board_no, board_title, board_date, board_writer, board_content, VIEW_CNT, atch_file_id
+			FROM (SELECT board_no, 
+				board_title,
+				board_date, 
+				board_writer,
+				board_content, VIEW_CNT, atch_file_id 
+				FROM jdbc_board where board_delyn is null ORDER BY board_no desc)
+			where
+				<if test="searchField == 'postTitle'">
+                	board_title LIKE '%' || #{searchText} || '%'
+            	</if>
+            	<if test="searchField == 'postContent'">
+					board_title like ('%' || #{searchText} || '%')  
+					or BOARD_CONTENT like ('%' || #{searchText} || '%')
+				</if>
+				<if test="searchField == 'postWriter'">
+                	board_writer LIKE '%' || #{searchText} || '%'
+            	</if>
+	
+	</select>
+	
+	<select id="checkPost" parameterType="int" resultType="int">
+		
+		select count(*) as cnt from jdbc_board where board_No = #{postNo}
+	
+	</select>
+	
+	<select id="getPost" parameterType="int" resultType="board.vo.PostVO" 
+			resultMap="postMap">
+		select board_no, board_title, board_date, board_writer, board_content, VIEW_CNT, atch_file_id
+			from jdbc_board
+			where 
+				(board_delyn is null or board_delyn = 'no')
+				and 
+				board_no = #{postNo} 
+			order by board_no desc
+	</select>
+	
+	<update id="updateViewCnt" parameterType="int">
+	    update jdbc_board
+	    set view_cnt = view_cnt + 1
+	    where BOARD_NO = #{postNo}
+	</update>
+
+
+
+<!-- 총 게시물 수 구하기 -->
+	<select id="totalPostCount" parameterType="int" resultType="int">
+<!-- 		select count(*) from jdbc_board -->
+		select count(BOARD_NO) from jdbc_board
+		where board_delyn is null or board_delyn = 'n'
+	</select>
+
+
+<!-- 페이징 리스트 -->
+	<select id="pagingList" resultType="board.vo.PostVO" resultMap="postMap">
+	
+		SELECT
+	        board_no,
+	        board_title,
+	        board_date,
+	        board_writer,
+	        board_content,
+	        VIEW_CNT,
+	        atch_file_id
+	    FROM
+	        jdbc_board
+	    Where board_delyn is null or board_delyn = 'n'
+	    ORDER BY
+	        board_no DESC
+    
+	</select>
+	
+	
+<!-- 검색결과 페이징 -->
+<!-- parameterType="java.util.Map" -->
+<!-- resultMap="postMap" -->
+<select id="searchPostWithPaging" resultType="board.vo.PostVO" resultMap="postMap">
+<!-- 		SELECT postNo, postTitle, postDate, postWriter, postContent, viewCnt, atchFileId
+			FROM (SELECT board_no as postNo, 
+				board_title as postTitle,
+				board_date as postDate, 
+				board_writer postWriter,
+				board_content as postContent, 
+				VIEW_CNT as viewCnt, 
+				atch_file_id as atchFileId
+				FROM jdbc_board 
+				where board_delyn is null 
+				ORDER BY board_no desc) -->
+		SELECT board_no, board_title, board_date, board_writer, board_content, VIEW_CNT, atch_file_id
+			FROM (SELECT board_no, 
+				board_title,
+				board_date, 
+				board_writer,
+				board_content, 
+				VIEW_CNT, 
+				atch_file_id
+				FROM jdbc_board 
+				where board_delyn is null 
+				ORDER BY board_no desc)
+			where
+<!-- 			//field Text start CountPerPage -->
+<!--                  	board_title LIKE '%' || #{searchText} || '%' -->
+
+ 				<if test="searchField == 'postTitle'">
+                	board_title LIKE '%' || #{searchText} || '%'
+            	</if>
+            	<if test="searchField == 'postContent'">
+					board_title like ('%' || #{searchText} || '%')  
+					or BOARD_CONTENT like ('%' || #{searchText} || '%')
+				</if>
+				<if test="searchField == 'postWriter'">
+                	board_writer LIKE '%' || #{searchText} || '%'
+            	</if>
+</select>
+
+<!-- 검색결과 총 개수 -->
+<!-- <select id="getTotalSearchCount" parameterType="java.util.Map" resultType="int  resultMap="postMap""> -->
+<select id="getTotalSearchCount" parameterType="java.util.Map" resultType="int"  resultMap="postMap">
+    SELECT count(BOARD_NO) FROM jdbc_board 
+    WHERE (board_delyn IS NULL or board_delyn = 'n') 
+    <if test="searchField != null and searchText != null">
+        AND 
+        <choose>
+            <when test="searchField == 'postTitle'">
+                ( board_title LIKE '%' || #{searchText} || '%'
+            </when>
+            <when test="searchField == 'postContent'">
+                or ( board_title LIKE ('%' || #{searchText} || '%')  
+                OR BOARD_CONTENT LIKE ('%' || #{searchText} || '%') )
+            </when>
+            <when test="searchField == 'postWriter'">
+                or board_writer LIKE '%' || #{searchText} || '%' )
+            </when>
+        </choose>
+    </if>
+</select>
+
+
+
+<!-- 댓글 구역 시작 -->
+<!-- 댓글 구역 시작 -->
+<!-- 댓글 구역 시작 -->
+
+
+
+	<insert id="insertComment" parameterType="board.vo.PostVO" >
+		INSERT INTO COMMENT_TEST
+			(COMM_NO, COMM_DATE, COMM_CONTENT, BOARD_NO, MEM_ID) 
+			VALUES ( (COMM_TEST_SEQ.nextVal), SYSDATE, #{commContent},
+			#{postNo}, #{commWriter})
+	</insert>
+	
+	<update id="updateComment" parameterType="board.vo.PostVO">
+		update COMMENT_TEST
+			set 
+				COMM_CONTENT = #{commContent}
+			where COMM_NO = #{commNo}
+			<!-- cf. #{postTitle, jdbcType=VARCHAR2} 
+				원래는 속성 지정하며 타입 쓰는게 정석 -->
+	</update>
+	
+	<delete id="deleteComment" parameterType="int">
+		<!-- delete from jdbc_board where board_no = #{postNo} -->
+		update COMMENT_TEST set comm_del = 'y' where COMM_NO = #{commNo}
+	</delete>
+	
+	<select id="checkComment" parameterType="int" resultType="int">
+		select count(*) as cnt from COMMENT_TEST where COMM_NO = #{commNo}
+<!-- 		del 조건 넣어야 하는지? 나중에 확인 -->
+	</select>
+	
+	<select id="getComment" parameterType="int" resultType="board.vo.PostVO" 
+			resultMap="postMap">
+		select comm_no, comm_date, mem_id, comm_content, BOARD_NO
+			from COMMENT_TEST
+			where 
+				(comm_del IS NULL or comm_del = 'n')
+				and 
+				comm_no = #{commNo}
+	</select>
+
+<!-- 댓글 불러오기-->
+	<select id="commentList" resultType="board.vo.PostVO" resultMap="postMap">
+		select mem_id, comm_content, comm_date, comm_no, comm_del, board_no
+        	from comment_test
+        	where board_no = #{postNo}
+        		and (comm_del IS NULL or comm_del = 'n')
+<!-- 		select c.comm_no as commNo, c.comm_date as commDate, m.mem_id as memId, 
+			c.comm_content as commContent, c.board_no as postNo
+			from jdbc_board b, comment_test c, member m
+			where 
+				( (b.board_delyn is null or b.board_delyn = 'n') 
+					and (c.comm_del IS NULL or c.comm_del = 'n') )
+				and 
+				b.board_no = c.board_no
+                and 
+                m.mem_id = c.mem_id
+                and
+				c.board_no = #{postNo}
+			order by c.comm_no desc -->
+	</select>
+
+<!-- 게시물 당 총 댓글 수 구하기(페이징)   -->
+<select id="totalCommCount" parameterType="java.util.Map" resultType="int">
+<!--   resultMap="postMap"> -->
+    SELECT count(COMM_NO) FROM COMMENT_TEST 
+    	WHERE (comm_del IS NULL or comm_del = 'n') and
+    		board_no = #{postNo}
+
+</select>
+</mapper>

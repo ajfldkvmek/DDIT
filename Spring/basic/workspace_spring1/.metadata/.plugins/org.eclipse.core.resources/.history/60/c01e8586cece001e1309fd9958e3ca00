@@ -1,0 +1,11 @@
+package kr.or.ddit.board.service;
+
+import java.util.List;
+
+import kr.or.ddit.board.web.BoardVO;
+
+public interface IBoardService {
+
+	List<BoardVO> selectBoardList();
+
+}

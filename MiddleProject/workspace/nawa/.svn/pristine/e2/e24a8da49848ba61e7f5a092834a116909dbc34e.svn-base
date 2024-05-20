@@ -1,0 +1,10 @@
+
+public class KK {
+
+	public static void main(String[] args) {
+		
+		System.out.println("adadsasd");
+		System.out.println("나는 김현태입니다.");
+		System.out.println("ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+	}
+}

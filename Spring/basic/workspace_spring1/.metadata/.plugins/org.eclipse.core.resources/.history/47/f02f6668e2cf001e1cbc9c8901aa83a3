@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Notice">
+
+	<sql id="noticeSearch">
+		<if test="searchType != null and searchType == 'title'">
+			and (notice_title like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'writer'">
+			and (notice_wirter like '%'||#{searchWord}||'%')
+		</if>
+	</sql>
+	
+	<insert id="insertNotice" parameterType="noticeVO" useGeneratedKeys="true">
+	
+		<selectKey keyProperty="noNo" resultType="int" order="BEFORE">
+			select seq_notice.nextval from dual
+		</selectKey>
+	
+		insert into notice
+			(notice_no, notice_title, notice_content, notice_writer, notice_date, notice_hit)
+		values
+			(#{noNo}, #{noticeTitle}, #{noticeContent}, #{noticeWriter}, sysdate, #{noticeHit})
+	</insert>
+	
+	
+	<select id="selectNoticeCount" parameterType="pagingVO" resultType="int">
+		select count(notice_no)
+		from notice
+		where 1=1
+		<include refid="noticeSearch"/>
+	</select>
+		
+	<select id="selectNoticeList" parameterType="pagingVO" resultType="noticeVO">
+			select
+				b.*
+			from(
+				select
+					a.*, row_number() over(order by a.notice_no desc) rnum
+				from (
+					select 
+						notice_no, notice_title, notice_content, notice_writer, notice_date, notice_hit
+					from notice
+					where 1 = 1
+					<include refid="noticeSearch"/>
+					order by notice_no desc
+					) a
+				) b
+				<![CDATA[
+			where b.rnum>=#{startRow} and b.rnum<=#{endRow}
+				]]>
+	</select>
+
+	<update id="incrementHit" parameterType="int">
+		update notice
+		set
+			notice_hit = notice_hit + 1
+		where notice_no = #{noticeNo}
+	</update>
+	
+	<select id="selectNotice" parameterType="int" resultType="NoticeVO">
+		select 
+			notice_no, notice_title, notice_content, notice_writer, notice_date, notice_hit
+		from notice
+		where notice_no=#{noticeNo}
+	</select>
+	
+	<update id="updateBoard" parameterType="boardVO">
+		update board
+		set
+			botitle = #{boTitle},
+			bocontent = #{boContent},
+			bodate = sysdate
+		where bono = #{boNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board
+		where bono=#{boNo}	
+	</delete>
+	
+</mapper>

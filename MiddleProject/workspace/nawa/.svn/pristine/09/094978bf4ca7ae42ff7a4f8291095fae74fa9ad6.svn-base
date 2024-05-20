@@ -1,0 +1,67 @@
+package meet.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import meet.service.IMeetService;
+import meet.service.MeetServiceImpl;
+import meet.vo.MeetVO;
+
+/**
+ * Servlet implementation class meetInsert
+ */
+@WebServlet("/meetInsert")
+public class meetInsert extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("인서트컨트롤러");
+		req.getRequestDispatcher("meet/meetinsert.jsp").forward(req, resp);
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("인서트 post");
+		resp.setContentType("text/html;charset=UTF-8");
+	    req.setCharacterEncoding("UTF-8");
+		
+	    String meetId = req.getParameter("meetId");
+		String meetNo = req.getParameter("meetNo");
+		String meetName = req.getParameter("meetName");
+		String meetInfo = req.getParameter("meetInfo");
+		String meetLevel = req.getParameter("meetLevel");
+		int meetLimit = Integer.parseInt(req.getParameter("meetLimit"));
+		
+		IMeetService meetService = MeetServiceImpl.getInstance();
+		MeetVO mv = new MeetVO();
+		mv.setMeet_no(meetNo);
+		mv.setMeet_name(meetName);
+		mv.setMeet_info(meetInfo);
+		mv.setMeet_level(meetLevel);
+		mv.setMeet_limit(meetLimit);
+		mv.setMem_id(meetId);
+		
+		
+		
+		int cnt = meetService.insertMeet(mv);
+		
+		System.out.println(cnt);
+		
+		String msg = "";
+		if(cnt>0) {
+			msg="성공";
+		}else {
+			msg="실패";
+		}
+		req.getSession().setAttribute("msg", msg);
+		resp.sendRedirect(req.getContextPath()+"/meetList");
+		
+		
+	}
+
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardFile">
+
+
+	
+	<resultMap type="BoardAtchFileVO" id="boardFileMap">
+	
+		<id column="BOARD_FINDEX" property="boardFIndex" />
+		<id column="BOARD_NO" property="postNo" />
+		<result column="BOARD_FNAME" property="boardFName" />
+		<result column="BOARD_ORINAME" property="boardOriName" />
+	</resultMap>
+	
+	
+<!-- 	<insert id="insertAtchFile" parameterType="kr.or.ddit.comm.vo.AtchFileVO"> -->
+<!-- config에서 alias 설정함 -->
+	<insert id="insertBoardAtchFile" parameterType="atch.vo.BoardAtchFileVO">
+		insert into BOARD_FILE (BOARD_FINDEX, BOARD_NO)
+        values (#{boardFIndex}, #{postNo})
+	</insert>
+	
+	<insert id="insertBoardAtachFileDetail" parameterType="atch.vo.BoardAtchFileVO">
+		insert into BOARD_FILE (BOARD_FINDEX,BOARD_FNAME,BOARD_ORINAME,BOARD_NO)
+		values(#{boardFIndex},#{boardFName},#{boardOriName},#{postNo})
+	</insert>
+	
+	<select id="getBoardAtchFileList" resultMap="boardFileMap">
+		select * from BOARD_FILE
+		where BOARD_FINDEX = #{boardFIndex}
+	</select>
+	
+	<select id="getBoardAtchFileDetail" resultMap="boardFileMap">
+		select * from BOARD_FILE
+		where BOARD_FINDEX = #{boardFIndex}
+			and BOARD_NO = #{postNo}
+	</select>
+
+
+</mapper>

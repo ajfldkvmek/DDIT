@@ -1,0 +1,23 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import print.EventPrint;
+import service.RoomService;
+import util.ScanUtil;
+import util.View;
+import vo.Room;
+
+public class EventController extends EventPrint {
+
+	Controller c = new Controller();
+
+	public View event() {
+		printEvent();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+
+
+	}
+
+}

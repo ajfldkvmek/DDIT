@@ -1,0 +1,288 @@
+<%@page import="java.util.List"%>
+<%@page import="atch.vo.BoardAtchFileVO"%>
+<%@page import="board.vo.PostVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	PostVO pv =(PostVO)request.getAttribute("pv");
+
+List<BoardAtchFileVO> atchFileList = (List<BoardAtchFileVO>) request.getAttribute("atchFileList"); 
+
+List<PostVO> commList = (List<PostVO>) request.getAttribute("commList");
+
+List<PostVO> postList = (List<PostVO>)request.getAttribute("postList");
+
+String msg = session.getAttribute("msg") == null ? "" 
+		: (String) session.getAttribute("msg");
+session.removeAttribute("msg");
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시물 정보 상세</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+#detailContainer {
+padding: 10px;
+}
+#buttonContainer {
+padding: 10px;
+}
+.detailButton{
+border: 2px dashed #555;
+border-radius: 10px;
+background-color: white;
+/* font-family: 'Roboto Flex', sans-serif; */
+padding: 0px 13px;
+font-family: 'Dongle', sans-serif;
+font-size: 150%;
+}
+.detailCate{
+text-align: center;
+}
+</style>
+</head>
+
+<%@include file="/include/header.jsp"%>
+
+
+<body>
+<div id="detailContainer" class="col-sm-8 text-left">
+	<div class="table-responsive">  
+	<table width=100% class="table table-striped">
+<!-- 		<tr> -->
+<!-- 			<td class="detailCate">No.</td> -->
+<%-- 			<td><%=pv.getPostNo()%></td> --%>
+<!-- 		</tr> -->
+			
+			
+			
+			
+		<tr>
+			<th class="detailCate" width=15%>제목</th>
+			<td class="detailCate" colspan="5"><%=pv.getPostTitle()%></td>
+		</tr>
+		<tr>
+			<th class="detailCate" width=15%>작성자</th>
+			<td colspan="1"><%=pv.getPostWriter()%></td>
+			
+			<th class="detailCate" width=15%>등록일</th>
+<%-- 			<td class="detailCate" width=15% colspan="2"><%=pv.getPostDate() %> --%>
+			<td class="detailCate" colspan="1"><%=pv.getPostDate()%>
+			<th class="detailCate" width=15%>조회수</th>
+			<td class="detailCate" colspan="1"><%=pv.getViewCnt()%></td>
+		</tr>
+		<tr>
+			<th class="detailCate" width=15%>내용</th>
+			<td colspan="5"><%=pv.getPostContent()%></td>
+		</tr>
+		<tr>
+			<th class="detailCate">첨부파일</th>
+			<td colspan="5">
+				<%
+					if(atchFileList != null) { 
+							for(BoardAtchFileVO fileVO : atchFileList) {
+				%>
+					<div>
+						<a href="<%=request.getContextPath() %>/fileDownload.do?fileId=<%=fileVO.getAtchFileId() %>
+						&fileSn=<%=fileVO.getFileSn() %>">
+						<%=fileVO.getOrignlFileNm() %>
+						</a>
+					</div>
+					<%
+					}
+				}
+					%>
+			</td>
+		</tr>
+	</table>
+	
+			<input type="hidden" name="postNo" value="<%=pv.getPostNo() %>">
+			<button type="submit" class="btn btn-primary" onclick="location.href='./update.do?postNo=${pv.getPostNo()}'">edit</button>
+			<button type="submit" class="btn btn-warning" onclick="location.href='./delete.do?postNo=${pv.getPostNo()}'">delete</button>
+			<button type="submit" class="btn btn-primary" onclick="location.href='./commInsert.do?postNo=${pv.getPostNo()}'">comment</button>
+
+	<table width=100% class="table table-striped">
+				<%
+					if(commList.size() == 0 ) {
+				%>
+				<tr>
+					<td colspan="6">댓글이 없습니다.</td>
+
+				</tr>
+				<%
+					}else{
+				%>
+				<tr>
+					<th>작성자</th>
+					<th>내용</th>
+					<th>작성일</th>
+					<th></th>
+				</tr>
+				
+				<%
+						for(PostVO pv2 : commList) {
+				%>
+				<tr>
+					<td id="commWriter"><%=pv2.getCommWriter() %></td>
+					<td id="commContent"><%=pv2.getCommContent() %></td>
+					<td id="commDate"><%=pv2.getCommDate() %></td>
+					<td>
+					<button type="submit" class="btn btn-primary btn-xs" onclick="location.href='./commUpdate.do?commNo=<%=pv2.getCommNo()%>'">edit</button>
+					<button type="submit" class="btn btn-warning btn-xs" onclick="location.href='./commDelete.do?postNo=${pv2.getPostNo()}'">del</button>
+					</td>
+				</tr>
+					<%
+					}
+				}
+				%>
+	</table>
+	
+	<div id=CommPagination>
+		    <%
+		    Integer currentPageObj = (Integer) request.getAttribute("currentPage");
+		    Integer totalPagesObj = (Integer) request.getAttribute("totalPages");
+		
+		    int currentPage = (currentPageObj != null) ? currentPageObj : 1;
+		    int totalPages = (totalPagesObj != null) ? totalPagesObj : 1;
+		
+		    int maxPagesToShow = 5; // 보여줄 최대 페이지 수
+		
+		    int startPage = Math.max(1, currentPage - maxPagesToShow / 2);
+		    int endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+		    %>
+			<%
+			Integer currentCommPageObj = (Integer) request.getAttribute("currentCommPage");
+			Integer totalCommPagesObj = (Integer) request.getAttribute("totalCommPages");
+			
+			int currentCommPage = (currentCommPageObj != null) ? currentCommPageObj : 1;
+			int totalCommPages = (totalCommPagesObj != null) ? totalCommPagesObj : 1;
+			
+			int maxCommPagesToShow = 5; // 보여줄 최대 페이지 수
+			
+			int startCommPage = Math.max(1, currentCommPage - maxCommPagesToShow / 2);
+			int endCommPage = Math.min(startCommPage + maxCommPagesToShow - 1, totalCommPages);
+			
+			System.out.println("detailCommNull?(4): " + currentCommPage + " | " + totalCommPages + " | " + startCommPage + " | " + endCommPage);
+			
+			
+			Integer currentPostObj = (Integer)request.getAttribute("postNo");
+			int currentPost = (currentPostObj != null) ? currentPostObj : 1;
+			
+			%>
+
+			
+			<!-- '이전' 버튼 -->
+			
+    <div class="container text-center col-sm-8">
+    	<ul class="pagination">
+	<%
+		if(currentCommPage > 1) {
+	%>
+			<li>
+			<a href="./detail.do?postNo=<%= currentPost %>&commPage=<%= currentCommPage - 1 %>" class="page-link">prev</a>
+			</li>
+	<%
+		}else{
+	%>
+			<a href="./detail.do?postNo=<%= currentPost %>&commPage=<%= currentCommPage %>" class="page-link"></a>
+	<%
+		}
+	%> 
+<!-- 	'이전' 버튼 끝 -->
+	
+
+	<!-- 페이지 목록 -->
+	<%
+	if (startCommPage > 1) {
+	%>
+		<li>
+		<a href="./detail.do?postNo=<%= currentPost %>&commPage=1" 
+			class="page-link">1</a>
+		</li>
+		<li>
+		<span class="ellipsis">...</span>
+		</li>
+	<%
+	}
+
+	for (int i = startCommPage; i <= endCommPage; i++) {
+		if (i == currentCommPage) {
+	%>
+			<li class="active">
+			<span class="current-page"><%= i %></span>
+			</li>
+	<%
+		} else {
+	%>
+			<li>
+			<a href="./detail.do?postNo=<%= currentPost %>&commPage=<%= i %>" class="page-link"><%= i %></a>
+			</li>
+	<%
+		}
+	}
+
+	if (endCommPage < totalCommPages) {
+	%>
+		<li>
+		<span class="ellipsis">...</span>
+		</li>
+		<li>
+		<a href="./detail.do?postNo=<%= currentPost %>&commPage=<%= totalCommPages %>" class="page-link"> <%= totalCommPages %></a>
+		</li>
+	<%
+	}
+	%>
+	<!-- 페이지 목록 끝 -->
+	
+	
+    <!-- '다음' 버튼 -->
+		<%
+		if(currentCommPage < totalCommPages) {
+		%>
+			<li>
+			<a href="./detail.do?postNo=<%= currentPost %>&commPage=<%= currentCommPage + 1 %>" class="page-link">next</a>
+			</li>
+		<%
+		}else{
+		%>
+			<a href="./detail.do?postNo=<%= currentPost %>&commPage=<%= currentCommPage %>" class="page-link"></a>
+				
+		<%
+		}
+		%>    	 
+	</ul>
+	<!-- '다음' 버튼 끝 -->
+</div>
+
+
+	
+	
+	</div>
+	
+	</div>
+		
+	<div id="buttonContainer" class="btn-group">
+		<button type="button" class="btn btn-default" onclick="location.href='./list.do'">list</button>
+	</div>
+</div>
+			
+<script>
+
+</script>
+
+<%@include file="/include/footer.jsp"%>
+
+</body>
+</html>

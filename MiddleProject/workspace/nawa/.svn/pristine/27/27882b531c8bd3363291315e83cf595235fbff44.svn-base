@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lecture">
+	
+	<!-- 
+	  이 영역에 SQL문에 맞는 태그를 사용하여 SQL문을 기술한다.
+	  
+	  사용할 수 있는 기본적인 태그들
+	  <select> ~~~ </select>
+	  <insert> ~~~ </insert>
+	  <update> ~~~ </update>
+	  <delete> ~~~ </delete>
+	
+	위 태그에서 사용되는 속성들
+	
+	1) id : 해당 태그(SQL)를 호출할 때 namespace값과 연결하여 사용하는 고유 ID값
+	
+	2) parameterType : SQL문에 사용될 데이터가 들어있는 객체타입을 지정한다.
+	                     (보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+	
+    3) resultType : select문을 실행한 결과를 담을 객체타입을 지정한다.
+    				(보통 VO클래스 또는 자바의 자료형이름 등이 사용된다.)
+    				
+    4) resultMap : 결과레코드 컬럼명과 VO객체의 속성명이 다를 경우에 적절한 매핑을 위해 사용한다.
+	
+	 -->
+	
+	<insert id="involveLecture" parameterType="lecture.vo.LectureVO">
+	
+	INSERT INTO LESSON_MEM (mem_id , Lecture_No, LM_NO )
+	VALUES (#{memId}, #{lecNo}, {lmNO})
+	
+	</insert>
+
+	<insert id="insertLecture" parameterType="lecture.vo.LectureVO">
+	
+	insert into lecture(LECTURE_NO, PRICE, TUTOR_NO, LECTURE_TITLE, LECTURE_CONT, LECTURE_MAX,LECTURE_CATE, LECUTRE_LOC, LECTURE_GRADE)
+	values (#{lecNo}, #{price}, #{tutNo},  #{lecTitle}, #{lecCont}, #{lecMax}, #{lecCate} , #{lecLoc}, #{lecGrade})
+	
+	</insert>
+	
+	<!-- 총 게시물 수 구하기  -->
+	<select id="getTotalPostCount" parameterType="int" resultType="int">
+		select count(lecture_no) from lecture
+		
+	</select>
+	
+	<!--  페이징 리스트  -->
+	<select id="getPostListWithPaging" parameterType="lecture.vo.LectureVO" 
+	resultType="lecture.vo.LectureVO">
+	
+	        SELECT * 
+			FROM (SELECT ROWNUM rnum,A.*
+					from 
+		        (select tutor_no as tutNo,
+						lecture_no as lecNo,
+						LECTURE_TITLE as lecTitle,
+						LECTURE_CONT as lecCont,
+						LECTURE_CNT as lecCnt,
+						LECTURE_MAX as lecMax,
+						price,
+						LECTURE_SCORE as lecScore,
+						LECTURE_GRADE as lecGrade
+						from lecture
+		     			ORDER BY lecture_no DESC) A)
+	     		WHERE rnum BETWEEN #{startIdx} AND #{countPerPage}
+				
+	</select> 
+		
+	<select id="searchCount" parameterType="lecture.vo.LectureVO" 
+	resultType="lecture.vo.LectureVO">
+	
+	         SELECT count(*) cnt
+        FROM lecture
+        WHERE delyn != 'y'
+        <if test='search != null and search != ""'>
+            AND (lecture_title LIKE '%' || #{search} || '%')
+        </if>
+        <if test='lecCate != null and lecCate != ""'>
+            AND (lecture_cate = #{lecCate})
+        </if>
+        <if test='sort != null and sort != ""'>
+            ORDER BY ${sort}
+        </if>
+		
+	</select>
+	
+	<update id="updateHeart" parameterType="lecture.vo.LectureVO" >
+	
+		INSERT INTO lesson_pick (mem_id , lecture_no )
+		VALUES (#{memId}, #{lecNo})
+		
+	</update>
+	
+	<update id="updateLecture" parameterType="lecture.vo.LectureVO" >
+	
+		update lecture 
+		set lecture_title = #{lecTitle}
+			, lecture_cont = #{lecCont}
+			, price = #{price}
+			, lecture_Max = #{lecMax}
+			, LECUTRE_LOC = #{lecLoc}
+			, LECTURE_GRADE = #{lecGrade}
+			, LECTURE_CATE = #{lecCate}
+		where lecture_no =  #{lecNo}
+		
+	</update>
+	
+	<delete id="deleteLecture" parameterType="String">
+	
+		delete from lecture 
+		where LECTURE_NO = #{lecNo}
+	
+	</delete>
+	
+	<select id="search" resultType="lecture.vo.LectureVO">
+    SELECT *
+    FROM (
+        SELECT ROWNUM AS rnum,
+            tutor_no AS tutNo,
+            lecture_no AS lecNo,
+            LECTURE_TITLE AS lecTitle,
+            LECTURE_CONT AS lecCont,
+            LECTURE_CNT AS lecCnt,
+            LECTURE_MAX AS lecMax,
+            price,
+            LECTURE_SCORE AS lecScore,
+            LECTURE_GRADE AS lecGrade
+        FROM lecture
+        WHERE delyn != 'y'
+        <if test='search != null and search != ""'>
+            AND (lecture_title LIKE '%' || #{search} || '%')
+        </if>
+        <if test='lecCate != null and lecCate != ""'>
+            AND (lecture_cate = #{lecCate})
+        </if>
+        <if test='sort != null and sort != ""'>
+            ORDER BY ${sort}
+        </if>
+    )
+    WHERE rnum BETWEEN 1 AND 10
+	<!-- <if test='lcate_no !=null and lcate_no !=""' > 
+			and (LECTURE_CATE = #{lecCate}  )
+	</if> -->
+	
+	</select>
+	
+	<!-- <select id=getSearchPostCount resultType="lecture.vo.LectureVO">
+	
+	</select> -->
+	
+	<select id="getDetail" parameterType="String" resultType="lecture.vo.LectureVO">
+		
+		select tutor_no as tutNo,
+		lecture_no as lecNo,
+		LECTURE_TITLE as lecTitle,
+		LECTURE_CONT as lecCont,
+		LECTURE_CNT as lecCnt,
+		LECTURE_MAX as lecMax,
+		price,
+		LECTURE_SCORE as lecScore,
+		LECTURE_GRADE as lecGrade
+		from lecture
+		where LECTURE_NO = #{lecNo}
+	</select>
+	
+	<select id="getTutoLectureList" parameterType="String" resultType="lecture.vo.LectureVO">
+		
+		select tutor_no as tutNo,
+		lecture_no as lecNo,
+		LECTURE_TITLE as lecTitle,
+		CONCAT(SUBSTR(LECTURE_CONT, 1, 20), '...') as lecCont,
+		LECTURE_CNT as lecCnt,
+		LECTURE_MAX as lecMax
+		from lecture 
+		where tutor_no= #{tutNo}
+	
+	</select>
+
+	
+	<select id="getTutoCont" parameterType="String" resultType="lecture.vo.LectureVO">
+	
+	SELECT
+    LECTURE_NO as lecNo,
+    PRICE,
+    TUTOR_NO as tutNo,
+    LECTURE_TITLE as lecTitle,
+    CONCAT(SUBSTR(LECTURE_CONT, 1, 30), '...') as lecCont,
+    LECTURE_MAX as lecMax,
+    LECTURE_CNT as lecCnt,
+    LECTURE_SCORE as lecScore,
+    LECTURE_GRADE as lecGrade
+	FROM
+    lecture
+	where tutor_no = #{tutNo}
+	
+	</select>
+	
+	
+	<!-- <select id="getLoginInfo" parameterType="String" resultType="kr.or.ddit.member.vo.MemberVO">
+		
+		select mem_id as memId,
+		       mem_name as memName,
+		       mem_tel as memTel,
+		       mem_addr as memAddr,
+		       reg_dt as regDt,
+		       atch_file_id as atchFileId
+		from mymember
+		where mem_id = #{memId}
+			and mem_pass=#{memPass}
+	</select>
+ -->
+
+
+	<!-- <select id="checkMember" parameterType="String" resultType="int">
+		
+		select count(*) as cnt
+		from mymember
+		where mem_id = #{memId}
+	
+	</select> -->
+	
+	<!-- <resultMap type="member.vo.MemberVO" id="memMap">
+		<result column="mem_id"  property="memId" />
+		<result column="mem_name"  property="memName" />
+		<result column="mem_tel"  property="memTel" />
+		<result column="mem_addr"  property="memAddr" />
+		<result column="reg_dt"  property="regDt" />
+		<result column="atch_file_id"  property="atchFileId" />
+	</resultMap> -->
+	
+	
+	<!-- <select id="searchMember" parameterType="kr.or.ddit.member.vo.MemberVO"
+								resultMap="memMap">
+	
+		select *
+		 from mymember where 1=1 
+		
+		<if test='memId != null and memId != ""'>
+			and mem_id = #{memId}
+		</if>
+		<if test='memName != null and memName != ""'>
+			and mem_name = #{memName}
+		</if>
+		<if test='memTel != null and memTel != ""'>
+			and mem_tel = #{memTel}
+		</if>
+		<if test='memAddr != null and !memAddr.equals("")'>
+			and mem_addr like '%' || #{memAddr} || '%'
+		</if>
+			
+	
+	</select>
+	
+	
+	 -->
+	
+
+
+</mapper>

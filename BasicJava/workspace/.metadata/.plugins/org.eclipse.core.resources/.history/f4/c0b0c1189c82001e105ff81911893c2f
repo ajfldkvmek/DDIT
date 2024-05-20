@@ -1,0 +1,15 @@
+package print;
+
+public class MemberPrint {
+
+	
+	public void memberHome() {
+		
+		System.out.println("1. 도서대출");
+		System.out.println("2. 도서대출");
+		System.out.println("3. 도서대출");
+		System.out.println("4. 도서대출");
+		System.out.println("5. 도서대출");
+		System.out.println("6. 도서대출");
+	}
+}

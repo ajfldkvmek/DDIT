@@ -1,0 +1,14 @@
+package kr.or.ddit.main.dao;
+
+public interface IMainDAO {
+
+	List<FreeVO> getFreeList();
+	void getFreeSize();
+	
+	void getBoardList();
+	void getBoardSize();
+	
+	void getNoticeList();
+	void getNoticeSize();
+
+}

@@ -1,0 +1,16 @@
+package kr.or.ddit.board.service;
+
+import java.util.List;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.vo.BoardVO;
+
+public interface IBoardService {
+
+	public List<BoardVO> selectBoardList();
+
+	public ServiceResult insertBoard(BoardVO boardVO);
+
+	public BoardVO selectBoard(int boNo);
+	
+}

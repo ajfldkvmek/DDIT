@@ -1,0 +1,28 @@
+package controller;
+
+import print.MemberPrint;
+import util.ScanUtil;
+import util.View;
+
+public class MemberController extends MemberPrint {
+
+	public View memberMenu() {
+		memberHome();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+		switch (select) {
+
+		case 1:
+
+		case 2:
+		case 3:
+		case 4:
+			return View.ROOM;
+		case 5:
+			return View.EVENT;
+		case 6:
+		default:
+			return View.MEMBER_MENU;
+		}
+	}
+
+}

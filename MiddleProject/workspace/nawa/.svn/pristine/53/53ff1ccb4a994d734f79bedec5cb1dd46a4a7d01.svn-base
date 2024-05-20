@@ -1,0 +1,113 @@
+package board.service;
+
+import java.util.List;
+
+import board.dao.IPostDao;
+import board.dao.PostDaoImpl;
+import board.vo.PostVO;
+
+public class PostServiceImpl implements IPostService {
+
+	private static IPostService postService;
+
+	private IPostDao postDao;
+
+	private PostServiceImpl() {
+		postDao = PostDaoImpl.getInstance();
+	}
+
+	public static IPostService getInstance() {
+
+		if (postService == null) {
+			postService = new PostServiceImpl();
+		}
+		return postService;
+	}
+
+	public int registPost(PostVO pv) {
+		int cnt = postDao.insertPost(pv);
+		return cnt;
+	}
+
+	public int modifyPost(PostVO pv) {
+		int cnt = postDao.updatePost(pv);
+		return cnt;
+	}
+
+	public boolean checkPostNo(int postNo) {
+		boolean Exists = postDao.checkPostNo(postNo);
+		return Exists;
+	}
+
+	public int removePost(int postNo) {
+		int cnt = postDao.deletePost(postNo);
+		return cnt;
+	}
+
+	public List<PostVO> displayAllPost() {
+		List<PostVO> postList = postDao.selectAll();
+		return postList;
+	}
+
+	public List<PostVO> searchPost(String searchField, String searchText) {
+//	public List<PostVO> searchPost(List<PostVO> searchList) {
+//		System.out.println("서비스에서 확인하는 searchField: " + searchField + " | " + "searchText: " + searchText);
+		List<PostVO> searchList = postDao.searchPost(searchField, searchText);
+//		List<PostVO> searchList = postDao.searchPost(searchList);
+//		public List<PostVO> searchPost(PostVO pv) {
+//		List<PostVO> searchList = postDao.searchPost(pv);
+//		System.out.println("서비스에서 출력하는 searchList: " + searchList);
+		return searchList;
+	}
+
+	@Override
+	public PostVO getPostNo(int postNo) {
+		PostVO pv = postDao.getPost(postNo);
+		return pv;
+	}
+
+	@Override
+//	public void updateViewCnt(PostVO pv) {
+	public void updateViewCnt(int postNo) {
+		postDao.updateViewCnt(postNo);
+	}
+	
+	/*
+	 * public List<PostVO> getPostListWithPaging(int startIdx, int countPerPage) {
+	 * System.out.println("service >>> "); return
+	 * postDao.getPostListWithPaging(startIdx, countPerPage); }
+	 */
+	
+	@Override
+	public List<PostVO> getPostListWithPaging(PostVO pv) {
+		//postDao.getPostListWithPaging(pv);
+		return postDao.getPostListWithPaging(pv);
+	}
+
+	@Override
+	public int getTotalPostCount() {
+        return postDao.getTotalPostCount();
+	}
+	
+	@Override
+//	public List<PostVO> searchPostWithPaging(String searchField, String searchText, int page, int countPerPage) {
+	public List<PostVO> searchPostWithPaging(PostVO pv) {
+	    // 페이징 시작 위치 계산
+		/*
+		 * int start = (page - 1) * countPerPage; if(start <= 0) start = 1;
+		 */
+//		System.out.println("service searchField: " + searchField + " | searchText: " + searchText + " | start: "  + start + " | countPerPage: "  + countPerPage);
+
+	    // PostDao를 통해 검색 결과를 페이징하여 가져옴
+//		return postDao.searchPostWithPaging(searchField, searchText, start, countPerPage);
+		return postDao.searchPostWithPaging(pv);
+	}
+
+	@Override
+	public int getTotalSearchCount(PostVO pv) {
+//		System.out.println("service getTotalSearchCount: " + searchField + " | " + searchText);
+	    return postDao.getTotalSearchCount(pv);
+	}
+
+
+}

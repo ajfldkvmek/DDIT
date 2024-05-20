@@ -1,0 +1,89 @@
+package board.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import board.service.IPostService;
+import board.service.PostServiceImpl;
+import board.vo.PostVO;
+
+@WebServlet("/board/search.do")
+public class SearchController extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		PostVO pv = new PostVO();
+		IPostService postService = PostServiceImpl.getInstance();
+
+        String searchField = req.getParameter("searchField");
+        String searchText = req.getParameter("searchText");
+        System.out.println("Controller searchField: " + searchField + " | " + "searchText: " + searchText);
+
+        String pageStr = req.getParameter("page");
+        // 현재 페이지 번호 가져오기
+//        int page = getPageNumber(req); // 현재 페이지 번호 가져오기
+        int page = (pageStr != null && !pageStr.isEmpty()) ? Integer.parseInt(pageStr) : 1;
+        // 페이지당 포스트 수 조절
+        int countPerPage = 10; 
+        // 페이지 시작&끝 번호
+        int start = (page - 1) * countPerPage + 1;
+        int end = page*countPerPage;
+        
+        pv.setSearchStartIdx(start);
+        pv.setSearchCountPerPage(end);
+        pv.setSearchField(searchField);
+        pv.setSearchText(searchText);
+        
+        // 검색 결과의 총 개수를 가져와 전체 페이지 수 계산
+        int totalSearchCount = postService.getTotalSearchCount(pv);
+        int totalSearchPages = (int) Math.ceil((double) totalSearchCount / countPerPage);
+        
+        List<PostVO> searchList = new ArrayList<PostVO>();
+        if (searchField != null && searchText != null) {
+            // 검색 결과를 페이징하여 가져오기
+//        	List<PostVO> searchList = postService.searchPostWithPaging(searchField, searchText, (page - 1) * countPerPage, countPerPage);
+            searchList = postService.searchPostWithPaging(pv);
+            System.out.println("searchList: " + searchList);
+            req.setAttribute("searchList", searchList);
+            req.setAttribute("totalPages", totalSearchPages);
+            
+            
+            // 현재 페이지 전달
+            req.setAttribute("currentPage", page);
+
+            req.getRequestDispatcher("/board/board/search.jsp").forward(req, resp);
+        } else {
+            // 검색어가 없는 경우 전체 포스트를 가져오기
+			/*
+			 * List<PostVO> postList = postService.getPostListWithPaging();
+			 * 
+			 * int totalPostCount = postService.getTotalPostCount(); int totalPages = (int)
+			 * Math.ceil((double) totalPostCount / countPerPage);
+			 * 
+			 * req.setAttribute("postList", postList); req.setAttribute("totalPages",
+			 * totalPages);
+			 */
+            req.getRequestDispatcher("/board/list.do").forward(req, resp);
+        }
+
+
+	}
+	
+//	 private int getPageNumber(HttpServletRequest req) {
+//	        String pageStr = req.getParameter("page");
+//	        return (pageStr != null && !pageStr.isEmpty()) ? Integer.parseInt(pageStr) : 1;
+//	    }
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+	
+}

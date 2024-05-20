@@ -1,0 +1,226 @@
+
+1월 23, 2024 10:49:48.873 NEW SESSION
+1월 23, 2024 10:49:48.873 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 11:05:57.338 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 11:06:45.135 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 11:08:38.936 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 11:09:07.967 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 11:09:43.301 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 11:28:56.142 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 11:45:24.537 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 12:09:33.750 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 12:13:48.765 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 12:19:52.623 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 12:26:43.810 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 14:19:40.161 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 23, 2024 15:50:11.389 [8900:7564:0123/155011.389:ERROR:cert_verify_proc_builtin.cc(705)] CertVerifyProcBuiltin for weblog.e-himart.co.kr failed:
+1월 23, 2024 15:50:11.389 ----- Certificate i=0 (CN=weblog.e-himart.co.kr,O=Lotte Himart Co.\,Ltd,L=Gangnam-gu,ST=Seoul,C=KR) -----
+1월 23, 2024 15:50:11.389 ERROR: Time is after notAfter
+1월 23, 2024 15:50:11.389 
+1월 23, 2024 15:50:11.390 
+1월 23, 2024 17:06:48.541 [8900:9196:0123/170648.540:ERROR:CONSOLE(0)] "ReferenceError: dragEvent is not defined", source:  (0)
+
+1월 24, 2024 09:06:48.185 NEW SESSION
+1월 24, 2024 09:06:48.185 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+1월 24, 2024 18:51:19.659 NEW SESSION
+1월 24, 2024 18:51:19.659 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 18:51:50.707 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 18:52:32.952 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 18:54:54.244 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:04:36.968 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:05:01.784 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:15:07.630 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:17:50.998 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:19:31.888 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:20:01.476 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:21:46.127 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:34:31.817 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:42:23.482 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:44:34.534 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:47:40.810 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:49:14.193 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:49:40.304 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:52:43.719 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:54:59.299 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:55:33.22 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:56:12.60 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:56:48.255 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:57:57.158 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:58:48.470 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:59:01.151 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:59:17.579 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 19:59:38.818 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 20:00:25.299 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 20:00:49.744 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+1월 24, 2024 20:10:09.455 NEW SESSION
+1월 24, 2024 20:10:09.455 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 24, 2024 20:10:48.707 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+1월 25, 2024 09:03:43.913 NEW SESSION
+1월 25, 2024 09:03:43.913 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 25, 2024 09:20:44.159 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 25, 2024 09:27:40.365 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 25, 2024 09:30:00.741 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 25, 2024 09:38:10.738 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 25, 2024 09:50:15.116 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 25, 2024 09:53:31.486 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 25, 2024 09:54:23.858 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+1월 26, 2024 09:11:48.360 NEW SESSION
+1월 26, 2024 09:11:48.361 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 26, 2024 11:36:47.967 [16012:16932:0126/113647.967:ERROR:CONSOLE(0)] "ReferenceError: dragEvent is not defined", source:  (0)
+1월 26, 2024 11:36:49.178 [16012:16932:0126/113649.178:ERROR:CONSOLE(0)] "ReferenceError: dragEvent is not defined", source:  (0)
+
+1월 30, 2024 09:23:10.740 NEW SESSION
+1월 30, 2024 09:23:10.740 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 30, 2024 09:31:57.154 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 30, 2024 10:42:06.253 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 30, 2024 13:55:21.861 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+1월 31, 2024 09:30:01.168 NEW SESSION
+1월 31, 2024 09:30:01.169 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 10:18:02.456 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 10:20:28.132 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 10:21:35.583 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 11:13:24.476 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 11:16:09.562 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 11:23:17.273 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 12:28:22.695 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 12:29:20.823 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 12:33:12.07 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 12:35:34.990 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 12:37:49.126 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 12:41:41.235 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 31, 2024 12:41:58.387 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+2월 01, 2024 09:15:58.112 NEW SESSION
+2월 01, 2024 09:15:58.112 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 01, 2024 09:34:33.776 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 01, 2024 09:37:26.729 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 01, 2024 09:43:52.899 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 01, 2024 09:44:50.805 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 01, 2024 09:46:12.542 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 01, 2024 09:47:33.627 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 01, 2024 10:41:21.720 [16596:18320:0201/104121.720:ERROR:device_event_log_impl.cc(192)] [10:41:21.719] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+2월 01, 2024 10:41:21.726 [16596:18320:0201/104121.726:ERROR:device_event_log_impl.cc(192)] [10:41:21.725] USB: usb_service_win.cc:308 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+
+2월 05, 2024 09:50:08.247 NEW SESSION
+2월 05, 2024 09:50:08.247 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 05, 2024 09:50:35.51 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 05, 2024 09:51:16.262 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 05, 2024 10:21:42.36 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 05, 2024 10:26:51.636 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+2월 06, 2024 11:36:45.294 NEW SESSION
+2월 06, 2024 11:36:45.294 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 06, 2024 11:43:38.671 [4568:16320:0206/114338.671:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint (unset) for first_image_paint 0.396 s
+2월 06, 2024 11:43:38.683 [4568:16320:0206/114338.683:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:38.801 [4568:16320:0206/114338.801:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:38.939 [4568:16320:0206/114338.939:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:39.51 [4568:16320:0206/114339.051:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:39.202 [4568:16320:0206/114339.201:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:39.319 [4568:16320:0206/114339.319:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:39.437 [4568:16320:0206/114339.437:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:39.585 [4568:16320:0206/114339.585:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:39.767 [4568:16320:0206/114339.767:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:39.898 [4568:16320:0206/114339.898:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:40.133 [4568:16320:0206/114340.133:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:40.253 [4568:16320:0206/114340.252:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:40.367 [4568:16320:0206/114340.367:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:40.493 [4568:16320:0206/114340.493:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:40.897 [4568:16320:0206/114340.897:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:44.160 [4568:16320:0206/114344.160:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:44.916 [4568:16320:0206/114344.916:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:45.52 [4568:16320:0206/114345.051:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:45.169 [4568:16320:0206/114345.169:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:45.583 [4568:16320:0206/114345.583:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:52.818 [4568:16320:0206/114352.817:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:52.945 [4568:16320:0206/114352.945:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:53.54 [4568:16320:0206/114353.054:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:54.733 [4568:16320:0206/114354.733:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:54.862 [4568:16320:0206/114354.862:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:54.970 [4568:16320:0206/114354.970:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:55.149 [4568:16320:0206/114355.149:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:55.254 [4568:16320:0206/114355.253:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:55.380 [4568:16320:0206/114355.380:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:55.521 [4568:16320:0206/114355.521:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:55.661 [4568:16320:0206/114355.661:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:59.161 [4568:16320:0206/114359.161:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:59.268 [4568:16320:0206/114359.267:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:59.383 [4568:16320:0206/114359.383:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:43:59.501 [4568:16320:0206/114359.501:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:00.51 [4568:16320:0206/114400.051:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:00.169 [4568:16320:0206/114400.169:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:00.281 [4568:16320:0206/114400.281:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:06.161 [4568:16320:0206/114406.161:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:06.279 [4568:16320:0206/114406.279:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:06.405 [4568:16320:0206/114406.405:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:08.135 [4568:16320:0206/114408.135:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:08.248 [4568:16320:0206/114408.248:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:08.362 [4568:16320:0206/114408.362:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:12.112 [4568:16320:0206/114412.112:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:15.163 [4568:16320:0206/114415.162:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:15.409 [4568:16320:0206/114415.409:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:15.613 [4568:16320:0206/114415.613:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:15.729 [4568:16320:0206/114415.729:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:15.860 [4568:16320:0206/114415.860:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:23.891 [4568:16320:0206/114423.891:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:24.145 [4568:16320:0206/114424.145:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:24.262 [4568:16320:0206/114424.262:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:24.384 [4568:16320:0206/114424.384:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:27.896 [4568:16320:0206/114427.896:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:28.310 [4568:16320:0206/114428.310:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:28.722 [4568:16320:0206/114428.722:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:28.841 [4568:16320:0206/114428.841:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:29.358 [4568:16320:0206/114429.358:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:29.472 [4568:16320:0206/114429.472:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:29.592 [4568:16320:0206/114429.592:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:30.23 [4568:16320:0206/114430.023:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:30.140 [4568:16320:0206/114430.140:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:35.827 [4568:16320:0206/114435.827:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:36.53 [4568:16320:0206/114436.053:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:36.809 [4568:16320:0206/114436.809:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:36.924 [4568:16320:0206/114436.923:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:37.55 [4568:16320:0206/114437.055:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:39.221 [4568:16320:0206/114439.220:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:39.352 [4568:16320:0206/114439.352:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:45.339 [4568:16320:0206/114445.339:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:45.584 [4568:16320:0206/114445.584:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:47.970 [4568:16320:0206/114447.970:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:48.638 [4568:16320:0206/114448.638:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:50.22 [4568:16320:0206/114450.022:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:50.237 [4568:16320:0206/114450.237:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:44:58.32 [4568:16320:0206/114458.032:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 11:49:54.898 [4568:16320:0206/114954.898:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 12:21:05.868 [4568:16320:0206/122105.867:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 12:21:05.999 [4568:16320:0206/122105.999:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 12:21:07.68 [4568:16320:0206/122107.068:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 12:21:07.199 [4568:16320:0206/122107.199:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 12:21:07.590 [4568:16320:0206/122107.590:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 12:26:32.893 [4568:16320:0206/122632.893:ERROR:page_load_metrics_update_dispatcher.cc(179)] Invalid first_paint 0.429 s for first_image_paint 0.396 s
+2월 06, 2024 13:50:01.567 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+2월 06, 2024 19:15:37.395 NEW SESSION
+2월 06, 2024 19:15:37.395 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+2월 07, 2024 11:15:40.85 NEW SESSION
+2월 07, 2024 11:15:40.85 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 07, 2024 11:16:42.238 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 07, 2024 12:40:07.980 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 07, 2024 12:45:02.885 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+2월 08, 2024 09:37:37.36 NEW SESSION
+2월 08, 2024 09:37:37.36 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 09:45:49.876 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 09:51:00.199 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 10:07:53.354 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 10:16:51.45 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 11:42:27.570 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 11:50:52.800 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 11:52:12.303 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 08, 2024 12:10:54.367 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+2월 08, 2024 21:31:58.517 NEW SESSION
+2월 08, 2024 21:31:58.517 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.

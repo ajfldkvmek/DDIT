@@ -1,0 +1,86 @@
+package member.service;
+
+import java.util.List;
+
+import member.atch.dao.AtchFileDAOImpl;
+import member.atch.dao.IAtchFileDAO;
+import member.atch.vo.AtchFileVO;
+import member.dao.IMemberDAO;
+import member.dao.MemberDAOImpl;
+import member.vo.MemberVO;
+
+public class MemberServiceImpl implements IMemberService{
+
+	
+	private static IMemberService memService;
+	
+	private IMemberDAO memDAO;
+	
+	private IAtchFileDAO fileDAO;
+	
+	private MemberServiceImpl() {
+		//memDao = MemberDaoImplForJDBC.getInstance();
+		memDAO = MemberDAOImpl.getInstance();
+		fileDAO =  AtchFileDAOImpl.getInstance();
+	}
+	
+	
+	
+	public static IMemberService getInstance() {
+		
+		if(memService == null) {
+			memService = new MemberServiceImpl();
+		}
+		return memService;
+	}
+	
+	
+	@Override
+	public List<MemberVO> displayAllMember() {
+		List<MemberVO> list = memDAO.displayAllMember();
+		return list;
+	}
+
+	@Override
+	public List<MemberVO> searchMember(String str) {
+//		System.out.println(str);
+		return memDAO.searchMember(str);
+	}
+
+	@Override
+	public MemberVO loginCheck(MemberVO mv) {
+		System.out.println("[MemberServiceImpl] loginCheck mv: " + mv);
+		if(memDAO.loginCheck(mv) != null)
+			loginUser =  memDAO.loginCheck(mv);
+		
+		System.out.println("서비스>>> 첨부파일 번호" + loginUser.getAtchFileId());
+		
+		String streFileNm = fileDAO.getDetail(loginUser.getAtchFileId());
+		//atchFileId
+		loginUser.setStreFileNm(streFileNm);
+		
+		System.out.println("서비스에서 로그인 정보 출력>>");
+		System.out.println(loginUser.getTutNo());
+		System.out.println(loginUser.getAtchFileId());
+		System.out.println(loginUser.getDelyn());
+		
+		return loginUser;
+	}
+
+	@Override
+	public int insertMember(MemberVO mv) {
+		return memDAO.insertMember(mv);
+	}
+
+	@Override
+	public int tempBlock(MemberVO mv) {
+		return memDAO.tempBlock(mv);
+	}
+
+	@Override
+	public int updateMember(MemberVO mv) {
+		return memDAO.updateMember(mv);
+	}
+
+
+}

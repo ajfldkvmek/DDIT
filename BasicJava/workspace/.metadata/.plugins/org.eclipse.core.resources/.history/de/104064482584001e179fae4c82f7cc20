@@ -1,0 +1,9 @@
+package vo;
+
+public class RoomReserve {
+	 private String mem_id;
+	 private int seat_no;
+	 private String resv_time;
+	 private String resv_no;
+	 private String out_time;
+}

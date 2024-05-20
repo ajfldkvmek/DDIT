@@ -1,0 +1,8 @@
+package util;
+
+public enum View {
+	HOME, 
+	ADMIN_HOME, ADMIN_MENU,
+	MEMBER_HOME, MEMBER_MENU, SIGNUP, EDIT, DELETE, MEMBER_UPDATE, MEMBER_DELETE,
+	
+}

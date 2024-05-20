@@ -1,0 +1,36 @@
+package lecture.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lecture.service.ILecService;
+import lecture.service.LecServiceImpl;
+import lecture.vo.LectureVO;
+
+@WebServlet ("/list.do")
+public class ListController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		
+		ILecService lecService = LecServiceImpl.getInstance();
+		
+		List<LectureVO> lecList = lecService.displayAllLec();
+		
+		req.setAttribute("lecList", lecList);
+		req.getRequestDispatcher("/lecture/list.jsp").forward(req, resp);
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+}

@@ -1,0 +1,51 @@
+package kr.or.ddit.free.service;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.free.dao.IFreeDAO;
+import kr.or.ddit.vo.FreeVO;
+import kr.or.ddit.vo.NoticeVO;
+import kr.or.ddit.vo.PaginationInfoVO;
+
+@Service
+public class FreeServiceImpl implements IFreeService{
+
+	@Inject
+	private IFreeDAO freeDAO;
+
+	@Override
+	public ServiceResult insertFree(FreeVO freeVO) {
+		ServiceResult result = null;
+		int status = freeDAO.insertfree(freeVO);
+		if(status > 0) {
+			result = ServiceResult.OK;
+		} else {
+			result = ServiceResult.FAILED;
+		}
+		return result;
+	}
+
+	@Override
+	public int selectFreeCount(PaginationInfoVO<FreeVO> pagingVO) {
+		return freeDAO.selectFreeCount(pagingVO);
+	}
+
+	@Override
+	public List<FreeVO> selectFreeList(PaginationInfoVO<FreeVO> pagingVO) {
+		List<NoticeVO> l1 = noticeDAO.selectNoticeList(pagingVO);
+		System.out.println("service>>>>>>>>>>>>>" + l1);
+		return noticeDAO.selectNoticeList(pagingVO);
+	}
+
+	@Override
+	public FreeVO selectFree(int freeNo) {
+		noticeDAO.incrementHit(noticeNo);
+		return noticeDAO.selectNotice(noticeNo);
+	}
+	
+}

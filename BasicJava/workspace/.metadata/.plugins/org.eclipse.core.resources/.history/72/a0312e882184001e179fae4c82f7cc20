@@ -1,0 +1,117 @@
+package dao;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import service.exceptChk;
+import util.ConvertUtils;
+import util.JDBCUtil;
+import vo.Book;
+import vo.BookRequest;
+
+public class BookDAO {
+	private static BookDAO singleTon = null;
+
+	private BookDAO() {
+	};
+
+	public static BookDAO getInstance() {
+		if (singleTon == null) {
+			singleTon = new BookDAO();
+		}
+		return singleTon;
+	}
+	
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+	exceptChk chk = exceptChk.getInstance();
+	
+	String sql = "select rownum as num, book_no, title, author,text, publisher,\r\n" + 
+				"to_char(pub_date,'yyyy-mm-dd') pub_date, rent_count,book_stat,recom_book, resv_mem_id,cate_no,book_del ";
+
+	//회원이 보는 도서 리스트
+	public List<Book> recBook() {
+		String sqlRec = sql+ "from book where book_del ='N' and recom_book = 'Y'";
+		
+		if((jdbc.selectList(sqlRec)) == null) return null;
+		
+		List<Map<String, Object>> recBook = jdbc.selectList(sqlRec);
+		return ConvertUtils.convertToList(recBook, Book.class);
+	}
+	
+	//회원이 보는 인기도서
+	public List<Book> bestBook() {
+		String sqlBest = sql+"from (select rownum as num, x.* from(select *from book order by rent_count desc) x)\r\n" + 
+						"where book_del ='N' and num<=20";
+		List btBook = jdbc.selectList(sqlBest);
+		return ConvertUtils.convertToList(btBook, Book.class);		
+	}
+	//회원이 보는 신착도서
+	public List<Book> newBook() {
+		String sqlNew = sql + "from book where pub_Date like '23/11%'";
+		List newBook = jdbc.selectList(sqlNew);
+		return ConvertUtils.convertToList(newBook, Book.class);		
+	}
+
+	//관리자가 보는 도서 전체 리스트
+	
+	public List<Book> adBookList() {
+		
+		String sqlBook = sql + "from book";
+		List<Map<String, Object>> adBookList = jdbc.selectList(sqlBook);
+
+		return ConvertUtils.convertToList(adBookList, Book.class);
+	}
+	
+	//관리자가 도서 추가
+	public void bookUpdate(List<Object> newBook) {
+		String sql = "insert into book(book_no,title,author,text,publisher,pub_date,recom_book,cate_no)\r\n" + 
+					"values(?,?,?,?,?,?,?,?)";
+		jdbc.update(sql,newBook);
+	}
+
+	//관리자가 도서 삭제
+	public void bookDelete(String select) {
+		String sql = "update book set book_del='Y' where book_no = ?";
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		jdbc.update(sql,param);
+	}
+	
+	//관리자가 추천도서 등록
+	public void reBookUpdate(String select) {
+		String sql = "update book set recom_book='Y' where book_no = ?";
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		jdbc.update(sql,param);
+	}
+	
+	//관리자가 희망도서 목록 보기
+	public List<BookRequest> wishBookList() {
+		String sql = "select * from book_request";
+		List<Map<String, Object>> wishBookList = jdbc.selectList(sql);
+		return ConvertUtils.convertToList(wishBookList, BookRequest.class);
+	}
+	
+	//도서검색
+	String sqlSc = sql + "from book where title||author||publisher like '%'||?||'%' ";
+	public List<Book> scBook(String scKey) {
+		List<Object> param = new ArrayList<Object>();
+		param.add(scKey);
+		if(jdbc.selectList(sqlSc, param) == null) return null;
+		else {
+			List<Map<String, Object>> scBookList = jdbc.selectList(sqlSc, param);
+			return ConvertUtils.convertToList(scBookList, Book.class);
+		}	
+	}
+	//검색된 도서 목록에서 선택한 도서 나타내기
+	public List<Book> selBook(List<Object> param) {
+		String sqlSelBook = "select * from (" + sqlSc + ") where num=?";
+		if(jdbc.selectList(sqlSelBook, param) == null) return null;
+		List<Map<String, Object>> selList = jdbc.selectList(sqlSelBook, param);
+		return ConvertUtils.convertToList(selList, Book.class);
+	}
+}
+
+//231116 0912

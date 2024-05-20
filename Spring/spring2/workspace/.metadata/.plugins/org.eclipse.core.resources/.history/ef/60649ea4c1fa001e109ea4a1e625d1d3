@@ -1,0 +1,8 @@
+package kr.or.ddit.codingtest.cotroller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class CodingTestController {
+
+}

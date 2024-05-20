@@ -1,0 +1,18 @@
+package kr.or.ddit.free.web;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.free.service.IFreeService;
+
+@Controller
+@RequestMapping("free")
+public class FreeInsertController {
+
+	@Inject
+	private IFreeService freeService;
+	
+	public String
+}

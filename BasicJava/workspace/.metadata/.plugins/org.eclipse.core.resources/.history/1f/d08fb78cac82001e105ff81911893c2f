@@ -1,0 +1,8 @@
+package vo;
+
+@Data
+public class Room {
+
+	 private int seat_no;
+	 private String seat_stat;
+}

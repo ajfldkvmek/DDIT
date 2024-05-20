@@ -1,0 +1,204 @@
+package board.vo;
+
+import java.time.LocalDate;
+
+/**
+ * DB 테이블에 존재하는 컬럼명을 기준으로 데이터를 처리하기 위한 클래스
+ * @author PC-24
+ *
+ */
+public class PostVO {
+	private int postNo;
+	private String postTitle;
+	private String postWriter;
+	private LocalDate postDate;
+	private String postContent;
+	private String postSet;
+	private long atchFileId;
+	private long viewCnt = 0;
+	
+	private String searchField;
+	private String searchText; 
+	
+	private int commNo;
+	private String commContent;
+	private LocalDate commDate;
+//	private String memId;
+	private String commWriter;
+	
+	
+	public PostVO(String postTitle, String postContent) {
+		super();
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+	}
+
+	public PostVO(int postNo, String postTitle, String postContent) {
+		super();
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+	}
+
+	public PostVO(String postTitle, String postWriter, String postContent) {
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.postContent = postContent;
+	}
+	
+	public PostVO(int postNo, String postTitle, String postWriter, String postContent) {
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.postContent = postContent;
+	}
+	
+	public PostVO(int postNo, String postTitle, String postWriter, LocalDate postDate, String postContent) {
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.postDate = postDate;
+		this.postContent = postContent;
+	}
+	
+	public PostVO() {
+		
+	}
+	
+
+	
+	
+	public PostVO(String commContent) {
+		super();
+		this.commContent = commContent;
+	}
+	
+	
+	public PostVO(int commNo, String commContent) {
+		super();
+		this.commNo = commNo;
+		this.commContent = commContent;
+	}
+
+	public PostVO(int postNo, int commNo, String commContent) {
+		super();
+		this.postNo = postNo;
+		this.commNo = commNo;
+		this.commContent = commContent;
+	}
+	
+	
+
+	public PostVO(String commContent, int postNo, String commWriter) {
+		super();
+		this.commContent = commContent;
+		this.postNo = postNo;
+		this.commWriter = commWriter;
+	}
+
+	public int getPostNo() {
+		return postNo;
+	}
+	public void setPostNo(int postNo) {
+		this.postNo = postNo;
+	}
+	public String getPostTitle() {
+		return postTitle;
+	}
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+	public String getPostContent() {
+		return postContent;
+	}
+	public void setPostContent(String postContent) {
+		this.postContent = postContent;
+	}
+	public LocalDate getPostDate() {
+		return postDate;
+	}
+	public void setPostDate(LocalDate postDate) {
+		this.postDate = postDate;
+	}
+	public String getPostWriter() {
+		return postWriter;
+	}
+	public void setPostWriter(String postWriter) {
+		this.postWriter = postWriter;
+	}
+
+	public long getViewCnt() {
+		return viewCnt;
+	}
+
+	public void setViewCnt(long viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
+	public String getPostSet() {
+		return postSet;
+	}
+
+	public void setPostSet(String postSet) {
+		this.postSet = postSet;
+	}
+
+	public long getAtchFileId() {
+		return atchFileId;
+	}
+
+	public void setAtchFileId(long atchFileId) {
+		this.atchFileId = atchFileId;
+	}
+
+	public String getSearchField() {
+		return searchField;
+	}
+
+	public void setSearchField(String searchField) {
+		this.searchField = searchField;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public int getCommNo() {
+		return commNo;
+	}
+
+	public void setCommNo(int commNo) {
+		this.commNo = commNo;
+	}
+
+	public String getCommContent() {
+		return commContent;
+	}
+
+	public void setCommContent(String commContent) {
+		this.commContent = commContent;
+	}
+
+	public LocalDate getCommDate() {
+		return commDate;
+	}
+
+	public void setCommDate(LocalDate commDate) {
+		this.commDate = commDate;
+	}
+
+	public String getCommWriter() {
+		return commWriter;
+	}
+
+	public void setCommWriter(String commWriter) {
+		this.commWriter = commWriter;
+	}
+
+	
+	
+}

@@ -1,0 +1,105 @@
+package board.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import atch.service.BoardAtchFileServiceImpl;
+import atch.service.IBoardAtchFileService;
+import atch.vo.BoardAtchFileVO;
+import board.service.CommentServiceImpl;
+import board.service.ICommentService;
+import board.service.IPostService;
+import board.service.PostServiceImpl;
+import board.vo.PostVO;
+
+@WebServlet("/board/detail.do")
+public class DetailController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		int postNo = Integer.parseInt(req.getParameter("postNo")); //key값=id
+		
+		IPostService postService = PostServiceImpl.getInstance();
+		
+		// 먼저 조회수 업데이트
+	    postService.updateViewCnt(postNo);
+
+	    // 게시물 조회
+	    PostVO pv = postService.getPostNo(postNo);
+		
+		req.setAttribute("pv", pv);
+		
+		
+		if(pv.getAtchFileId() > 0) { // 첨부파일이 존재하는 경우...
+			
+			IBoardAtchFileService fileService = BoardAtchFileServiceImpl.getInstance();
+			
+			BoardAtchFileVO atchFileVO = new BoardAtchFileVO();
+			atchFileVO.setAtchFileId(pv.getAtchFileId());
+			
+			List<BoardAtchFileVO> atchFileList = 
+					fileService.getAtchFileList(atchFileVO);
+			
+			req.setAttribute("atchFileList", atchFileList);
+		}
+
+		
+		
+		//댓글 표시 부분
+		ICommentService commService = CommentServiceImpl.getInstance();
+
+		String commPageStr = req.getParameter("commPage");
+        int commPage = (commPageStr != null && !commPageStr.isEmpty()) ? Integer.parseInt(commPageStr) : 1;
+      
+        int commCountPerPage = 5; // 페이지당 댓글 수 조절 #######################################################################################
+        
+        List<PostVO> commList = commService.commentPaging(postNo, (commPage - 1) * commCountPerPage, commCountPerPage);
+                
+        int totalCommCount = commService.totalCommentCount(postNo);
+        int totalCommPages = (int) Math.ceil((double) totalCommCount / commCountPerPage);
+        
+        System.out.println("디테일컨트롤러 null체크: " + totalCommCount + " | " + totalCommPages);
+        
+        List<PostVO> ccList = new ArrayList<PostVO>();
+        /*
+        for(int i =0; i < commCountPerPage; i++) {
+        	ccList.add(commList.get(i)); 	
+        } // 3개만 잘라온 것 (다음 페이지가 없음 ㅠ)
+         */
+        //(현재댓글페이지 - 1)*페이지당댓글수 ~  (현재댓글페이지*페이지당댓글수) - 1
+        //(commPage-1)*commCountPerPage         ((commPage*commCountPerPage)-1)
+
+        //댓글페이지 자르기
+		int startCommPage = (commPage-1)*commCountPerPage; 
+		int endCommPage =(commPage*commCountPerPage)-1; req.setAttribute("commList", ccList);
+		req.setAttribute("startCommPage", startCommPage);
+		req.setAttribute("endCommPage", endCommPage);
+		req.setAttribute("commCountPerPage", commCountPerPage);
+		
+        
+        // 댓글 페이지 정보 전달
+        req.setAttribute("totalCommPages", totalCommPages);
+        req.setAttribute("currentCommPage", commPage);
+        
+
+        req.setAttribute("commList", commList);
+
+//		req.getRequestDispatcher("/views/board/list.do").forward(req, resp);
+		req.getRequestDispatcher("/views/board/detail.jsp").forward(req,resp);
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+		//(상세보기는 doGet doPost 나누는게 큰 의미 없기 때문에...)
+	}
+}

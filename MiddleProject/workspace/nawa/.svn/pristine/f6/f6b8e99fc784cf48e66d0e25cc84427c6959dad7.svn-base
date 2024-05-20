@@ -1,0 +1,125 @@
+package lecture.vo;
+
+public class LectureVO {
+
+	private String lecNo;
+	private String lecTitle;
+	private String lecCont;
+	private int lecCnt;
+	private int lecMax;
+	private String tutNo;
+	private int price;
+	private int lecScore;
+	private String lecGrade;
+	
+	
+	public String getLecGrade() {
+		return lecGrade;
+	}
+
+
+	public void setLecGrade(String lecGrade) {
+		this.lecGrade = lecGrade;
+	}
+
+
+	public int getLecScore() {
+		return lecScore;
+	}
+
+
+	public void setLecScore(int lecScore) {
+		this.lecScore = lecScore;
+	}
+
+
+	public String getLecNo() {
+		return lecNo;
+	}
+
+
+	public void setLecNo(String lecNo) {
+		this.lecNo = lecNo;
+	}
+
+
+	public String getLecTitle() {
+		return lecTitle;
+	}
+
+
+	public void setLecTitle(String lecTitle) {
+		this.lecTitle = lecTitle;
+	}
+
+
+	public String getLecCont() {
+		return lecCont;
+	}
+
+
+	public void setLecCont(String lecCont) {
+		this.lecCont = lecCont;
+	}
+
+
+	public int getLecCnt() {
+		return lecCnt;
+	}
+
+
+	public void setLecCnt(int lecCnt) {
+		this.lecCnt = lecCnt;
+	}
+
+
+	public int getLecMax() {
+		return lecMax;
+	}
+
+
+	public void setLecMax(int lecMax) {
+		this.lecMax = lecMax;
+	}
+
+
+	public String getTutNo() {
+		return tutNo;
+	}
+
+
+	public void setTutNo(String tutNo) {
+		this.tutNo = tutNo;
+	}
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+	public LectureVO() {
+		
+	}
+
+
+	public LectureVO(String lecNo, String lecTitle, String lecCont, int lecCnt, int lecMax, String tutNo, int price) {
+		super();
+		this.lecNo = lecNo;
+		this.lecTitle = lecTitle;
+		this.lecCont = lecCont;
+		this.lecCnt = lecCnt;
+		this.lecMax = lecMax;
+		this.tutNo = tutNo;
+		this.price = price;
+	}
+
+	
+	
+
+}

@@ -1,0 +1,37 @@
+package service;
+
+import java.util.List;
+
+import controller.Controller;
+import dao.MemberDAO;
+import vo.Member;
+
+public class MemberService {
+	private static MemberService singleTon = null;
+
+	private MemberService() {
+	};
+
+	public static MemberService getInstance() {
+		if (singleTon == null) {
+			singleTon = new MemberService();
+		}
+		return singleTon;
+	}
+
+	MemberDAO mbDao = MemberDAO.getInstance();
+
+	public Member login(List<Object> param) {
+//		Member mb = mbDao.login(param);
+		return mbDao.login(param);
+	}
+
+	public boolean sign(List<Object> param) {
+		int reuslt = mbDao.sign(param);
+		if (reuslt == 0) {
+			return false;
+		} else
+			return true;
+	}
+
+}

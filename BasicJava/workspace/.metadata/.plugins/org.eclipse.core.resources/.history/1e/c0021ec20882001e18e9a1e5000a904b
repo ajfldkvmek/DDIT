@@ -1,0 +1,26 @@
+package dao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import util.ConvertUtils;
+import util.JDBCUtil;
+import vo.Member;
+
+public class BusDao {
+	private static BusDao singleTon = null;
+
+	private BusDao() {
+	};
+
+	public static BusDao getInstance() {
+		if (singleTon == null) {
+			singleTon = new BusDao();
+		}
+		return singleTon;
+	}
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+
+	
+}

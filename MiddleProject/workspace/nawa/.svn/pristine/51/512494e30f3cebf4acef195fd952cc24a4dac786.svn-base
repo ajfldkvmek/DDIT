@@ -1,0 +1,78 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>신규 게시물 등록</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+#insertContainer {
+padding: 10px;
+}
+#buttonContainer {
+padding: 10px;
+}
+.insertButton{
+border: 2px dashed teal;
+border-radius: 10px;
+background-color: white;
+padding: 0px 13px;
+font-family: 'Dongle', sans-serif;
+font-size: 150%;
+}
+textarea{
+resize: none;
+width: 80%;
+height: 500px;
+}
+</style>
+</head>
+
+<%@include file="/include/header.jsp"%>
+
+<body>
+<div class="col-sm-8 text-left">
+<!--  	<form action="insertMember" method="post"> -->
+<%-- 	<form action="${pageContext.request.contextPath}/board/insert.do" method="post" enctype="multipart/form-data"> --%>
+	<form action="./insert.do" method="post" enctype="multipart/form-data">
+ 		<div id="insertContainer"  class="form-group">
+
+				<label for="postWriter">작성자: </label>
+				<input type="text" class="form-control" id="postWriter" name="postWriter">
+
+				<label for="postTitle">제목: </label> 
+				<input type="text" class="form-control" id="postTitle" name="postTitle">
+
+				<label for="postContent">내용: </label>
+				<textarea class="form-control" id="postContent" name="postContent" 
+					maxlength="1000" 
+					placeholder="본문을 쓰세요."></textarea>
+
+				<label for="fileInput">첨부파일: </label>
+				<input type="file" id="fileInput" name="atchFile">
+
+		</div>
+		
+		<div id="buttonContainer" class="btn-group">
+		<button type="button" class="btn btn-default" onclick="location.href='./list.do'">list</button>
+		<button type="submit" class="btn btn-success">write</button>
+<!-- 		<button class="insertButton" onclick="loadPage('./board/list.do', 'contentSection')">write실패</button> -->
+<!-- 		<button class="insertButton" onclick="location.href='./board/list.do'" formtarget="contentSection">온클릭폼타겟</button> -->
+
+		</div>
+
+	</form>
+</div>
+<script>
+
+</script>
+</body>
+
+<%@include file="/include/footer.jsp"%>
+
+</html>

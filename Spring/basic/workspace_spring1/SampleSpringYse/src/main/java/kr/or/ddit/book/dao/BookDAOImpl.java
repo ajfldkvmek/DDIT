@@ -1,0 +1,101 @@
+package kr.or.ddit.book.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+/*
+ 	 @Repository는 데이터에 접근하는 클래스임을 명시
+ 	 해당 어노테이션이 있는 클래스는 스프링이 데이터를 관리하는 클래스라고 인지하여 자바빈(java bean)으로 등록해서 관리한다
+ 	 
+ 	 SqlSessionTemplate 객체를 변수로 선언한느 이유는 mapper xml을 실행시기키 위해서
+ 	  해당 객체 위에 @Autowired를 붙여서 SqlSessionTemplate 객체를 사용할 수 있도록 함
+ 	  이러한 형태를 '의존성 주입'이라고 한다
+ 	  
+ 	 SqlSessionTemplate 객체는 new 키워드를 통해 직접 생성하지 않고 의존성 주입을 통해 주입받는다
+ 	  스프링은 미리 만들어 놓은 SqlSessionTemplate 타입 객체를 BookDAO 객체에 주입함
+ 	  
+ 	 해당 과정은 스프릉에서 자동 실행되며 개발자가 직접 SqlSessionTemplate객체를 생성하는 일 없이 곧바로 사용할 수 있게 해줌
+ 	 
+ 	 SqlSessionTemplate 객체는 root-context.xml 에서 정의해 둔 객체이기도하고 
+ 	 	서비스가 시작될 떄 스프링은 미리 xml을 읽어 객체를 인스턴스화함
+ */
+@Repository
+public class BookDAOImpl implements BookDAO {
+
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
+	/*
+	 	sqlSessionTemplate.insert()
+	 	1)첫 번쨰 파라메터는 sql Mapper의 nameSpace + id 이다
+	 	 book_SQL.xml에서 namespace로 설정한 Book과 insert쿼리를 실행하기 위해만든 insert문의 id값 'insert'이다
+	 	 mybatis는 네임스페이스 + id조합으로 쿼리를 찾아서 실행한다
+	 	 
+	 	2)두 번쨰 파라미터는 쿼리에 전달할 데이터
+	 	 mapper내 insert쿼리를 실항해가 위해 전달되어지는 parameterType이 map이다
+	 	 
+	 	 
+	 	 외부에서 DAO까지 map에 title, category, price가 담겨져 온다
+	 	 그리고 useGeneratedKeys 와 KeyProperty의 설정 덕분에 Book의 pk인 book_id 항목이 생긴다
+	 */
+	
+	@Override
+	public int insert(Map<String, Object> map) {
+		/*
+	 	useGeneratedKeys와 KeyProperty의 설정에 따라서
+	 	쿼리가 실행되고 나면 파라메터 전달된 map객체에 Book테이블의 pk인 book_id 항목이 생기는데 아래와 같다
+	 	
+	 	
+	 	기존 ::
+	 		{
+	 			"title" 	: "제목"
+	 			"category" 	: "카테고리"
+	 			"price" 	: 1000
+	 		}
+	 	쿼리 실행 후 ::
+	 		{	
+	 			"title" 	: "제목"
+	 			"category"	: "카테고리"
+	 			"price" 	: 1000
+	 			"book_id"	: 1
+	 		}
+	 */
+		return sqlSessionTemplate.insert("Book.insert", map);
+	}
+
+	/*
+	 *  sqlSessionTemplate의 selectOne메소드는 데이터 한 개만 가져올 때 사용
+	 *  만약 쿼리 결과 행 수가 0개면 selectOne메소드는 null을 반환 하게되고
+	 *  쿼리 결과가 여러개이면 ToomanyResultException 예외 던짐
+	 *  우리가 작성한 쿼리 조건은 pk이므로 원자값 보장
+	 *  따라서 무조건 1 or 0
+	 */
+	@Override
+	public Map<String, Object> selectBook(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		// System.out.println("tlllllllllllllllllll" + map);
+		return sqlSessionTemplate.selectOne("Book.selectBook", map);
+	}
+
+	
+	@Override
+	public int update(Map<String, Object> map) {
+		return sqlSessionTemplate.update("Book.update", map);
+	}
+
+	@Override
+	public int delete(Map<String, Object> map) {
+		return sqlSessionTemplate.delete("Book.delete", map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectBookList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("Book.selectBookList", map);
+	}
+
+}

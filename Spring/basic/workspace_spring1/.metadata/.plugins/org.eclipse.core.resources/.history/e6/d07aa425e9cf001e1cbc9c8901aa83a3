@@ -1,0 +1,14 @@
+package kr.or.ddit.free.dao;
+
+import javax.inject.Inject;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class FreeDAOImpl implements IFreeDAO{
+
+	@Inject
+	private SqlSessionTemplate sqlSession;
+	
+}

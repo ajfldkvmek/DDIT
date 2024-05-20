@@ -1,0 +1,44 @@
+package kr.or.ddit.board.dao;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.vo.BoardVO;
+
+@Repository
+public class BoardDAOImpl implements IBoardDAO {
+
+	@Inject
+	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public List<BoardVO> selectBoardList() {
+		return sqlSession.selectList("Board.selectBoardList");
+	}
+
+	@Override
+	public int insertboard(BoardVO boardVO) {
+		return sqlSession.insert("Board.insertBoard", boardVO);
+	}
+
+	@Override
+	public BoardVO selectBoard(int boNo) {
+		return sqlSession.selectOne("Board.selectBoard", boNo);
+	}
+
+	@Override
+	public void incrementHit(int boNo) {
+		sqlSession.update("Board.incrementHit", boNo);
+	}
+
+	@Override
+	public int updateboard(BoardVO boardVO) {
+		sqlSession.update("Board.updateBoard", boardVO);
+		return 0;
+	}
+
+}

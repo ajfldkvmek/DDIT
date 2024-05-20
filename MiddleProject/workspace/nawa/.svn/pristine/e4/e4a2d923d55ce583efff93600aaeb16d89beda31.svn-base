@@ -1,0 +1,17 @@
+package lecture.dao;
+
+public class LecDAOImpl implements ILecDAO {
+
+	private static ILecDAO lecDAO;
+	
+	private LecDAOImpl() {}
+	
+	public static ILecDAO getInstance() {
+		if(lecDAO == null) lecDAO = new LecDAOImpl();
+		
+		return lecDAO;
+	}
+
+	
+	
+}

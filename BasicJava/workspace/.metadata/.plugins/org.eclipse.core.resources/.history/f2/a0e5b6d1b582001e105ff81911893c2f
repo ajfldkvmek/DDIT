@@ -1,0 +1,10 @@
+package print;
+
+public class EventPrint {
+
+
+	public void printEvent() {
+		// TODO Auto-generated method stub
+		
+	}
+}

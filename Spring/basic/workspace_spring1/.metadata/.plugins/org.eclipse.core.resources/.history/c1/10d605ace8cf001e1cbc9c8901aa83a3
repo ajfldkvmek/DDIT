@@ -1,0 +1,6 @@
+package kr.or.ddit.free.dao;
+
+
+public class FreeDAOImpl implements IFreeDAO{
+
+}

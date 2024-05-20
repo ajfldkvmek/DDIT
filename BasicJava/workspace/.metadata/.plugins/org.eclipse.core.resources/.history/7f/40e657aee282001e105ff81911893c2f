@@ -1,0 +1,13 @@
+package util;
+
+public enum View {
+	
+	HOME, 
+	ROOM, SHOW_ROOM, RESERVE_ROOM, 
+	
+	MEMBER_MENU, MEMBER, 
+	EVENT, RESERVE_EVENT,
+	ㅁDMIN_LOGIN,
+	
+	
+}

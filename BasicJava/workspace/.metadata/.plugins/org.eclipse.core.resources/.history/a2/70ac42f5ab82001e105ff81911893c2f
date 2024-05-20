@@ -1,0 +1,26 @@
+package service;
+
+import java.util.List;
+import dao.RoomDAO;
+
+
+public class RoomService {
+	private static RoomService singleTon = null;
+
+	public RoomService() {
+	};
+
+	public static RoomService getInstance() {
+		if (singleTon == null) {
+			singleTon = new RoomService();
+		}
+		return singleTon;
+	}
+
+	RoomDAO roomDAO = new RoomDAO();	
+	
+	
+	public void showRoom() {
+		return roomDAO.showRoom();
+	}
+}

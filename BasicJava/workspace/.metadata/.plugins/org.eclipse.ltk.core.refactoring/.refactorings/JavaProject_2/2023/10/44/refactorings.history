@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 elements from project &apos;JavaProject_2&apos;&#x0D;&#x0A;- Original project: &apos;JavaProject_2&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     JavaProject_2/src/dao&#x0D;&#x0A;     JavaProject_2/src/print&#x0D;&#x0A;     JavaProject_2/src/service" description="Delete elements" element1="/src&lt;service" element2="/src&lt;print" element3="/src&lt;dao" elements="3" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1698736242589" subPackages="false" version="1.0"/>
+</session>

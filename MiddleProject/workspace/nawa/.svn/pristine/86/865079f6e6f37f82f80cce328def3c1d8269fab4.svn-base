@@ -1,0 +1,39 @@
+package meet.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import meet.service.IMeetService;
+import meet.service.MeetServiceImpl;
+import meet.vo.MeetVO;
+
+/**
+ * Servlet implementation class meetDetail
+ */
+@WebServlet("/meetDetail")
+public class meetDetail extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String meetNo = req.getParameter("meetNo");
+		System.out.println(">>>>>>>>>>>>"+meetNo);
+		IMeetService meetService =  MeetServiceImpl.getInstance();
+		System.out.println("디테일시작");
+		MeetVO mv = meetService.getDetail(meetNo);
+		req.setAttribute("mv",mv);
+		System.out.println(mv.getMeet_level());
+		req.getRequestDispatcher("meet/meetdetail.jsp").forward(req, resp);
+	}
+
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(req, resp);
+	}
+
+}

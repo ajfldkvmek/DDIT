@@ -1,0 +1,7 @@
+package util;
+
+public enum View {
+	HOME, BOOK_LIST, BOOK_DETAIL, 
+	ADMIN, BOOK_ADD, BOOK_UPDATE, BOOK_DELETE,
+	MEMBER,
+}

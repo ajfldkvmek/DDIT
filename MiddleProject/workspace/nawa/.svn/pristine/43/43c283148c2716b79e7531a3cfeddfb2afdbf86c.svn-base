@@ -1,0 +1,24 @@
+package lecture.service;
+
+import lecture.dao.ILecDAO;
+
+public class LecServiceImpl implements ILecService{
+
+	private static ILecService lecService;
+	
+	private ILecDAO lecDAO;
+	
+	private LecServiceImpl() {
+		
+	}
+	
+	public static ILecService getInstance() {
+		
+		if(lecService == null) 
+			lecService = new LecServiceImpl();
+		
+		return lecService;
+	}
+	
+	
+}

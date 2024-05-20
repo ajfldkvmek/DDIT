@@ -1,0 +1,5 @@
+package lecture.dao;
+
+public interface ILecDAO {
+
+}

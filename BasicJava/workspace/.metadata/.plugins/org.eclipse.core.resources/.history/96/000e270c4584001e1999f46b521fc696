@@ -1,0 +1,27 @@
+package test;
+
+import java.util.ArrayList;
+import java.util.List;
+public class tt {
+
+	public static void main(String[] args) {
+		
+//		Random rand = new Random();
+//		
+//		String s = "abc";
+//		String a = "A1";
+//		String num = "01033334444";
+//		int tel = Integer.parseInt(num);
+////		System.out.println(tel);
+////		
+////		System.out.println(a.equalsIgnoreCase("a1"));
+//		
+////		System.out.println(s.getBytes().length);
+//		
+//		int random = rand.nextInt(99999);
+//		System.out.println(random);
+		
+		
+		List<List<Object>> list = new ArrayList();
+	}
+}

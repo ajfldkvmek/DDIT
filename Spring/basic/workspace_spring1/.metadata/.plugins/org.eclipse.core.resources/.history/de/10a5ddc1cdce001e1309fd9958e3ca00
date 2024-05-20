@@ -1,0 +1,14 @@
+package kr.or.ddit.vo;
+
+public class BoardVO {
+	
+	private int boNo;
+	private String boTItle;
+	private String boTItle;
+	private String boTItle;
+	private String boTItle;
+	private String boTItle;
+	private String boTItle;
+	private int boTItle;
+
+}

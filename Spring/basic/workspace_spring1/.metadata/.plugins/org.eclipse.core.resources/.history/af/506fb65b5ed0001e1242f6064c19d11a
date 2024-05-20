@@ -1,0 +1,15 @@
+package kr.or.ddit.vo;
+
+import java.util.List;
+
+public class MainVO<T> {
+
+	private List<T> freeList;
+	private List<T> noticeList;
+	private List<T> boardList;
+	
+	int freeSize;
+	int noticeSize;
+	int boardSize;
+	
+}

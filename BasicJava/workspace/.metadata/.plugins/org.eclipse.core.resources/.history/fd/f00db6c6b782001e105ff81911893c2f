@@ -1,0 +1,33 @@
+package dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import util.ConvertUtils;
+import util.JDBCUtil;
+import vo.Event;
+
+public class EventDAO {
+
+	private static EventDAO singleTon = null;
+
+	public EventDAO() {
+	};
+
+	public static EventDAO getInstance() {
+		if (singleTon == null) {
+			singleTon = new EventDAO();
+		}
+		return singleTon;
+	}
+	
+	
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+	
+
+	public List<Object> reserveEvent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

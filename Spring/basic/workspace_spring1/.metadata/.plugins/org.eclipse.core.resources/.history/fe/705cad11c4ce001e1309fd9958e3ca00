@@ -1,0 +1,136 @@
+스프링 mvc 하루만에 배우기
+
+1.필요한 프로그램 설치
+	- jdk 1.8 설정
+	- 이클립스 4.16(2020-06-r)
+	- spring tool suite 3.9.22 release plugins
+	  > marketplace에서 제공되는 릴리즈 버전
+	  > 근데 우리는 3.9.14임 ㅋㅋ
+	- tomcat 8.5.x
+	
+	#이클립스 설치 후 진행해야 할 것들
+		1) enc 로 utf-8 인코딩설정
+		2) font 설정
+		3) perspective java ee 설정(default)
+		4) sts 플러그인 설치
+			> help > marketplace > spring tool 3 standalone edition 검색 후 설치
+			
+			
+2.BOOK 게시판 프로젝트 설정하기(SampleSpringYse)
+	
+	2-1 Spring Legacy Project 생성하기
+		- 프로젝트 명: SampleSpringYse
+		- Spring MVC Project Template 선택
+		- Base 패키지 : kr.or.ddit
+	
+		
+	2-2 프로젝트 환경설정
+	
+		- Deployment Assembly 
+			> Maven 확인
+			
+		- Java Build Path
+			> JDK 확인
+			> Maven 확인
+			> Server(tomcat) 확인
+			
+		- java compiler
+			> 1.8로 설정
+		
+		- Project Facets 설정
+			> Dynamic Web Module 3.1
+			> Java 버전 1.8
+			> runtime탭 메뉴에서 sever 체크 후 apply
+	
+	2-3 메이븐 설정
+		- pom.xml 안에서 설정
+		- java version 1.8 설정
+		- Springframwork version 5.3.25 설정
+		- 최하단 maven plugin source/target 1.8 설정	
+		
+		*** 메이븐 안에서의 내용이 설정되었다면 반드시 프로젝트에 반영해야한다
+			> 프로젝트 우클릭 > run as > maven clean : 콘솔창에서 build path 확인
+			> 프로젝트 우클릭 > run as > maven build 
+				> goals 는 compile 로 설정
+				> 콘솔창에서 build path 확인
+	
+	2-4 Apache-tomcat 설정
+		- SampleSpringYse Configurer 대상으로 올리기
+		- tomcat overvice탭 내의 port 80으로 설정
+		- tomcat overvice탭 내의 timeout 120으로 설정
+		- tomcat module 내의 contextPath '/' 으로 설정
+
+	2-5 web.xml 서블릿 버전 설정
+		- 서블릿 스키마 버전 설정부, 2.5 및 2_5를 3.1 , 3_1로 설정
+					
+			
+	2-6 로그 레벨 설정
+		- log4j.xml 설정(root태그의 레벨을 debug로 설정)
+		
+	2-7 기존에 작성된 홈 컨트롤러, 뷰 삭제
+		- HomeControlle, home.jsp 삭제
+		
+
+3.BOOK 게시판
+
+	3-1. 책등록 컨트롤러 생성하기
+		- class BookInsertController 생성
+	
+	3-2. 책 등록 컨트롤러 메소드 생성
+		- public modelandview bookform(){}
+		
+	3-3. 책 등록 화면 생성
+		- views/book/form.jsp
+		
+	3-4. 책 등록 화면 확인
+		
+	
+	#책 관리 데이터 베이스 생성
+	
+	 계정명	: yes
+	 비밀번호	: java
+	 
+	#책 관리 테이블 새성
+	create table book(
+	book_id number(8) not null,
+	title varchar2(20) not null,
+	category varchar2(20) default
+	not null,
+	price number(le) not null,
+	xnsert date date default sysdate null,
+	constraxnt pk_book primary key(book_id)
+	);
+	create sequence seq_book increment by 1 start with 1 nocache
+	
+	-----------------------------------------------------------------------
+	
+	3-5 메이븐 데이터 베이스 라이브러리 설정
+	- 총 6개의 라이브러리 등록
+	- mybatis
+	- mybatis-config
+	- spring-jdbc
+	- commons-dbcp2
+	- log4jdbc-log4j2-jdbc4
+	- ojdbc8
+	
+	** 설정 후, Maven build 또는 maven의 update project 진행하여 적용
+	 >> 우리는 maven update project
+	
+	
+	3-6 데이터 소스 설정
+		 - root-context.xml 설정
+		 
+	-----------------------------------------------------------------------
+	책 입력 만들기
+	-----------------------------------------------------------------------
+	
+	
+	3-7 책 입력 컨트롤러 메소드 생성
+		- public ModelAndView insertBook(@RequestParam Map<String, Object> map){}
+		- @Controller 어노테이션으로 컨트롤러 담당하는 반이라고 알린다
+	
+	3-8 책 입력 service인터페이스 메소드 생성
+		- interface BookService
+		- public String insretBook(Map<String, Object> map);
+	
+	

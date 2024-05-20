@@ -1,0 +1,48 @@
+package kr.or.ddit.free.dao;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+import kr.or.ddit.vo.FreeVO;
+import kr.or.ddit.vo.PaginationInfoVO;
+
+@Repository
+public class FreeDAOImpl implements IFreeDAO{
+
+	@Inject
+	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public int insertfree(FreeVO freeVO) {
+		return sqlSession.insert("Free.insertFree", freeVO);
+	}
+
+	@Override
+	public int selectFreeCount(PaginationInfoVO<FreeVO> pagingVO) {
+		return sqlSession.selectOne("Free.selectNoticeCount", pagingVO);
+	}
+
+	@Override
+	public List<FreeVO> selectFreeList(PaginationInfoVO<FreeVO> pagingVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void incrementHit(int freeNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public FreeVO selectFree(int freeNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+}

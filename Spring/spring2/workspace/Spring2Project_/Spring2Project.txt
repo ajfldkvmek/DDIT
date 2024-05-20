@@ -1,0 +1,60 @@
+	
+	Spring2 진행 내용
+	
+	개발시 사용하고 있는 STS는 3.9.15 버전 이클립스 e4.16에 해당
+	
+	sts버전 들 중 이 버전이 jdk1.8과 Spring 호환성이 가장 높음
+	
+	1. STS 3.9.15 TOOL 설치 후 실행
+	2. workspace경로 설정 후 STS 진입
+	3. 이클립스 설정
+		encoding
+		font
+		server
+		jre
+	4. 스프링 프로젝트 생성
+		> spring legacy project
+		> 프로젝트명 패키지 선택 후 진행
+			> 프로젝트명 	: Spring2Projecet
+			> 패키지		: kr.or.ddit
+			> templagte	: Spring mvc project
+			
+			*** template가 나오지 않을 경우
+			mvc_template.zip 파일 내 templage.xml 파일이 존재
+			이 녀석을 .metadate 폴더안에 plugin안에 content.core 폴더안에 넣기
+			
+			
+			> 어? 선생님! content.core 폴더가 생성되어 있지 않는데요????
+			그것도 걱정하지 마세요! 현명한 현명이가 제안한 방법이 있답니다!
+			제일 먼저 legacy project를 선택해서 진행해주세요! (template을 선택하는 부분까지 ! )
+			여기서 content.core 폴더가 생성툅니다!
+			
+			> 이 후 xml 파일을 넣고 STS재실행
+			
+			
+		> Spring2Project 프로젝틀르 만들고 모든 폴더 구조를 확인
+			누락된 파일이 없는지 구조에 이상이 없는 지 확인
+			
+	5. 프로젝트 내 파일 설정
+	
+		> pom.xml 설정
+			> java-verison 1.8
+			> springframework 5.3.25 설정
+			> servlet버전 설정
+				artifactId > javax.servlet-api
+				version 3.1.0
+			> maven-plugin내, source 및 target 버전 1.8 설정
+			> 프로젝트 우클릭 > run as > maven clean
+			> 프로젝트 우클릭 > run as > maven build > goals 값을 compile로 설정 > success 확인
+			
+		> web.xml 설정
+			> servlet 버전 2.5에서 3.1 및 스키마 3_1로 변경
+	
+	6. 서버 설정
+		> port: 80
+		> timeout: 120
+		> module의 contextPath: /
+		
+	7. localhost로 home.jsp 확인
+			
+			

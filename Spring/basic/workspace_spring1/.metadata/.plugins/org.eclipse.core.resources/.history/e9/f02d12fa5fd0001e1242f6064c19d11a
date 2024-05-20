@@ -1,0 +1,16 @@
+package kr.or.ddit.main.dao;
+
+import java.util.List;
+
+public interface IMainDAO {
+
+	Listt<FreeVO> getFreeList();
+	void getFreeSize();
+	
+	void getBoardList();
+	void getBoardSize();
+	
+	void getNoticeList();
+	void getNoticeSize();
+
+}

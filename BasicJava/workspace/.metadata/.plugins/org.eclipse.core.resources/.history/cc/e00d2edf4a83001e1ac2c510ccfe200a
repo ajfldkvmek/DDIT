@@ -1,0 +1,65 @@
+package service;
+
+import java.util.List;
+
+import dao.AdminDAO;
+import vo.Book;
+
+
+public class AdminService {
+	private static AdminService singleTon = null;
+
+	private AdminService() {
+	};
+
+	public static AdminService getInstance() {
+		if (singleTon == null) {
+			singleTon = new AdminService();
+		}
+		return singleTon;
+	}
+	
+	AdminDAO adDao = AdminDAO.getInstance();
+
+	public List<Book> adBookList() {
+		
+		
+		return adDao.adBookList();
+		
+		
+	}
+
+	public void bookUpdate(List<Object> newBook) {
+		 adDao.bookUpdate(newBook);	
+	}
+
+	public void bookDelete(String select) {
+		adDao.bookDelete(select);
+		
+	}
+
+	public void reBookUpdate(String select) {
+		adDao.reBookUpdate(select);
+	}
+
+	public List wishBookList() {
+		return adDao.wishBookList();
+		
+	}
+
+	public List adMemberList() {
+		return adDao.adMemberList();
+		
+	}
+
+	public void memDel(String select) {
+		adDao.memDel(select);
+		
+	}
+
+	public List memSelect(String select) {
+		return adDao.memSelect(select);
+		
+	}
+	
+}

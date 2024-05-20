@@ -1,0 +1,46 @@
+package kr.or.ddit.free.web;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.free.service.IFreeService;
+import kr.or.ddit.vo.FreeVO;
+import kr.or.ddit.vo.NoticeVO;
+
+@Controller
+@RequestMapping("/free")
+public class FreeModifyController {
+	
+	@Inject
+	private IFreeService freeService;
+	
+	@RequestMapping(value="/update.do", method=RequestMethod.GET)
+	public String boardUpdateView(int freeNo, Model model) {
+		//System.out.println("update.do 와따다다다다ㅏㄷ");
+		FreeVO freeVO = freeService.selectFree(freeNo);
+		model.addAttribute("free", freeVO);
+		model.addAttribute("status", "u"); //update의 u를 의미함 - 시스템에 이 기능이 게시글 등록이 아니라 수정임을 알리기 위함
+		return "free/form";
+	}
+	
+	@RequestMapping(value="/update.do", method=RequestMethod.POST)
+	public String noticeUpdate(NoticeVO noticeVO, Model model) {
+		String goPage= "";
+		ServiceResult result = noticeService.updateNotice(noticeVO);
+		
+		if(result.equals(ServiceResult.OK)) {
+			goPage = "redirect:/notice/detail.do?noticeNo="+noticeVO.getNoticeNo();
+		} else {
+			model.addAttribute("notice", noticeVO);
+			model.addAttribute("status", "u");
+			goPage = "notice/form";
+		}
+		return goPage;
+	}
+
+}

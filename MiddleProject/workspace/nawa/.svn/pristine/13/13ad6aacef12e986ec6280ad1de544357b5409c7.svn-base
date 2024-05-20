@@ -1,0 +1,134 @@
+package board.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import atch.service.BoardAtchFileServiceImpl;
+import atch.service.IBoardAtchFileService;
+import atch.vo.BoardAtchFileVO;
+import board.service.CommentServiceImpl;
+import board.service.ICommentService;
+import board.service.IPostService;
+import board.service.PostServiceImpl;
+import board.vo.PostVO;
+
+@WebServlet("/board/detail.do")
+public class DetailController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		//게시물번호 가져옴 (조회, 조회수 업데이트, 댓글표시, 댓글달기 등등에 필요)
+		int postNo = Integer.parseInt(req.getParameter("postNo")); //key값=id
+		System.out.println("[DetailController] postNo: " + postNo); //출력 확인용
+		IPostService postService = PostServiceImpl.getInstance();
+		
+		// 먼저 조회수 업데이트
+	    postService.updateViewCnt(postNo);
+
+	    // 게시물 조회: 게시물 번호로
+	    PostVO pv = postService.getPostNo(postNo);
+		//pv 세팅
+		req.setAttribute("pv", pv);
+		
+		
+		//첨부파일 관련 (미구현)
+		BoardAtchFileVO bv = new BoardAtchFileVO();
+		if(bv.getBoardFIndex() > 0) { // 첨부파일이 존재하는 경우...
+			
+			BoardAtchFileVO BoardAtchFileVO = new BoardAtchFileVO();
+			IBoardAtchFileService fileService = BoardAtchFileServiceImpl.getInstance();
+			
+			BoardAtchFileVO.setBoardFIndex(bv.getBoardFIndex());
+			
+			List<BoardAtchFileVO> boardAtchFileList = 
+					fileService.getBoardAtchFileList(BoardAtchFileVO);
+			
+			req.setAttribute("boardAtchFileList", boardAtchFileList);
+		}
+
+		
+		//댓글 표시 시작########################################		
+		ICommentService commService = CommentServiceImpl.getInstance();
+		
+		//(댓글 페이지 가져오기: 별 의미 X)
+		String commPageStr = req.getParameter("commPage");
+		//현재 댓글 페이지: 값이 없으면 1, 있으면 그 값으로 표시
+        int commPage = (commPageStr != null && !commPageStr.isEmpty()) ? Integer.parseInt(commPageStr) : 1;
+        int countCommPerPage = 10; // 한 페이지당 표시할 댓글 수 설정 ################
+        //댓글 페이징: 저는 값이름만 바꾸고 건드리지 않았습니다
+        int commStart = (commPage - 1) * countCommPerPage + 1;
+        int commEnd = commPage*countCommPerPage;
+        
+        //페이징 시작&끝 위치를 pv(vo)에 넣음
+        pv.setCommStart(commStart);
+        pv.setCommEnd(commEnd);
+        
+        //댓글목록: 위에 pv에 넣은 값을 쿼리에 넣어 목록을 불러옴
+        List<PostVO> commList = commService.getCommentListWithPaging(pv);
+
+        //총 댓글 수: postNo 기준으로 한 게시물에 달린 댓글 수 구함
+        int totalCommCount = commService.getTotalCommentCount(postNo);
+        //총 댓글 페이지 수: 페이징용
+        int totalCommPages = (int) Math.ceil((double) totalCommCount / countCommPerPage);
+
+        //위에서 구한 총 댓글 페이지 수와 현재 댓글 페이지 수를 보냄(페이징에 사용) 
+        req.setAttribute("totalCommPages", totalCommPages);
+        req.setAttribute("currentCommPage", commPage);
+        //댓글목록도 보냄(댓글목록 출력에 사용)
+        req.setAttribute("commList", commList);
+        System.out.println("[DetailController] commList: " + commList);
+        
+        //(상세페이지로 dispatcher)
+        req.getRequestDispatcher("/board/board/detail.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//댓글 입력을 위한 페이지
+		resp.setContentType("text/html;charset=UTF-8");
+	    req.setCharacterEncoding("UTF-8");
+		
+	    //어느 게시물에 달것인지 알기 위해 필요
+	    int postNo = Integer.parseInt(req.getParameter("postNo"));
+	    //detail.jsp 댓글입력칸에서 가져옴
+	    String commWriter = req.getParameter("commWriter");
+	    String commContent = req.getParameter("commContent");
+
+	    ICommentService commService = CommentServiceImpl.getInstance();
+		
+	    //댓글 달 게시물, 댓글 작성자, 댓글 내용을 pv에 넣음
+		PostVO pv = new PostVO();
+        pv.setPostNo(postNo);
+        pv.setCommWriter(commWriter);
+        pv.setCommContent(commContent);
+        
+        //등록하고 반환된 cnt값으로 성공여부 표시함 (선생님 방식)
+		int cnt = commService.insertComment(pv);
+		
+		String msg = "";
+		if(cnt > 0) {
+			msg = "성공";
+		}else {
+			msg = "실패";
+		}
+		
+		req.getSession().setAttribute("msg", msg);
+		
+		//수정삭제에 쓸 것 보내둠...
+		req.setAttribute("postNo", postNo);
+		req.setAttribute("commWriter", commWriter);
+		req.setAttribute("commContent", commContent);
+		
+		//완료 후 이동: 해당 게시물로 이동하도록 "?pageNo="를 주소에 넣음
+		resp.sendRedirect(req.getContextPath() + "/board/detail.do" + "?postNo=" + postNo );
+		
+	}
+}

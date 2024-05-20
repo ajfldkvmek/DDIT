@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<p>ㅎㅇㅎㅇ 문제로 왔어요</p>
+	
+	
+	  <div className='codingIDE'>
+          <CodeMirror
+            className='CodeMirror'
+            lineNumber={true} // 줄옆에 숫자 
+            value={code} // 입력된 값을 code라는 변수에 담았다
+            extensions={[javascript({ jsx: true })]} // 입력값의 종류 
+            onChange={onChange} //값이 변할때마다 호출되는 함수 
+            theme={okaidia} // 테마 
+            gutter={true} // 자동생성
+          />
+ <div className="BtnArea">
+ 
+ 
+</body>
+</html>

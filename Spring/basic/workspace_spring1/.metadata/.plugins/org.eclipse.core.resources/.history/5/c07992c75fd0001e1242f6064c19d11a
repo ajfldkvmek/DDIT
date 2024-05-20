@@ -1,0 +1,50 @@
+package kr.or.ddit.main.dao;
+
+import javax.inject.Inject;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MainDAOImpl implements IMainDAO {
+
+	@Inject
+	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public void getFreeList() {
+		return sqlSession.getfreelist();
+	}
+
+	@Override
+	public void getFreeSize() {
+		return sqlSession.getfreelist();
+	}
+
+	@Override
+	public void getBoardList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBoardSize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getNoticeList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getNoticeSize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+}

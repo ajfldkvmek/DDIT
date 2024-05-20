@@ -1,0 +1,14 @@
+package dao;
+
+import java.util.List;
+
+public class EventDAO {
+
+	public List<Object> reserveEvent() {
+		String sql = "select * from evnet";
+		
+		
+		return null;
+	}
+
+}

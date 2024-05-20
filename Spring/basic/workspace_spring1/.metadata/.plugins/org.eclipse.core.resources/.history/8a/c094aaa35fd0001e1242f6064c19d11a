@@ -1,0 +1,45 @@
+package kr.or.ddit.main.dao;
+
+
+
+@Repository
+public class MainDAOImpl implements IMainDAO {
+
+	@Override
+	public void getFreeList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getFreeSize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBoardList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getBoardSize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getNoticeList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getNoticeSize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}

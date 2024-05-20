@@ -1,0 +1,9 @@
+package vo;
+
+
+public class Event {
+
+	 private String evt_no;
+	 private String evt_name;
+	 private String evt_time;
+}

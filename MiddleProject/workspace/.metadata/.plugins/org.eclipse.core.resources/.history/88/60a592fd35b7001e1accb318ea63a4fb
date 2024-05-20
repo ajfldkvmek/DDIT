@@ -1,0 +1,298 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="member.vo.MemberVO"%>
+
+
+<%
+	if((MemberVO) session.getAttribute("LOGIN_USER") == null) { 
+	
+	MemberVO mmv = (MemberVO) session.getAttribute("LOGIN_USER");
+ } %>
+<!DOCTYPE html>
+<html lang="utf-8">		
+<head>
+	<title>nawa!</title>
+	
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Eduport- LMS, Education and Course Theme">
+
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/nawa/assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="/nawa/assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/nawa/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="/nawa/assets/vendor/choices/css/choices.min.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="/nawa/assets/css/style.css">
+
+</head>
+
+
+<body>
+<!-- Header START -->
+<header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<!-- Logo START -->
+
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp">
+				<img class="light-mode-item navbar-brand-item" src="/nawa/assets/images/5조_제목_로고-removebg-preview.png" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="/nawa/assets/images/logo-light.svg" alt="logo">
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+
+				<!-- Nav Main menu START -->
+				<ul class="navbar-nav navbar-nav-scroll mx-auto">
+					<!-- Nav item 1 Demos -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="demoMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">게시판</a>
+						<ul class="dropdown-menu" aria-labelledby="demoMenu">
+							<li> <a class="dropdown-item" href="<%=request.getContextPath()%>/board/list.do">전체게시판</a></li>
+							<li> <a class="dropdown-item" href="index-2.html">공지사항</a></li>
+							<li> <a class="dropdown-item" href="index-3.html">자유게시판</a></li>
+							<li> <a class="dropdown-item" href="index-6.html">질문게시판</a></li>
+							<li> <a class="dropdown-item" href="index-5.html">익명게시판</a></li>
+							<li> <a class="dropdown-item" href="index-3.html">튜터신청</a></li>
+							<li> <a class="dropdown-item" href="index-4.html">홍보</a></li>
+						</ul>
+					</li>
+
+					<!-- Nav item 2 Pages -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">소모임</a>
+						<ul class="dropdown-menu" aria-labelledby="pagesMenu">
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="<%=request.getContextPath()%>/meetList">모임 검색하기</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="course-categories.html">검색하기</a></li>
+									<li> <hr class="dropdown-divider"></li>
+									<li> <a class="dropdown-item" href="course-grid.html">Course Grid Classic</a></li>
+									<li> <a class="dropdown-item" href="course-grid-2.html">Course Grid Minimal</a></li>
+									<li> <hr class="dropdown-divider"></li>
+									<li> <a class="dropdown-item" href="course-list.html">Course List Classic</a></li>
+									<li> <a class="dropdown-item" href="course-list-2.html">Course List Minimal</a></li>
+									<li> <hr class="dropdown-divider"></li>
+									<li> <a class="dropdown-item" href="course-detail.html">Course Detail Classic</a></li>
+									<li> <a class="dropdown-item" href="course-detail-min.html">Course Detail Minimal</a></li>
+									<li> <a class="dropdown-item" href="course-detail-adv.html">Course Detail Advance</a></li>
+									<li> <a class="dropdown-item" href="course-detail-module.html">Course Detail Module</a></li>
+									<li> <a class="dropdown-item" href="course-video-player.html">Course Full Screen Video</a></li>
+								</ul>
+							</li>
+
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#">About</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="about.html">About Us</a></li>
+									<li> <a class="dropdown-item" href="contact-us.html">Contact Us</a></li>
+									<li> <a class="dropdown-item" href="blog-grid.html">Blog Grid</a></li>
+									<li> <a class="dropdown-item" href="blog-masonry.html">Blog Masonry</a></li>
+									<li> <a class="dropdown-item" href="blog-detail.html">Blog Detail</a></li>
+									<li> <a class="dropdown-item" href="pricing.html">Pricing</a></li>
+								</ul>
+							</li>
+
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#">Hero Banner</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="docs/snippet-hero-12.html">Hero Form</a></li>
+									<li> <a class="dropdown-item" href="docs/snippet-hero-13.html">Hero Vector</a></li>
+									<li> <p class="dropdown-item mb-0">Coming soon....</p></li>
+								</ul>
+							</li>
+
+							<li> <a class="dropdown-item" href="instructor-list.html">Instructor List</a></li>
+							<li> <a class="dropdown-item" href="instructor-single.html">Instructor Single</a></li>
+							<li> <a class="dropdown-item" href="become-instructor.html">Become an Instructor</a></li>
+							<li> <a class="dropdown-item" href="abroad-single.html">Abroad Single</a></li>
+							<li> <a class="dropdown-item" href="workshop-detail.html">Workshop Detail</a></li>
+							<li> <a class="dropdown-item" href="event-detail.html">Event Detail</a></li>
+
+						</ul>
+					</li>
+
+					<!-- Nav item 3 Account -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">레슨</a>
+						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#"><i class="fas fa-user-tie fa-fw me-1"></i>Instructor</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="instructor-dashboard.html"><i class="bi bi-grid-fill fa-fw me-1"></i>Dashboard</a> </li>
+									<li> <a class="dropdown-item" href="instructor-manage-course.html"><i class="bi bi-basket-fill fa-fw me-1"></i>Courses</a> </li>
+									<li> <a class="dropdown-item" href="instructor-create-course.html"><i class="bi bi-file-earmark-plus-fill fa-fw me-1"></i>Create Course</a> </li>
+									<li> <a class="dropdown-item" href="course-added.html"><i class="bi bi-file-check-fill fa-fw me-1"></i>Course Added</a> </li>
+									<li> <a class="dropdown-item" href="instructor-quiz.html"><i class="bi bi-question-diamond fa-fw me-1"></i>Quiz</a> </li>
+									<li> <a class="dropdown-item" href="instructor-earning.html"><i class="fas fa-chart-line fa-fw me-1"></i>Earnings</a> </li>
+									<li> <a class="dropdown-item" href="instructor-studentlist.html"><i class="fas fa-user-graduate fa-fw me-1"></i>Students</a> </li>
+									<li> <a class="dropdown-item" href="instructor-order.html"><i class="bi bi-cart-check-fill fa-fw me-1"></i>Orders</a> </li>
+									<li> <a class="dropdown-item" href="instructor-review.html"><i class="bi bi-star-fill fa-fw me-1"></i>Reviews</a> </li>
+									<li> <a class="dropdown-item" href="instructor-payout.html"><i class="fas fa-wallet fa-fw me-1"></i>Payout</a> </li>
+								</ul>
+							</li>
+
+							<!-- Dropdown submenu -->
+								<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#"><i class="fas fa-user-graduate fa-fw me-1"></i>Student</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="<%=request.getContextPath() %>/lecture/list.do"><i class="bi bi-grid-fill fa-fw me-1"></i>강의전체보기</a> </li>
+									<li> <a class="dropdown-item" href="student-subscription.html"><i class="bi bi-card-checklist fa-fw me-1"></i>운동강의</a> </li>
+									<li> <a class="dropdown-item" href="student-course-list.html"><i class="bi bi-basket-fill fa-fw me-1"></i>음악강의</a> </li>
+									<li> <a class="dropdown-item" href="student-course-resume.html"><i class="far fa-fw fa-file-alt me-1"></i>어학강의</a> </li>
+									<li> <a class="dropdown-item" href="student-quiz.html"><i class="bi bi-question-diamond fa-fw me-1"></i>개발강의 </a> </li>
+									<li> <a class="dropdown-item" href="student-payment-info.html"><i class="bi bi-credit-card-2-front-fill fa-fw me-1"></i>게임강의</a> </li>
+									<li> <a class="dropdown-item" href="student-bookmark.html"><i class="fas bi-cart-check-fill fa-fw me-1"></i>공예강의</a> </li>
+									<li> <a class="dropdown-item" href="student-bookmark.html"><i class="fas bi-cart-check-fill fa-fw me-1"></i>기타강의</a> </li>
+								</ul>
+							</li>
+							
+							<li> <a class="dropdown-item" href="admin-dashboard.html"><i class="fas fa-user-cog fa-fw me-1"></i>Admin</a> </li>
+							
+						</ul>
+					</li>
+
+<!-- 					Nav item 5 link
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="#" id="advanceMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-ellipsis-h"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end min-w-auto" data-bs-popper="none">
+							<li> 
+								<a class="dropdown-item" href="https://support.webestica.com/" target="_blank">
+									<i class="text-warning fa-fw bi bi-life-preserver me-2"></i>Support
+								</a> 
+							</li>
+							<li> 
+								<a class="dropdown-item" href="docs/index.html" target="_blank">
+									<i class="text-danger fa-fw bi bi-card-text me-2"></i>Documentation
+								</a> 
+							</li>
+							<li> <hr class="dropdown-divider"></li>
+							<li> 
+								<a class="dropdown-item" href="https://eduport.webestica.com/rtl/" target="_blank">
+									<i class="text-info fa-fw bi bi-toggle-off me-2"></i>RTL demo
+								</a> 
+							</li>
+							<li> 
+								<a class="dropdown-item" href="https://themes.getbootstrap.com/store/webestica/" target="_blank">
+									<i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>Buy Eduport!
+								</a> 
+							</li>
+							<li> <hr class="dropdown-divider"></li>
+							<li> 
+								<a class="dropdown-item" href="docs/alerts.html" target="_blank">
+									<i class="text-orange fa-fw bi bi-puzzle-fill me-2"></i>Components
+								</a> 
+							</li>
+							<li> 
+                <a class="dropdown-item" href="docs/snippets.html">
+                  <i class="text-purple fa-fw bi bi-stickies-fill me-2"></i>Snippets
+                </a>
+              </li>
+						</ul>
+					</li> -->
+
+				</ul>      
+				<!-- Nav Main menu END -->
+				
+				<!-- Nav Search START -->
+				<!-- <div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
+					<div class="nav-item w-100">
+						<form class="position-relative">
+							<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+						</form>
+					</div>
+				</div> -->
+				<!-- Nav Search END -->
+			</div>
+			<!-- Main navbar END -->
+
+
+			<!-- ############################################ 회원일 경우 달라질헤더 부분  ############################## -->
+						<div class="dropdown ms-1 ms-lg-0">
+				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+
+					<img class="avatar-img rounded-circle" src="/nawa/assets/images/avatar/img.png" alt="avatar">
+				</a>
+				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+					<!-- Profile info -->
+					<li class="px-3 mb-3">
+						<div class="d-flex align-items-center">
+							<!-- Avatar -->
+							<div class="avatar me-3">
+								<img class="avatar-img rounded-circle shadow" src="/nawa/assets/images/avatar/img.png" alt="avatar">
+							</div>
+							<div>
+								<a class="h6" href="#"><%=mmv.getMem_nick() %></a> <!-- mv에서 정보 가져오기  -->
+								<p class="small m-0"><%=mmv.getMem_email() %></p> <!-- mv에서 정보 가져오기  -->
+							</div>
+						</div>
+					</li>
+					<li> <hr class="dropdown-divider"></li>
+					<!-- Links -->
+					<li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>마이 페이지</a></li>
+					<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/edit_profile.jsp"><i class="bi bi-gear fa-fw me-2"></i>정보 수정</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href="<%=request.getContextPath() %>/logout.do"><i class="bi bi-power fa-fw me-2"></i>로그 아웃</a></li>
+					<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+					<li> <hr class="dropdown-divider"></li>
+					
+				</ul>
+			</div>
+			<!-- Profile END -->
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+
+
+
+
+<title>Insert title here</title>
+</head>
+
+
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<body>

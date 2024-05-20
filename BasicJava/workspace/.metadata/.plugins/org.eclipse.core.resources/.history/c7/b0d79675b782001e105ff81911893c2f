@@ -1,0 +1,16 @@
+package dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class EventDAO {
+
+	public List<Object> reserveEvent() {
+		String sql = "select * from evnet";
+		
+		List<Map<String, Object>> map = new HashMap<K, V>()
+		return null;
+	}
+
+}

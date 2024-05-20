@@ -1,0 +1,71 @@
+package lecture.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lecture.atch.vo.AtchFileVO;
+import lecture.atch.service.AtchFileServiceImpl;
+import lecture.atch.service.IAtchFileService;
+import lecture.service.ILecService;
+import lecture.service.LecServiceImpl;
+import lecture.vo.LectureVO;
+
+@MultipartConfig
+@WebServlet("/lecture/detail.do")
+public class detailController extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	String lecNo = req.getParameter("lecNo");
+	String tutNo = req.getParameter("tutNo");
+	
+	System.out.println("letNO >>>>>>>>>> " + lecNo);
+	System.out.println("tutno >>>>>>>>>> " + tutNo);
+	
+	ILecService lecService = LecServiceImpl.getInstance();
+	
+	LectureVO lv = lecService.getLecture(lecNo); //<< lecture의 atch_file_id를 알 수 있음
+	
+	//강의 전체 리스트 출력부분
+	List<LectureVO> lecList = lecService.getLecList(tutNo);
+	
+	
+	// 파일디테일
+	IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+	
+	long atchFileId = lv.getAtchFileId();
+	System.out.println("콘틀롤러에서 atchFileId" + atchFileId);
+	
+	
+	if(atchFileId > 0) { //첨부파일이 존재하는 경우 해당 파일들의 정보 가져오기
+		//실제 파일 정보 가져오는 부분
+		List<AtchFileVO> atchList = new ArrayList<>(); 
+		//해당 게시판의 첨부파일 목록 불러오기
+		atchList = fileService.getDeatilList(atchFileId);
+		System.out.println("[DetailController] atchlist왜 안되는데 시밞ㄴㅁ넝ㅁ니임나임넘ㄴ" + atchList);
+		req.setAttribute("atchList", atchList);
+	}
+	
+	System.out.println("LECLIST >> " + lecList);
+	
+	req.setAttribute("lv", lv);
+	System.out.println("디테일 지역~~~: " + lv.getLecLoc());
+	req.setAttribute("lecList", lecList);
+	req.getRequestDispatcher("/lecture/detail.jsp").forward(req, resp);
+	
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	}
+}

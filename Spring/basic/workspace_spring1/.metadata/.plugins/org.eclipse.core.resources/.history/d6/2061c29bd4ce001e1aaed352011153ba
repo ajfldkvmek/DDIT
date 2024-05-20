@@ -1,0 +1,18 @@
+package kr.or.ddit.board.dao;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+
+import kr.or.ddit.vo.BoardVO;
+
+public class BoardDAOImpl implements IBoardDAO {
+
+	private SqlSessionTemplateionTemplate sqlSession;
+	
+	@Override
+	public List<BoardVO> selectBoardList() {
+		return null;
+	}
+
+}

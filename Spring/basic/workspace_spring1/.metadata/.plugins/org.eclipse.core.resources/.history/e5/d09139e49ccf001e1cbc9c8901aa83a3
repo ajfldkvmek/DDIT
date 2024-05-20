@@ -1,0 +1,13 @@
+package kr.or.ddit;
+
+public enum 		ServiceResult result = null;
+int status = boardDAO.updateboard(boardVO);
+if(status > 0) {
+	result = ServiceResult.OK;
+} else {
+	result = ServiceResult.FAILED;
+}
+return result; {
+
+	OK, FAILED, EXIST, NOTEXIST
+}

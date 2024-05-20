@@ -1,0 +1,60 @@
+package service;
+
+
+import java.util.List;
+
+import dao.BookDAO;
+import vo.Book;
+import vo.BookRent;
+
+public class BookService {
+	private static BookService singleTon = null;
+
+	private BookService() {
+	};
+
+	public static BookService getInstance() {
+		if (singleTon == null) {
+			singleTon = new BookService();
+		}
+		return singleTon;
+	}
+	BookDAO bDao = BookDAO.getInstance();
+
+	//회원이 추천도서목록 보기
+	public List<Book> recBook() {
+		return bDao.recBook();
+		
+	}
+	//회원이 인기도서목록 보기
+	public List<Book> bestBook() {
+		return bDao.bestBook();
+		
+	}
+	//회원이 신간도서목록 보기
+	public List<Book> newBook() {
+		return bDao.newBook();
+		
+	}
+	//회원이 검색한도서 목록 보기
+	public List<Book> ScBook(String scKey) {
+		return bDao.scBook(scKey);
+		
+	}
+	//회원이 검색한 도서 목록에서 선택한 도서 상세보기
+	public void selBook(String bookNo, String id, String rentNo) {
+		bDao.selBook(bookNo, id, rentNo);
+	}
+
+	public void returnBook(List<Object> list) {
+//		bDao.returnBook()		
+	}
+
+	public List<BookRent> myBookList(String id) {
+		return bDao.myBookList(id);
+	}
+
+	public void returnBoook(String retNo, String id) {
+		bDao.returnBook(retNo, id);
+	}
+}

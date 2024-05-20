@@ -1,0 +1,11 @@
+package kr.or.ddit.vo;
+
+public class FreeVO {
+
+	private int free_no;
+	private String free_title;
+	private String free_content;
+	private String free_writer;
+	private String free_date;
+	private int free_hit = 0;
+}

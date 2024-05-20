@@ -1,0 +1,21 @@
+
+
+1. form 태그에서 사용하는 속성
+	1) action		 :	폼 데이터를 받아 처리하는 웹 페이지의 url
+	2) method		 :	폼데이터가 전송하는 http방식(get/post)
+	3) name  		 :	폼 데이터를 식별하기 위한 이름을 설정
+	4) accept-charset:	폼전송에 사용할 문자 인코딩 방식을 설정
+	
+2.form태그 내에 중첩하여 사용하는 태그를 나열하고 설명
+
+	input	: 텍스트 입력 등 사용자가 다양한 방식으로 설정 가능
+	select	: 여러개의 항목이 나타나는 목록 상자에서 항목을 선택하는 태그로 반드시 option을 포함해야함
+	textarea: 여러줄의 텍스트를 입력할 수 있는 태그로, 입력폼 안에 사용된 태그와 띄어쓰기가 그대로 출력됨
+				>>wrap 속성으로 off, hard, soft 있음
+
+3.폼 페이지에서 전송된 데이터를 전달받는 내장객체
+
+	getParameter		: name으로 값 받아오기
+	getParameterValues	: check박스 등과 같이 여러개의 값을 가져올 수 있을 경우 사용 > 배열 형태로 받아옴
+	getParameterNames	: Enumeration 형태로 순서에 상관없이 전부 가져옴
+						 >> iterator형태로 출력가능하며 hasMoreElement, nextElement 와 같이 사용

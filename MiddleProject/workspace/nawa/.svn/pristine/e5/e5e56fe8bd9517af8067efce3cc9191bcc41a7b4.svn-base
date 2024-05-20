@@ -1,0 +1,11 @@
+
+public class fffff {
+	public static void main(String[] args) {
+		String abc = "hihihi가나다라마";
+		System.out.println(abc);
+		System.out.println("abded");
+		int a = 12345;
+		String b = abc + abc;
+		System.out.println(a+b);
+	}
+}

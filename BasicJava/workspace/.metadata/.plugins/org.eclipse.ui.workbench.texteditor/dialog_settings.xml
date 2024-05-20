@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value="REC_BOOK"/>
+		<list key="findhistory">
+			<item value="REC_BOOK"/>
+			<item value="reBookUpdate"/>
+			<item value="내"/>
+			<item value="System"/>
+			<item value="연장"/>
+			<item value="빌릴"/>
+			<item value="삭제"/>
+			<item value="메뉴를 선택하세요&gt;&gt;"/>
+			<item value="추천"/>
+			<item value="계속 등록하시겠습니까?"/>
+			<item value="outRoom"/>
+			<item value="대출하고자"/>
+			<item value="대출한"/>
+			<item value="권수"/>
+			<item value="MEMBER_LOGOUT"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1261"/>
+		<item key="DIALOG_Y_ORIGIN" value="202"/>
+		<item key="DIALOG_WIDTH" value="288"/>
+		<item key="DIALOG_HEIGHT" value="301"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.templates.TemplatePreferencePage$EditTemplateDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="165"/>
+		<item key="DIALOG_Y_ORIGIN" value="285"/>
+		<item key="DIALOG_WIDTH" value="612"/>
+		<item key="DIALOG_HEIGHT" value="331"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+</section>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="member.dao.IMemberDAO"/>
+<fullyQualifiedTypeName name="member.dao.MemberDAOImpl"/>
+<fullyQualifiedTypeName name="member.vo.MemberVO"/>
+<fullyQualifiedTypeName name="board.dao.IBoardDAO"/>
+<fullyQualifiedTypeName name="board.service.IBoardService"/>
+<fullyQualifiedTypeName name="board.service.BoardServiceImpl"/>
+<fullyQualifiedTypeName name="lecture.dao.ILecDAO"/>
+<fullyQualifiedTypeName name="meet.dao.IMeetDAO"/>
+<fullyQualifiedTypeName name="member.service.IMemberService"/>
+<fullyQualifiedTypeName name="member.service.MemberServiceImpl"/>
+<fullyQualifiedTypeName name="meet.service.MeetServiceImpl"/>
+<fullyQualifiedTypeName name="meet.dao.MeetDAOImpl"/>
+<fullyQualifiedTypeName name="board.dao.BoardDAOImpl"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+<fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
+<fullyQualifiedTypeName name="javax.servlet.http.Part"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="javax.management.RuntimeErrorException"/>
+<fullyQualifiedTypeName name="board.atch.dao.IAtchFileDAO"/>
+<fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
+<fullyQualifiedTypeName name="util.MyBatisUtil"/>
+<fullyQualifiedTypeName name="org.apache.ibatis.exceptions.PersistenceException"/>
+<fullyQualifiedTypeName name="atch.service.IBoardAtchFileService"/>
+<fullyQualifiedTypeName name="lecture.comm.vo.AtchFileVO"/>
+<fullyQualifiedTypeName name="board.atch.dao.AtchFileDAOImpl"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.servlet.annotation.MultipartConfig"/>
+<fullyQualifiedTypeName name="board.atch.service.IAtchFileService"/>
+<fullyQualifiedTypeName name="board.atch.service.AtchFileServiceImpl"/>
+<fullyQualifiedTypeName name="board.atch.vo.AtchFileVO"/>
+</qualifiedTypeNameHistroy>

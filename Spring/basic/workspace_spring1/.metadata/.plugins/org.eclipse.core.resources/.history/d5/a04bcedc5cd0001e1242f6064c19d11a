@@ -1,0 +1,14 @@
+package kr.or.ddit.main.service;
+
+import java.util.List;
+
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.FreeVO;
+
+public interface IMainService {
+
+	List<FreeVO> selectFreeListMain();
+
+	List<BoardVO> selectBoardListMain();
+
+}

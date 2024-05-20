@@ -1,0 +1,99 @@
+package dao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import util.ConvertUtils;
+import util.JDBCUtil;
+import vo.Admin;
+import vo.Book;
+import vo.BookRequest;
+import vo.Member;
+
+public class AdminDAO {
+	private static AdminDAO singleTon = null;
+
+	private AdminDAO() {
+	};
+
+	public static AdminDAO getInstance() {
+		if (singleTon == null) {
+			singleTon = new AdminDAO();
+		}
+		return singleTon;
+	}
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+
+	public List<Book> adBookList() {
+		
+		String sql = "select * from book";
+		List<Map<String, Object>> adBookList = jdbc.selectList(sql);
+
+		return ConvertUtils.convertToList(adBookList, Book.class);
+		
+	}
+
+	public void bookUpdate(List<Object> newBook) {
+		String sql = "insert into book(book_no,title,author,text,publisher,pub_date,recom_book,cate_no)\r\n" + 
+					"values(?,?,?,?,?,?,?,?)";
+		jdbc.update(sql,newBook);
+	
+	}
+
+	public int bookDelete(String select) {
+		String sql = "update book set del_book='Y' where book_no = ?";
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		return jdbc.update(sql,param);
+	}
+
+	public int reBookUpdate(String select) {
+		String sql = "update book set recom_book='Y' where book_no = ?";
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		return jdbc.update(sql,param);
+	}
+
+	public List<BookRequest> wishBookList() {
+		String sql = "select * from book_request";
+		List<Map<String, Object>> wishBookList = jdbc.selectList(sql);
+		return ConvertUtils.convertToList(wishBookList, BookRequest.class);
+	}
+
+	public List adMemberList() {
+		String sql = "select mem_id,mem_pw,mem_name,mem_telno,mem_email,to_char(join_date,'yyyy-mm-dd') "
+				+ "join_date ,mem_del from member";
+		List<Map<String, Object>> memList= jdbc.selectList(sql);
+		return ConvertUtils.convertToList(memList, Member.class);	
+	}
+
+	
+	public void memDel(String select) {
+		String sql = "update member set mem_del = 'Y' where mem_id= ?";
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		jdbc.update(sql,param);
+	}
+
+	public Member memSelect(String select) {
+		String sql = "select mem_id,mem_pw,mem_name,mem_telno,mem_email,to_char(join_date,'yyyy-mm-dd') join_date ,MEM_DEL \r\n" + 
+					"from member where mem_id = ?";
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		if(jdbc.selectOne(sql, param) == null) return null;
+		else {
+			Map<String, Object> map = jdbc.selectOne(sql, param);
+			return ConvertUtils.convertToVo(map, Member.class);
+		}
+	}
+
+	public Admin login(List<Object> param) {
+		String sql = "select * from admin where admin_id = ? and admin_pw = ?";//오류노트:물음표를 ""처리함
+		if(jdbc.selectOne(sql, param) == null) return null;
+		Map<String, Object> map = jdbc.selectOne(sql, param);		
+		Admin ad = ConvertUtils.convertToVo(map,Admin.class);
+		//System.out.println(ad);
+		return ad;
+	}
+}

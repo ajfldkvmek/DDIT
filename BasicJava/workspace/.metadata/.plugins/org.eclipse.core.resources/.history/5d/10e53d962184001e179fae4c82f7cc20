@@ -1,0 +1,82 @@
+package dao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import util.ConvertUtils;
+import util.JDBCUtil;
+import vo.Member;
+
+public class MemberDAO {
+
+	private static MemberDAO singleTon = null;
+
+	private MemberDAO() {
+	};
+
+	public static MemberDAO getInstance() {
+		if (singleTon == null) {
+			singleTon = new MemberDAO();
+		}
+		return singleTon;
+	}
+
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+
+	public List<Member> memberList(List<Object> param) {
+		String sql = ""; //멤버리스트 가져오기
+		
+		List<Map<String, Object>> list = jdbc.selectList(sql, param);
+				
+		return ConvertUtils.convertToList(list, Member.class);
+	}
+
+	public Member login(List<Object> param) {
+		String sql = "select mem_id from member where mem_id = ? and mem_pw = ?";
+		Map<String, Object> map = jdbc.selectOne(sql, param);
+		if(map != null) return ConvertUtils.convertToVo(map, Member.class);
+		else return null;
+	}
+
+	public int sign(List<Object> param) {
+		String sql =" insert into member(mem_id, mem_pw, mem_name, mem_telno)\r\n"+ 
+				    " values (?,?,?,?) ";
+		int result = jdbc.update(sql,param);
+//		Member mb = ConvertUtils.convertToVo(map, Member.class);
+		return result;
+	}
+
+	//관리자가 보는 회원 전체 리스트
+	public List<Member> adMemberList() { 
+		List<Map<String, Object>> memList= jdbc.selectList(sql);
+		return ConvertUtils.convertToList(memList, Member.class);	
+	}
+	
+	//관리자가 한명의 회원만 선택해서 데이터 불러오기
+	public List<Member> memSelect(String select) {
+		String sqlSel = sql + memIdSel;
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		List<Map<String, Object>> list = jdbc.selectList(sql, param);
+		return ConvertUtils.convertToList(list, Member.class);
+	}
+
+	//관리자가 회원삭제시키기
+	public void memDel(String select) {
+		String sql = "update member set mem_del = 'Y' "+ memIdSel;
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		jdbc.update(sql,param);
+	
+	}
+	//관리자가 회원 비밀번호 리셋시키기
+	public void memReset(String select) {
+		String sql = "update member set mem_pw = '0000' "+ memIdSel;
+		List<Object> param = new ArrayList<Object>();
+		param.add(select);
+		jdbc.update(sql,param);
+		
+	}
+}
+//0937

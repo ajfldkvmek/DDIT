@@ -1,0 +1,71 @@
+package print;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import util.ScanUtil;
+import vo.Room;
+import vo.RoomReserve;
+
+public class RoomPrint {
+
+	public void printSeat(List<Room> list) {
+		
+//		Map<String, String> map = new HashMap<String, String>();
+//		for (Room room : list) {
+//			if(room.getSeat_stat().equalsIgnoreCase("n"))
+//				System.out.println(room.getSeat_no()+"x");
+//			else
+//				System.out.println(room.getSeat_no()+"o");
+//			map.put(room.getSeat_no(), room.getSeat_stat());
+//		}
+		
+		for(int i = 1; i <= list.size(); i++) {
+			
+		}
+	}
+//	public void printseat() {
+//		int[] arr = new int[25];
+//		arr[3] = 1;
+//		arr[7] = 1;
+//		arr[11] = 1;
+//		arr[17] = 1;
+//		arr[23] = 1;
+//		System.out.println("\ta\tb\tc\td\te");
+//		for(int i = 0; i < arr.length; i++) {
+//			
+//			if(i%5 == 0) System.out.print((i/5+1)+"\t");
+//			if(arr[i] == 0) {
+//				System.out.print("■\t");
+//			} else {
+//				System.out.print("□\t");
+//			}
+//			if((i+1)%5 == 0) System.out.println();
+//		}
+//	}
+	
+//	String select = ScanUtil.nextLine("이미 사용중인 좌석입니다. 좌석을 선택하세요>> ");
+//	
+//	if(map.get(select).equalsIgnoreCase("y"))
+//		printSeat(list);
+//	
+//	return select;
+	
+//	public void printOutRoom() {
+//		String select = ScanUtil.nextLine("퇴실 하시겠습니까?(y/n)>> ");
+//		
+//	}
+
+	public void printMySeat(RoomReserve rr) {
+		System.out.println("예약번호\t회원아이디\t좌석번호");
+		System.out.println(rr.getResv_no()+"\t"+rr.getMem_id()+"\t"+rr.getSeat_no()+"\t");
+	}
+	
+	public void roomPrint() {
+		System.out.println("1.열람실 예약");
+		System.out.println("2.사용종료");
+		System.out.println("3.내 예약 확인");
+	}
+}

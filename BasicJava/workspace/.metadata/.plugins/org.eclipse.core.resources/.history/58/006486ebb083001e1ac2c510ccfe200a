@@ -1,0 +1,8 @@
+package print;
+
+public class BookPrint {
+
+	 private String admin_id;
+	 private String admin_pw;
+	 private String admin_name;
+}

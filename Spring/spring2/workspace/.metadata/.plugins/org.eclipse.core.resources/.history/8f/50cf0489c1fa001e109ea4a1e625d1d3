@@ -1,0 +1,5 @@
+package kr.or.ddit.codingtest.service;
+
+public class ICodingTestService {
+
+}

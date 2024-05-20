@@ -1,0 +1,63 @@
+package service;
+
+public class exceptChk {
+
+	
+//	public boolean idPassChk(String str) {
+//		boolean pass = true;
+//		for(char ch : str.toCharArray()) {
+//			// 숫자 체크
+//			if('0'<= ch && ch <='9' ) {
+//				
+//			}
+//			else if('a'<= ch && ch<='z') {
+//				
+//			}else {
+//				return false;
+//			}
+//		}
+//		if(str.length() > 20) return false;
+//		
+//		return true;
+//	}
+//	s.getBytes().length
+	public boolean idChk(String id) {
+		if(id.getBytes().length > 20) return false;
+		for(char ch : id.toCharArray()) {
+			
+			if('0'<= ch && ch <='9' ) {
+				
+			}
+			else if('a'<= ch && ch<='z') {
+				
+			} else if('A'<= ch && ch<='Z'){
+				
+			} else {
+				return false;
+			}
+		}
+		return true;		
+	}
+	
+	public boolean passChk(String pw) {
+		if(pw.getBytes().length > 30) return false;
+		for(char ch : pw.toCharArray()) {
+			
+			if('0'<= ch && ch <='9' ) {
+				
+			}
+			else if('a'<= ch && ch<='z') {
+				
+			} else if('A'<= ch && ch<='Z'){
+				
+			} else {
+				return false;
+			}
+		}
+		return true;	
+	}
+	
+	public boolean nameChk(String name) {		
+		if(6 <= name.getBytes().length && name.getBytes().length <=30) return true;
+	}
+}

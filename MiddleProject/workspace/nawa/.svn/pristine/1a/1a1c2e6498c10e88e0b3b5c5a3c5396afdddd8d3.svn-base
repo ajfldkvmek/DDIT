@@ -1,0 +1,58 @@
+package lecture.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lecture.service.ILecService;
+import lecture.service.LecServiceImpl;
+import lecture.vo.LectureVO;
+
+@WebServlet("/lecture/lecSearch")
+public class searchController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doPost(req,resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ILecService lecService = LecServiceImpl.getInstance();
+		
+		resp.setContentType("text/html;charset=UTF-8");
+	    req.setCharacterEncoding("UTF-8");
+	    String search = req.getParameter("search"); // 검색빈칸 입력값
+	    String cate = req.getParameter("lcate_no");
+	    
+	    String pageStr = req.getParameter("page");
+		int page = (pageStr != null && !pageStr.isEmpty()) ? Integer.parseInt(pageStr) : 1;
+	    int countPerPage = 10; // 페이지당 포스트 수 조절
+	    
+	    System.out.println("controller>>>>>>>>" + search + " " + cate);
+	    LectureVO lv = new LectureVO();
+		lv.setSearch(search);
+		lv.setLecCate(cate);
+	    
+		
+		
+		List<LectureVO> lecList = lecService.lectureSearch(lv);
+		
+	    
+		System.out.println("controller>>>" +lecList);
+		
+		req.setAttribute("pageList", lecList);
+		req.getRequestDispatcher("/lecture/list.jsp").forward(req, resp);
+		
+		
+	}
+	
+}

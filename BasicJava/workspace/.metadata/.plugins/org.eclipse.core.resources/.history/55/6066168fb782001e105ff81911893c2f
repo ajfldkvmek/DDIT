@@ -1,0 +1,21 @@
+package dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import util.JDBCUtil;
+
+public class EventDAO {
+
+	
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+
+	public List<Object> reserveEvent() {
+		String sql = "select * from evnet";
+		
+		List<Map<String, Object>> map = jdbc.
+		return null;
+	}
+
+}

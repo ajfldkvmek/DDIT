@@ -1,0 +1,9 @@
+package kr.or.ddit.free.dao;
+
+import kr.or.ddit.vo.FreeVO;
+
+public interface IFreeDAO {
+
+	int insertfree(FreeVO freeVO);
+
+}

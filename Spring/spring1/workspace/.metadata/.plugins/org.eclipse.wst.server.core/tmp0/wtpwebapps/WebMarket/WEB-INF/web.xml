@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>WebMarket</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <security-role>
+  	<role-name>admin</role-name>
+  </security-role>
+  
+  <!-- 
+  	JSP시큐리티 web.xml설정
+  	1.시큐리티 역할 설정하는 방법
+  		<security-role>
+  			<security-name>role1</security-name>		//역할 이름
+  		</security-role>
+  	
+  	2.시큐리티 제약사항 설정하기
+  		<security-constraint>
+  		
+  			//웹 자원에 대한 접근 설정
+  			<web-reources-collection></web-reources-collection>
+  			
+  			//웹 자원에 대한 접근 할 수 있는 인증된 사용자 설정
+  			<auth-constraint></auth-constraint>
+  			
+  			//데이터 전송시 데이터 보호를 설정
+  			<user-data-constraint></user-data-constraint>
+  		</security-constraint>
+  		
+	  	2-1. 웹 자원에 대한 접근설정
+	  	
+		  	<web-resource-collection>
+	  			
+	  			//웹자원의 이름을 설정하여 생략할 수있따
+		  		<web-resources-name></web-resources-name>
+		  		
+		  		//접근 제한을 요청할 url목록을 설정
+		  		<url-pattern><url-pattern>
+		  		
+		  		//HTTP 메소드 설정
+		  		<http-method></http-method>
+		  		
+	  		</web-resource-collection>
+	  		
+	  	2-2. 웹자원에 접근할 수 있는 읹으된 사용자 설정
+	  		- auth-constraint를 설정하지 않으면 웹서서븐 사용자 인증을 요구하지 ㅇ낳고 사용자의 요청을 승인합니다
+	  		<auth-consrtaint>
+	  			<description></description> //설명
+	  			//반드시 tomcat-user.xml에 등록된 사용자 여야함
+	  			<role-name></role-name>
+	  		</auth-consrtaint>
+	  		
+	  	
+	  	2-3.클라릴언트와 서버간에 데이터를 전송할 때 데이터를 보호하는 방법을 설정
+	  		
+	  		- None		   : 기본값으로 데이터를 보호하지 않을 때
+	  		- Integeral	   : 전송중 데이터가 변경되지않았음을 보장(데이터 무결성)
+	  		- Confidential : 전송중 데이터를 아무도 훔쳐보지 않음(데이터 기밀성)
+	  		
+	  		<user-data-constraint>
+	  			<transprot-guarantee>NONE</transprot-guarantee>
+	  		</user-data-constraint>
+  		
+  	3. 시큐리티 인증 설정하기
+  	<login-config>
+  	
+  		//웹 자원에 대한 인증 처리 방식 설정
+  		<auth-method>FORM</auth-method>
+  		
+  		//웹 자원에 접근할 수 있는 인증된 사용자 설정
+  		<realm-name></realm-name>
+  		
+  		//데이터 전송시 데이터 보호를 설정
+  		<form-login-config></form-login-config>
+  		
+  	</login-config>		
+  	
+  	
+  		3-1.웹 애플리 케이션의 읹으 처리 기법을 설정하는 요소
+  	
+  			- BASIC		  : 웹 자원을 보호하는 간단하고 일반적인 방법
+  			- DIGEST	  : 암호화 매커니즘을 이용하여 전송, 많이 사용하진않음
+  			- FORM		  : 일반적인 폼 페이지를 이용하여 로그인 정보를 서버에 전송하는 방식
+  						         암호화 되지 않은 로그인 정보를그대로 전송(FORM기반 인증시 별도의 form 처리 필요)
+  			- clinet-cert : 클라이언트가 인증서를 가지고 공인 키 인증방식을 사용하여 로그인하는 방식
+  							클라이언트가 인증서를 가지고 있어야만 로그인 되므로 비지니스 환경에서만 적용
+  			<auth-method>FORM</auth-method>
+  			
+  		3-2 기본 인증의 경역 이름을 설정
+  			 FORM 기반 읹으이나 다른 인증 방법에 필요하지 않기 떄문에 아무런 영향을 미치지 않지만 데이터를 문서화하는데 일반적으로 사용
+  			 <realm-name>영역이름</realm-name>
+  	
+  		3-3 인증 처리를 위한 로그인 및 오류 페이지를 설정
+  			auth-method 요소가 FORM 기반 인증 처리 기법으로 실정되었을때 사용합니다
+			<form-login-config>
+				<form-login-page>/ch10/login.jsp<form-login-page>
+				<form-error-page〉/ch10/login failed.jsp<form-error-page〉
+			</form-login-config>
+  	
+   -->
+  <security-constraint>
+  	<display-name>WebMarket</display-name>
+  	<web-resource-collection>
+  		<web-resource-name>WebMarket</web-resource-name>
+  		<description></description>
+  		<url-pattern>/addProduct.jsp</url-pattern>
+  	</web-resource-collection>
+  	
+  	<auth-constraint>
+  		<description>권한은 관리자로만 접근 가능</description>
+  		<role-name>admin</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  
+  <login-config>
+  	<auth-method>FORM</auth-method>
+  	<form-login-config>
+		<form-login-page>/login.jsp</form-login-page>
+		<form-error-page>/login_failed.jsp</form-error-page>
+  	</form-login-config>
+  </login-config>
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/exceptionNoPage.jsp</location>
+  </error-page>
+  
+  
+  
+  <filter>
+  	<filter-name>LogFilter</filter-name>
+  	<filter-class>filter.LogFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>LogFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  
+  
+  <filter>
+  	<filter-name>LogFileFilter</filter-name>
+  	<filter-class>filter.LogFileFilter</filter-class>
+  	
+  	<init-param>
+  		<param-name>filename</param-name>
+  		<param-value>c:\\logs\webmarket.log</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>LogFileFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+</web-app>

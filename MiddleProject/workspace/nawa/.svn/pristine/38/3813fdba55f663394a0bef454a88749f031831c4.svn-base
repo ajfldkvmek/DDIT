@@ -1,0 +1,5 @@
+package meet.service;
+
+public interface IMeetService {
+
+}

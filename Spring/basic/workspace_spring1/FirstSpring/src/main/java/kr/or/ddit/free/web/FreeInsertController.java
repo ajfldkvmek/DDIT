@@ -1,0 +1,64 @@
+package kr.or.ddit.free.web;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.free.service.IFreeService;
+import kr.or.ddit.vo.FreeVO;
+
+@Controller
+@RequestMapping("/free")
+public class FreeInsertController {
+
+	@Inject
+	private IFreeService freeService;
+	
+	@RequestMapping(value="/form.do", method=RequestMethod.GET)
+	public String noticeForm() {
+		return "free/form";
+	}
+	
+	@RequestMapping(value="/insert.do", method=RequestMethod.POST)
+	public String freeInsert(FreeVO freeVO, Model model) {
+		
+		String goPage = ""; 
+		Map<String, String> errors = new HashMap<>();
+		
+		if(StringUtils.isBlank(freeVO.getFreeTitle())) {
+			errors.put("freeTitle", "제목을 입력해 주세요");
+		}
+		
+		if(StringUtils.isBlank(freeVO.getFreeContent())) {
+			errors.put("freeContent", "내용을 입력해 주세요");
+		}
+		
+		if(errors.size() > 0) { //내가 넘긴 데이터가 정상이 아님
+			model.addAttribute("errors", errors);
+			model.addAttribute("free", freeVO);
+			goPage = "free/form";
+		} else { //정상적인 데이터
+			freeVO.setFreeWriter("a001"); //작성자 임시로 하드 코딩
+			ServiceResult result = freeService.insertFree(freeVO);
+			
+			//System.out.println("adadasadasasd>>>>>" +freeVO);
+			
+			if(result.equals(ServiceResult.OK)) { //등록성공
+				goPage = "redirect:/free/detail.do?freeNo="+freeVO.getFreeNo();
+			} else { //등록실패
+				model.addAttribute("free", freeVO);
+				goPage = "free/form";
+			}
+		}
+		
+		return goPage;
+	}
+}

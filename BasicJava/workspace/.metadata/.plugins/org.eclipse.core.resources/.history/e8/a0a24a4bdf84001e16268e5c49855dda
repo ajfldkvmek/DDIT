@@ -1,0 +1,50 @@
+package test;
+
+import java.util.ArrayList;
+import java.util.List;
+public class tt {
+
+	public static void main(String[] args) {
+		
+//		Random rand = new Random();
+//		
+//		String s = "abc";
+//		String a = "A1";
+//		String num = "01033334444";
+//		int tel = Integer.parseInt(num);
+////		System.out.println(tel);
+////		
+////		System.out.println(a.equalsIgnoreCase("a1"));
+//		
+////		System.out.println(s.getBytes().length);
+//		
+//		int random = rand.nextInt(99999);
+//		System.out.println(random);
+		
+		
+		List<List<Object>> list = new ArrayList();
+		
+		
+		System.out.println(list);
+	}
+	
+	/	public void printseat() {
+		int[] arr = new int[25];
+		arr[3] = 1;
+		arr[7] = 1;
+		arr[11] = 1;
+		arr[17] = 1;
+		arr[23] = 1;
+		System.out.println("\ta\tb\tc\td\te");
+		for(int i = 0; i < arr.length; i++) {
+			
+			if(i%5 == 0) System.out.print((i/5+1)+"\t");
+			if(arr[i] == 0) {
+				System.out.print("■\t");
+			} else {
+				System.out.print("□\t");
+			}
+			if((i+1)%5 == 0) System.out.println();
+		}
+	}
+}

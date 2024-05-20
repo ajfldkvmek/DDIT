@@ -1,0 +1,160 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import print.AdminPrint;
+import service.AdminService;
+import util.ScanUtil;
+import util.View;
+
+public class AdminController extends AdminPrint{
+	
+
+	static private Map<String, Object> sessionStorage = Controller.sessionStorage;
+	AdminService ads = AdminService.getInstance();
+	
+	public View adminBook() {
+		printAdminBook();		
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMIN_BOOKLIST;
+		case 2:
+			return View.BOOK_UPDATE;
+		case 3:
+			return View.BOOK_DELETE;
+		case 4:
+			return View.RCBOOK_UPDATE;
+		case 5:
+			return View.WISHBOOK_LIST;			
+		default :
+			return View.ADMIN;
+		}
+
+	}
+
+
+	public View adminLogin() {
+		System.out.println("관리자로그인페이지");
+		return View.ADMIN;
+		
+	}
+
+	public View adBookList() {
+		System.out.println("관리자전체도서조회");
+		//페이징작업필요
+		List adBookList = ads.adBookList();
+		printAdBookList(adBookList);
+		
+		return View.ADMIN;
+	}
+
+
+	public View bookUpdate() {
+		System.out.println("새로운 도서 등록");
+		
+		List<Object> newBook = new ArrayList();
+		newBook.add(ScanUtil.nextLine("청구기호 >>"));
+		newBook.add(ScanUtil.nextLine("책제목 >>"));
+		newBook.add(ScanUtil.nextLine("작가 >>"));
+		newBook.add(ScanUtil.nextLine("책소개>>"));
+		newBook.add(ScanUtil.nextLine("출판사 >>"));
+		newBook.add( ScanUtil.nextLine("출판일(YY/MM/DD)>>"));
+		newBook.add(ScanUtil.nextLine("추천도서 (Y/N)>>"));
+		newBook.add(ScanUtil.nextLine("책분류(100~900)>>"));
+	
+		ads.bookUpdate(newBook);
+		System.out.println("등록되었습니다");
+		adBookList();
+		return View.ADMIN;
+	}
+
+	public View bookDelete() {
+		adBookList();
+		String select=ScanUtil.nextLine("삭제할 도서의 책 아이디를 입력하세요>>");
+		ads.bookDelete(select);		
+		System.out.println("삭제되었습니다");
+		adBookList();
+		
+		return View.ADMIN;
+	}
+
+
+	public View rcBookUpdate() {
+		adBookList();
+		String select=ScanUtil.nextLine("추천할 도서의 책 아이디를 입력하세요>>");
+		ads.reBookUpdate(select);
+		
+		System.out.println("등록되었습니다");
+		adBookList();
+		
+		return View.ADMIN;
+	}
+
+
+
+
+	public View wishBook() {
+		List wishList = ads.wishBookList();
+		printWishBookList(wishList);
+		
+		
+		return View.ADMIN;
+	}
+
+
+	public View admin() {
+		printAdmin();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMIN_BOOK;
+		case 2:
+			return View.ADMIN_MEMBER;		
+		default :
+			return View.ADMIN;
+		}
+
+	}
+
+	public View adMember() {
+		//회원관리페이지
+		List MeberList = ads.adMemberList();
+		printMemberAll(MeberList);
+			
+		printAdMember();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMEMBER_DEL;
+		case 2:
+			return View.ADMEMBER_UPDATE;		
+		default :
+			return View.ADMIN;
+
+	}
+	}
+
+
+	public View memDel() {
+		String select = ScanUtil.nextLine("삭제할 회원 아이디를 입력하세요>>");
+		List Selmem = ads.memSelect(select);
+		printSelMem(Selmem);
+		
+		String del = ScanUtil.nextLine("정말 삭제하시겠습니까?(Y/N)");
+		if(del.equalsIgnoreCase("y")) {
+			ads.memDel(select);
+			System.out.println("완료되었습니다");
+			return View.ADMIN_MEMBER;
+		}
+			System.out.println("취소되었습니다");
+			return View.ADMIN_MEMBER;
+		}
+		
+		
+	}
+
+
+	

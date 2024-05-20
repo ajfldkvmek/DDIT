@@ -1,0 +1,196 @@
+package meet.vo;
+
+public class MeetVO {
+	
+	private String meet_no;
+	private String meet_name;
+	private String meet_info;
+	private String meet_level;
+	private int meet_cnt;
+	private int meet_limit;
+	private int meet_score;
+	private String meet_loc;//도로명주소
+	private String meet_loc_detail;//상세주소
+	private String mcate_no; //모임카테고리번호
+	private String mem_id;
+	
+	private String search;
+	
+	
+	
+
+	public String getMeet_loc_detail() {
+		return meet_loc_detail;
+	}
+
+
+
+
+	public void setMeet_loc_detail(String meet_loc_detail) {
+		this.meet_loc_detail = meet_loc_detail;
+	}
+
+
+
+
+	public String getSearch() {
+		return search;
+	}
+
+
+
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+
+
+
+	public String getMeet_no() {
+		return meet_no;
+	}
+
+
+
+
+	public void setMeet_no(String meet_no) {
+		this.meet_no = meet_no;
+	}
+
+
+
+
+	public String getMeet_name() {
+		return meet_name;
+	}
+
+
+
+
+	public void setMeet_name(String meet_name) {
+		this.meet_name = meet_name;
+	}
+
+
+
+
+	public String getMeet_info() {
+		return meet_info;
+	}
+
+
+
+
+	public void setMeet_info(String meet_info) {
+		this.meet_info = meet_info;
+	}
+
+
+
+
+	public String getMeet_level() {
+		return meet_level;
+	}
+
+
+
+
+	public void setMeet_level(String meet_level) {
+		this.meet_level = meet_level;
+	}
+
+
+
+
+	public int getMeet_cnt() {
+		return meet_cnt;
+	}
+
+
+
+
+	public void setMeet_cnt(int meet_cnt) {
+		this.meet_cnt = meet_cnt;
+	}
+
+
+
+
+	public int getMeet_limit() {
+		return meet_limit;
+	}
+
+
+
+
+	public void setMeet_limit(int meet_limit) {
+		this.meet_limit = meet_limit;
+	}
+
+
+
+
+	public int getMeet_score() {
+		return meet_score;
+	}
+
+
+
+
+	public void setMeet_score(int meet_score) {
+		this.meet_score = meet_score;
+	}
+
+
+
+
+	public String getMeet_loc() {
+		return meet_loc;
+	}
+
+
+
+
+	public void setMeet_loc(String meet_loc) {
+		this.meet_loc = meet_loc;
+	}
+
+
+
+
+	public String getMcate_no() {
+		return mcate_no;
+	}
+
+
+
+
+	public void setMcate_no(String mcate_no) {
+		this.mcate_no = mcate_no;
+	}
+
+
+
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+
+
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+
+
+
+	public MeetVO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+}

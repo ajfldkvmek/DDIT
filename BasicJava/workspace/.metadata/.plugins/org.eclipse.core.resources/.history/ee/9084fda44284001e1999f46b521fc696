@@ -1,0 +1,23 @@
+package service;
+
+import java.util.Random;
+
+public class NoCreate {
+
+	Random rand = new Random();
+	
+	private static NoCreate instance = null;
+
+	private NoCreate() {
+	}
+
+	public static NoCreate getInstance() {
+		if (instance == null)
+			instance = new NoCreate();
+		return instance;
+	}
+
+	public String genNo(String str) {
+		int rNum = 
+	}
+}

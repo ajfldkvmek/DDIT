@@ -1,0 +1,22 @@
+package print;
+
+import java.util.List;
+
+import vo.Event;
+
+public class EventPrint {
+
+
+	public void printEvent() {
+		// TODO Auto-generated method stub
+		System.out.println("1.문화행사예약하기");
+		System.out.println("2.내 문화행사 확인");
+	}
+	
+	
+	public void printEventList(List<Event> list) {
+		
+		for(Event e : list)
+			System.out.println(e.g);
+	}
+}

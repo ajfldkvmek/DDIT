@@ -1,0 +1,67 @@
+package lecture.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lecture.comm.service.AtchFileServiceImpl;
+import lecture.comm.service.IAtchFileService;
+import lecture.service.ILecService;
+import lecture.service.LecServiceImpl;
+import lecture.vo.LectureVO;
+
+@MultipartConfig
+@WebServlet ("/insert.do")
+public class insertController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		req.getRequestDispatcher("/lecture/insertForm.jsp").forward(req, resp);
+		
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		resp.setContentType("text/html;charset=UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		
+		String lecTitle = req.getParameter("lecTitle");
+		String lecCont = req.getParameter("lecCont");
+		String tutNo = req.getParameter("tutNo");
+		String lecNo = req.getParameter("lecNo");
+		Integer price = Integer.parseInt(req.getParameter("price"));
+		Integer lecMax = Integer.parseInt(req.getParameter("lecMax"));
+		Integer lecCnt = Integer.parseInt(req.getParameter("lecCnt"));
+		
+		IAtchFileService fileService = AtchFileServiceImpl.getInstance();
+		
+		lecture.comm.vo.AtchFileVO atchFileVO = new lecture.comm.vo.AtchFileVO();
+		
+		atchFileVO = fileService.saveAtchFileList(req.getParts());
+		
+		
+		// 강의정보 저장
+		ILecService lecService = LecServiceImpl.getInstance();
+		
+		LectureVO lv = new LectureVO();
+		lv.setLecTitle(lecTitle);
+		lv.setLecCont(lecCont);
+		lv.setTutNo(tutNo);
+		lv.setLecNo(lecNo);
+		lv.setPrice(price);
+		lv.setLecMax(lecMax);
+		lv.setLecCnt(lecCnt);
+		
+		
+		int cnt = lecService.registLecture(lv);
+		
+	}
+}

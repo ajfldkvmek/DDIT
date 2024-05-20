@@ -1,0 +1,263 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import print.AdminPrint;
+import service.AdminService;
+import service.MemberService;
+import service.exceptChk;
+import util.ScanUtil;
+import util.View;
+import vo.Book;
+import vo.BookRequest;
+import vo.Member;
+
+public class AdminController extends AdminPrint {
+
+	static private Map<String, Object> sessionStorage = Controller.sessionStorage;
+
+	exceptChk chk = exceptChk.getInstance();
+
+	AdminService as = AdminService.getInstance();
+	MemberService ms = MemberService.getInstance();
+
+	public View adminBook() {
+		printAdminBook();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMIN_BOOKLIST;
+		case 2:
+			return View.BOOK_UPDATE;
+		case 3:
+			return View.BOOK_DELETE;
+		case 4:
+			return View.RCBOOK_UPDATE;
+		case 5:
+			return View.WISHBOOK_LIST;
+		default:
+			System.out.println("잘못 입력하셨습니다.");
+			return View.ADMIN_BOOK;
+		}
+	}
+
+	// 전체 책 페이지 출력
+	public View adBookList() {
+		System.out.println("관리자전체도서조회");
+		// 페이징작업필요
+		List<Book> adBookList = as.adBookList();
+		printAdBookList(adBookList);
+		return View.ADMIN_MENU;
+	}
+
+	// 관리자 로그인
+	public View adminLogin() {
+		printAdminLogin();
+		List<Object> param = new ArrayList<Object>();
+
+		String id = ScanUtil.nextLine("ID>> ");
+		while (true) {
+			if (chk.idChk(id)) {
+				param.add(id);
+				break;
+			}
+			id = ScanUtil.nextLine("형식에 맞지 않습니다. 다시 입력해주세요>> ");
+		}
+
+		String pass = ScanUtil.nextLine("PASS>>");
+		while (true) {
+			if (chk.passChk(pass)) {
+				param.add(pass);
+				break;
+			}
+			pass = ScanUtil.nextLine("형식에 맞지 않습니다. 다시 입력해주세요>> ");
+		}
+
+		if (as.login(param) == null) {
+			System.out.println("해당 아이디가 없습니다.");
+			return View.ADMIN_LOGIN;
+		} else {
+			sessionStorage.put("id", param.get(0));
+			System.out.println(sessionStorage.get("id") + "님 어서오십시오.");
+			return View.ADMIN_MENU;
+		}
+	}
+
+	public View bookUpdate() {
+		System.out.println("새로운 도서 등록");
+
+		// 여기도 입력값 예외처리
+		List<Object> newBook = new ArrayList<Object>();
+		newBook.add(ScanUtil.nextLine("청구기호 >>"));
+		newBook.add(ScanUtil.nextLine("책제목 >>"));
+		newBook.add(ScanUtil.nextLine("작가 >>"));
+		newBook.add(ScanUtil.nextLine("책소개>>"));
+		newBook.add(ScanUtil.nextLine("출판사 >>"));
+		newBook.add(ScanUtil.nextLine("출판일(YY/MM/DD)>>"));
+		newBook.add(ScanUtil.nextLine("추천도서 (Y/N)>>"));
+		newBook.add(ScanUtil.nextLine("책분류(100~900)>>"));
+
+		as.bookUpdate(newBook);
+		System.out.println("등록되었습니다");
+		adBookList();
+		return View.ADMIN_MENU;
+
+	}
+
+	// 도서삭제
+	public View bookDelete() {
+		adBookList();
+		String select = ScanUtil.nextLine("삭제할 도서의 책 아이디를 입력하세요>> ");
+		if (as.bookDelete(select) != 0) {
+			System.out.println("삭제되었습니다");
+			return View.ADMIN_MENU;
+		} else {
+			return View.BOOK_DELETE;
+		}
+//		int cont = ScanUtil.nextInt("계속 하시려면 1번, 종료하시려면 다른 버튼을 늘려주세요");
+	}
+
+	// 추천도서등록
+	public View rcBookUpdate() {
+		adBookList();
+		String select = ScanUtil.nextLine("추천할 도서의 책 아이디를 입력하세요>> ");
+		
+		if(as.reBookUpdate(select) != 0) {
+			System.out.println("등록되었습니다");
+			return View.ADMIN_MENU;
+		}
+
+		System.out.println("등록되었습니다");
+		adBookList();
+
+		return View.ADMIN_MENU;
+	}
+
+	// 신청도서 목록
+	public View wishBook() {
+		List<BookRequest> wishList = as.wishBookList();
+		printWishBookList(wishList);
+
+		return View.ADMIN_MENU;
+	}
+
+////////////////////// 책 관리 끝 ///////////////
+
+	// 회원관리페이지 시작
+	public View adMember() {
+
+		List<Member> MeberList = as.adMemberList();
+		printMemberAll(MeberList);
+
+		printAdMember();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMEMBER_DEL;
+		case 2:
+			return View.ADMEMBER_UPDATE;
+		default:
+			System.out.println("잘못 입력 하였습니다. 처음으로 돌아갑니다");
+			return View.ADMIN_MEMBER;
+		}
+	}
+
+//	while(true) {
+//	String id = ScanUtil.nextLine("ID>>");
+//	if(chk.idChk(id)) {
+//		param.add(id);
+//		break;
+//	}
+//}
+//
+//while(true) {
+//	String pass = ScanUtil.nextLine("PASS>>");
+//	if(chk.passChk(pass)) {
+//		param.add(pass);
+//		break;
+//	}
+//}
+
+	public View memDel() {
+		String select = ScanUtil.nextLine("삭제할 회원 아이디를 입력하세요>> ");
+		// idchk
+
+		while (true) {
+			if (chk.idChk(select)) {
+				break;
+			}
+			select = ScanUtil.nextLine("잘못된 형식입니다 다시 입력하세요>> ");
+		}
+
+		if (as.memSelect(select) == null) {
+			System.out.println("해당하는 아이디가 없습니다. 다시 확인해 주세요");
+			return View.ADMEMBER_DEL;
+		} else {
+			List<Member> Selmem = as.memSelect(select);
+			printSelMem(Selmem);
+		}
+
+		String del = ScanUtil.nextLine("정말 삭제하시겠습니까?(Y/N)");
+		del = chk.ynChk(del);
+
+		if (del.equalsIgnoreCase("y")) {
+			as.memDel(select);
+			System.out.println("완료되었습니다");
+			return View.ADMIN_MEMBER;
+		} else {
+			System.out.println("취소되었습니다");
+			return View.ADMIN_MEMBER;
+		}
+	}
+
+	// 관리자가 회원 비밀번호 수정
+	public View memUpdate() {
+		String select = ScanUtil.nextLine("비밀번호를 초기화할 회원 아이디를 입력하세요>> ");
+		// idchk
+		while (true) {
+			if (chk.idChk(select)) {
+				break;
+			}
+			select = ScanUtil.nextLine("잘못된 형식입니다 다시 입력하세요>> ");
+		}
+
+		if (as.memSelect(select) == null) {
+			System.out.println("해당하는 아이디가 없습니다. 다시 확인해 주세요");
+			return View.ADMEMBER_DEL;
+		} else {
+			List<Member> Selmem = as.memSelect(select);
+			printSelMem(Selmem);
+		}
+
+		String reset = ScanUtil.nextLine("비밀번호 초기화 하시겠습니까?(Y/N)");
+		reset = chk.ynChk(reset);
+
+		if (reset.equalsIgnoreCase("y")) {
+			as.memReset(select);
+			System.out.println("완료되었습니다");
+			return View.ADMIN_MEMBER;
+		} else {
+			System.out.println("취소되었습니다");
+			return View.ADMIN_MEMBER;
+		}
+	}
+
+	public View adminMenu() {
+		printAdmin();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요.");
+		switch (select) {
+		case 1:
+			return View.ADMIN_BOOK;
+		case 2:
+			return View.ADMIN_MEMBER;
+		default:
+			System.out.println("잘못입력하였습니다. 관리자 메뉴로 이동합니다");
+			printLn(10);
+			return View.ADMIN_MENU;
+		}
+	}
+}
+
+//231116 0922

@@ -1,0 +1,24 @@
+package meet.service;
+
+import board.dao.IBoardDAO;
+
+public class MeetServiceImpl implements IMeetService{
+
+	private static IMeetService boardService;
+	
+	private IBoardDAO boardDAO;
+	
+	private MeetServiceImpl() {
+		
+	}
+	
+	public static IMeetService getInstance() {
+		
+		if(boardService == null) 
+			boardService = new MeetServiceImpl();
+		
+		return boardService;
+	}
+	
+	
+}

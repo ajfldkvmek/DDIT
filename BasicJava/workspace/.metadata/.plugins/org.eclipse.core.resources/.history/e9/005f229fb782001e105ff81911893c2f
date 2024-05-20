@@ -1,0 +1,31 @@
+package dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import util.JDBCUtil;
+
+public class EventDAO {
+
+	private static RoomDAO singleTon = null;
+
+	public RoomDAO() {
+	};
+
+	public static RoomDAO getInstance() {
+		if (singleTon == null) {
+			singleTon = new RoomDAO();
+		}
+		return singleTon;
+	}
+	JDBCUtil jdbc = JDBCUtil.getInstance();
+
+	
+	public List<Room> showRoom() {
+
+		String sql = "select * from room";
+		List<Map<String, Object>> list = jdbc.selectList(sql);
+		
+		return ConvertUtils.convertToList(list, Room.class);
+	}
+}

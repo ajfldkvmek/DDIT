@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!--
+  		[참고사이트]: 마이바티스
+  		https://mybatis.org/mybatis-3/getting-started.html
+  		
+  		마이바티스란?
+  		- 마이바티스는 개발자가 지정한 sql, 저장 프로시저 그리고 몇가지 고급 매핑을 지원하는 퍼시스턴스 프레임워크
+  		
+  		마이바티스는 jdcb로 처리하는 상당 부분의 코드와 파라메터 설정 및 결과 매핑을 대신해줌
+  		마이바티스는 데이터베이스 레코드에 원시타입과 map인터페이스 그리고 자바 pojo를 설정해서 매핑하기 위해 xml과 어노테이션을 사용할 수 있음
+  		
+  		pojo(plan old java object)란 순수 자바 객체를 말함
+  		객체지향적인 원리에 충실하면서 환경과 기술에 종속되지 않고 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트
+  		객체지향 원리를 기반으로 설계도니 오브젝트(getter/setter를 이용한 VO들)
+  		
+  		namesapce 항목은 쿼리가 여러개일 때 이름공간을 분리하는 역할을 함
+  		쿼리 xml파일은 보통 여러개 생성되기 떄문에 이를 구별하는 용도로 사용
+  		
+    -->
+<mapper namespace="Book">
+	
+	<!--
+			데이터 입력 sql 쿼리 작성방법
+			insert into 테이블명(c1, c2 ...) values (v1, v2 ...)
+			id 항목은 namespace안에서 쿼리를 구분하는 유일한 식별자 역할을 한다
+			parameterType은 쿼리에 적용할 파라메터 타입
+			useGeneratedKeys와 keyProperty는 하나의 쌍으로 작성됨
+			useGeneratedKeys가 true로 설정되면 mybatis는 insert쿼리 실행 후 생성된 pk를 파라메터 객체의 keyProperty 속성에 넣어줌
+			useGeneratedKeys : 시퀀스로 자동 증가된 번호값을 가져올 것인지에 대한 여부 설정
+			keyProperty		 : true 설정시 어던 필드 값으로 받아올 것인지 설정
+			
+			
+			mybatis는 쿼리를 실행할 때 파라메터를 치환하는데 #{title}은 파라메터로 입력된 키를 값으로 치환
+			map.get("title") == "제목" 형태가 mybatis 쿼리 xml에 전달되면 mybatis는 #{title}을 제목으로 자동변환
+			
+			현재 파라메터로 받아오는 hashMap에는 book_id에 대한 값이 존재 하지 않는다
+			하지만 selectKey를 사용하여 key를 설정해주게 되면
+			여기서 설정한 keyProperty에 해당하는 값이 자동으로 파라메터 hashMap에 바인딩 되어 사용할 수 있게 됨
+		 -->
+	
+	<insert id = "insert" parameterType="hashMap" useGeneratedKeys="true">
+	
+		<selectKey keyProperty="book_id" resultType="int" order="BEFORE">
+			select seq_book.nextval from dual
+		</selectKey>
+		insert into book(book_id, title, category, price) 
+		values(#{book_id}, #{title}, #{category}, #{price})
+		
+	</insert>
+	
+	<!-- 
+		resultType은 select 쿼리가 실행된 후 반환값을 담는 컨테이너 타입을 말한다
+	 -->
+	<select id="selectBook" parameterType="hashMap" resultType="hashMap">
+		select book_id, title, category, price, insert_date
+		from book
+		where book_id = #{bookId}
+	</select>
+	
+	
+	<update id="update" parameterType="hashMap" >
+		update book
+		set title = #{title}
+			,category = #{category}
+			,price = #{price}
+		where book_id = #{bookId}
+	</update>
+	
+	
+	<delete id="delete" parameterType="hashMap" >
+		delete book
+		where book_id = #{bookId}
+	</delete>
+	
+	<!--
+		책 정렬을 위해서 order by 구문을 사용합ㄴ디ㅏ
+		작은 순서부터 정렬하기 위해서는 asc 반대는 desc
+		
+		where 1=1 은 관습적은 구문 (항상 참이기 때문에 where절ㅇ르 나타낼 대 사용)
+		조건이 두 개 이상일 경우 처음에 시작하는 조건은 where 절로 시작하고 두 번재 시작하는 조건은 and이어야 함
+		
+		마이바티스 if문은 조건을 나타냄 test는 조건 규칙을 나타내고
+		키워드가 있는 경우 if문의 쿼리들이 동작함
+		이 때 쿼리의 내용이 파라메터가 아니라 마이바티스 규칙에 의해 변경되는 것을 동적 쿼리라고 함
+		
+		sql쿼리 조건에서 포함을 나타내는 구문은 like절
+	 -->
+	<select id="selectBookList" parameterType="hashMap" resultType="hashMap">
+		select book_id, title, category, price, insert_date
+		from book
+		where 1 = 1 
+		<if test="keyword != null or keyword != ''">
+		and (
+			title like '%'||#{keyword}||'%' or
+			category like '%'||#{keyword}||'%'
+		)
+		</if> 
+	</select>
+	
+</mapper>

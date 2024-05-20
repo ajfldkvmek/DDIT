@@ -1,0 +1,141 @@
+package controller;
+
+import print.MemberPrint;
+import service.MemberService;
+import util.ScanUtil;
+import util.View;
+
+public class MemberController extends MemberPrint {
+
+	MemberService mbService = MemberService.getInstance();
+	exceptChk chk = exceptChk.getInstance();
+	
+	//회원의 메뉴 선택 페이지
+	public View memberMenu() {
+		memberHome();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+		switch (select) {
+
+		case 1:
+			return View.BOOK_RENT;
+		case 2:
+			return View.MYBOOK_LIST;			
+		case 3:
+			return View.ROOM;
+		case 4:
+			return View.EVENT;
+		case 5:
+			return View.MYINFORM;
+		default:
+			return View.MEMBER_MENU;
+		}
+	}
+
+	public View memberJoin() {
+		List<Object> param = new ArrayList<Object>();
+		System.out.println("회원 정보 입력");
+//		mem_id, mem_pw, mem_name, mem_telno
+		
+		while(true) {
+			String id = ScanUtil.nextLine("id>>");
+			if(chk.idChk(id)) {
+				param.add(id);
+				break;
+			} 
+			else {
+				System.out.print("잘못된 아이디입니다. 다시 입력해 주세요\n>>");
+			}
+		}
+		
+		while(true) {
+			String pass = ScanUtil.nextLine("pass>>");
+			if(chk.passChk(pass)) {
+				param.add(pass);
+				break;
+			}
+			else
+				System.out.println("비밀번호를 다시 입력하여 주세요");
+		}
+		
+		while(true) {
+			String name = ScanUtil.nextLine("name>>");
+			if(chk.nameChk(name)) {
+				param.add(name);
+				break;
+			}
+			else
+				System.out.println("이름 다시 입력하여 주세요");
+		}
+		
+		while(true) {
+			String telno = ScanUtil.nextLine("telno>>");
+			if(chk.phoneChk(telno)) {
+				param.add(telno);
+				break;
+			}
+			else 
+				System.out.println("번호를 다시 입력해주세요");
+		}
+		
+		System.out.println(param);
+		
+		boolean ck = mbService.sign(param);
+		if (ck) {
+			System.out.println("도서관 가입을 환영합니다.");
+			return View.HOME;
+		} else {
+			System.out.println("회원 가입에 실패하였습니다.");
+			return View.MEMBER_JOIN;
+		}
+		
+	}
+
+	public View memberLogin() {
+		List<Object> param = new ArrayList<Object>();
+		System.out.println("----- 로그인 -------- ");
+		
+		while(true) {
+			String id = ScanUtil.nextLine("id>> ");
+			if(chk.idChk(id)) {
+				param.add(id);
+				break;
+			}
+		}
+			
+		while(true) {
+			String pass = ScanUtil.nextLine("pass>> ");
+			if(chk.passChk(pass)) {
+				param.add(pass);
+				break;
+			}
+		}
+		
+		Member mb = mbService.login(param);
+		if (mb == null) {
+			System.out.println("회원 정보가 없습니다.");
+			String selyn = ScanUtil.nextLine("회원가입 하시겠습니까(y/n)");
+			if (selyn.equalsIgnoreCase("y")) {
+				return View.MEMBER_JOIN;
+			}
+		} 
+		//아이디 세션에 저장
+		Controller.sessionStorage.put("id", mb.getMem_id());
+		System.out.println(Controller.sessionStorage.get("id"));
+		return View.MEMBER_MENU;
+	}
+
+	public View memberHome() {
+		printMemberHome();
+		int select = ScanUtil.nextInt("메뉴를 선택하세요>> ");
+		switch (select) {
+		case 1:
+			return View.MEMBER_LOGIN;
+		case 2:
+			return View.MEMBER_JOIN;
+		default:
+			System.out.println("다시 입력해주세요");
+			return View.MEMBER_HOME;
+		}
+
+	}
+}

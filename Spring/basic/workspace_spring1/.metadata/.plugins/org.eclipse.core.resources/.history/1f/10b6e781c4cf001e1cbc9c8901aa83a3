@@ -1,0 +1,10 @@
+package kr.or.ddit.notice.service;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.vo.NoticeVO;
+
+public interface INoticeService {
+
+	ServiceResult insertBoard(NoticeVO noticeVO);
+
+}

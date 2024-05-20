@@ -1,0 +1,33 @@
+package kr.or.ddit.main.dao;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.mybatis.spring.SqlSessionTemplate;
+
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.FreeVO;
+import kr.or.ddit.vo.NoticeVO;
+
+public class MainDAO implements IMainDAO {
+
+	@Inject
+	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public List<FreeVO> selectFreeListMain() {
+		return sqlSession.selectList("Main.selectFreeListMain");
+	}
+
+	
+	@Override
+	public List<BoardVO> selectBoardListMain() {
+		return sqlSession.selectList("Main.selectBoardListMain");
+	}
+
+	@Override
+	public List<NoticeVO> selectNoiceListMain() {
+		return sqlSession.selectList("Main.selectNoiceListMain");
+	}
+}

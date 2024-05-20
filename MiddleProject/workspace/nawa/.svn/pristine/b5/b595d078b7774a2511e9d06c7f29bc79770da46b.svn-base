@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 제이쿼리 -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+  <!-- 기본 세팅 시작 -->
+  <!-- document.addEventListener('DOMContentLoaded', function() => js파일로 -->
+  <!-- 기본 세팅 끝 -->
+  <!-- <link rel="stylesheet" href="css/calendar.css"> -->
+
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+
+  <!-- jQuery bpopup plugin cdn -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bPopup/0.11.0/jquery.bpopup.min.js" integrity="sha512-kmrY+BFhi6ywgfK8hW1ySM/KYU3xPd4elbMhORq3DhacwqmitFrf3GB2HpLj3srV1zFsqxvAcZ4qU+y+ym1Eeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- 기본 세팅 2 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth' //월단위 캘린더
+        , googleCalendarApiKey: 'AIzaSyAxG8H--8YJukp4fztQxRvSETzqnf9NF1o'
+        , events: {
+          googleCalendarId: 'e9b12746bc555b2e235afd3d5cbd64d04c5a2737583ce4ef87f23a43bc36e125@group.calendar.google.com'
+          , className: 'gcal-event' // an option!
+        }
+      });
+      calendar.render();
+    });
+  </script>
+  <!-- 기본 세팅 2 끝 -->
+  
+</head>
+
+<body>
+
+  <div id="calendar"></div> 
+
+
+<script>
+</script>
+
+</body>
+</html>

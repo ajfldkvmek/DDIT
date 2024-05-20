@@ -1,0 +1,304 @@
+package board.vo;
+
+import java.time.LocalDate;
+
+/**
+ * DB 테이블에 존재하는 컬럼명을 기준으로 데이터를 처리하기 위한 클래스
+ * @author PC-24
+ *
+ */
+public class PostVO {
+	private int postNo;
+	private String postTitle;
+	private String postWriter;
+	private LocalDate postDate;
+	private String postContent;
+	private long viewCnt = 0;
+	private int postCate; 
+	
+	private int startIdx;
+	private int countPerPage;
+	
+	private String rnum;
+	
+	private String searchField;
+	private String searchText;
+	
+	private int commNo;
+	private String commContent;
+	private LocalDate commDate;
+	private String commWriter;
+	
+	private int commStart;
+	private int commEnd;
+	private int commPage;
+	
+	private int commStartIdx;
+	private int commCountPerPage;
+	private int countCommPerPage;
+
+	private int searchStartIdx;
+	private int searchCountPerPage;
+	private int sCount;
+	
+	
+	
+	public int getsCount() {
+		return sCount;
+	}
+
+	public void setsCount(int sCount) {
+		this.sCount = sCount;
+	}
+
+	public PostVO(String postTitle, String postContent) {
+		super();
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+	}
+
+	public PostVO(int postNo, String postTitle, String postContent) {
+		super();
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+	}
+
+	public PostVO(String postTitle, String postWriter, String postContent) {
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.postContent = postContent;
+	}
+	
+	public PostVO(int postNo, String postTitle, String postWriter, String postContent) {
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.postContent = postContent;
+	}
+	
+	public PostVO(int postNo, String postTitle, String postWriter, LocalDate postDate, String postContent) {
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.postDate = postDate;
+		this.postContent = postContent;
+	}
+	
+	public PostVO() {
+		
+	}
+	
+	//####################################
+	public PostVO(String commContent) {
+		super();
+		this.commContent = commContent;
+	}
+	
+	public PostVO(int commNo, String commContent) {
+		super();
+		this.commNo = commNo;
+		this.commContent = commContent;
+	}
+
+	public PostVO(int postNo, int commNo, String commContent) {
+		super();
+		this.postNo = postNo;
+		this.commNo = commNo;
+		this.commContent = commContent;
+	}
+	
+	public PostVO(String commContent, int postNo, String commWriter) {
+		super();
+		this.commContent = commContent;
+		this.postNo = postNo;
+		this.commWriter = commWriter;
+	}
+
+	public int getPostNo() {
+		return postNo;
+	}
+	public void setPostNo(int postNo) {
+		this.postNo = postNo;
+	}
+	public String getPostTitle() {
+		return postTitle;
+	}
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+	public String getPostContent() {
+		return postContent;
+	}
+	public void setPostContent(String postContent) {
+		this.postContent = postContent;
+	}
+	public LocalDate getPostDate() {
+		return postDate;
+	}
+	public void setPostDate(LocalDate postDate) {
+		this.postDate = postDate;
+	}
+	public String getPostWriter() {
+		return postWriter;
+	}
+	public void setPostWriter(String postWriter) {
+		this.postWriter = postWriter;
+	}
+
+	public long getViewCnt() {
+		return viewCnt;
+	}
+
+	public void setViewCnt(long viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
+	public String getSearchField() {
+		return searchField;
+	}
+
+	public void setSearchField(String searchField) {
+		this.searchField = searchField;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public int getCommNo() {
+		return commNo;
+	}
+
+	public void setCommNo(int commNo) {
+		this.commNo = commNo;
+	}
+
+	public String getCommContent() {
+		return commContent;
+	}
+
+	public void setCommContent(String commContent) {
+		this.commContent = commContent;
+	}
+
+	public LocalDate getCommDate() {
+		return commDate;
+	}
+
+	public void setCommDate(LocalDate commDate) {
+		this.commDate = commDate;
+	}
+
+	public String getCommWriter() {
+		return commWriter;
+	}
+
+	public void setCommWriter(String commWriter) {
+		this.commWriter = commWriter;
+	}
+
+	public int getPostCate() {
+		return postCate;
+	}
+
+	public void setPostCate(int postCate) {
+		this.postCate = postCate;
+	}
+
+	public int getStartIdx() {
+		return startIdx;
+	}
+
+	public void setStartIdx(int startIdx) {
+		this.startIdx = startIdx;
+	}
+
+	public int getCountPerPage() {
+		return countPerPage;
+	}
+
+	public void setCountPerPage(int countPerPage) {
+		this.countPerPage = countPerPage;
+	}
+
+	public String getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
+	}
+
+	public int getCommStartIdx() {
+		return commStartIdx;
+	}
+
+	public void setCommStartIdx(int commStartIdx) {
+		this.commStartIdx = commStartIdx;
+	}
+
+	public int getCommCountPerPage() {
+		return commCountPerPage;
+	}
+
+	public void setCommCountPerPage(int commCountPerPage) {
+		this.commCountPerPage = commCountPerPage;
+	}
+
+	public int getSearchStartIdx() {
+		return searchStartIdx;
+	}
+
+	public void setSearchStartIdx(int searchStartIdx) {
+		this.searchStartIdx = searchStartIdx;
+	}
+
+	public int getSearchCountPerPage() {
+		return searchCountPerPage;
+	}
+
+	public void setSearchCountPerPage(int searchCountPerPage) {
+		this.searchCountPerPage = searchCountPerPage;
+	}
+
+	public int getCountCommPerPage() {
+		return countCommPerPage;
+	}
+
+	public void setCountCommPerPage(int countCommPerPage) {
+		this.countCommPerPage = countCommPerPage;
+	}
+
+	public int getCommStart() {
+		return commStart;
+	}
+
+	public void setCommStart(int commStart) {
+		this.commStart = commStart;
+	}
+
+	public int getCommEnd() {
+		return commEnd;
+	}
+
+	public void setCommEnd(int commEnd) {
+		this.commEnd = commEnd;
+	}
+
+	public int getCommPage() {
+		return commPage;
+	}
+
+	public void setCommPage(int commPage) {
+		this.commPage = commPage;
+	}
+
+	
+	
+	
+}
